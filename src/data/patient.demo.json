@@ -1,0 +1,421 @@
+{
+  "patient": {
+    "id": "demo-001",
+    "name": "Jordan Reyes",
+    "dob": "1972-08-14",
+    "sex": "M",
+    "mrn": "MRN-483920",
+    "summary": {
+      "allergies": [
+        "Penicillin (rash)"
+      ],
+      "careTeam": [
+        "A. Patel, MD (Primary Care)",
+        "L. Kim, RN (Care Manager)"
+      ],
+      "problemsAtAGlance": [
+        "Type 2 diabetes mellitus",
+        "Hypertension",
+        "Hyperlipidemia",
+        "Obesity"
+      ]
+    }
+  },
+  "encounters": [
+    {
+      "id": "enc-2023-01-10",
+      "date": "2023-01-10",
+      "type": "Primary Care Visit",
+      "location": "Outpatient",
+      "reason": "Fatigue, increased thirst, elevated home BP readings",
+      "vitals": {
+        "hr": 92,
+        "bp_sys": 152,
+        "bp_dia": 94,
+        "spo2": 98,
+        "temp_c": 36.8
+      },
+      "labs": {
+        "a1c_pct": 9.2,
+        "glucose_mg_dl": 248,
+        "ldl_mg_dl": 162,
+        "triglycerides_mg_dl": 210,
+        "creatinine_mg_dl": 1.02
+      },
+      "diagnosesEvents": [
+        {
+          "id": "dx-001",
+          "code": "E11.9",
+          "label": "Type 2 diabetes mellitus without complications",
+          "action": "start"
+        },
+        {
+          "id": "dx-002",
+          "code": "I10",
+          "label": "Essential (primary) hypertension",
+          "action": "start"
+        },
+        {
+          "id": "dx-003",
+          "code": "E78.5",
+          "label": "Hyperlipidemia, unspecified",
+          "action": "start"
+        },
+        {
+          "id": "dx-004",
+          "code": "E66.9",
+          "label": "Obesity, unspecified",
+          "action": "start"
+        }
+      ],
+      "medicationEvents": [
+        {
+          "id": "med-001",
+          "name": "Metformin",
+          "dose": "500 mg",
+          "route": "PO",
+          "frequency": "BID",
+          "action": "start"
+        },
+        {
+          "id": "med-002",
+          "name": "Lisinopril",
+          "dose": "10 mg",
+          "route": "PO",
+          "frequency": "Daily",
+          "action": "start"
+        }
+      ],
+      "notes": "Counseled on diet/exercise. Ordered follow-up labs in 8–12 weeks.",
+      "setting": "Primary Care"
+    },
+    {
+      "id": "enc-2023-02-03",
+      "date": "2023-02-03",
+      "type": "Nurse BP Check",
+      "location": "Outpatient",
+      "reason": "Blood pressure re-check",
+      "vitals": {
+        "hr": 84,
+        "bp_sys": 146,
+        "bp_dia": 92,
+        "spo2": 98,
+        "temp_c": 36.7
+      },
+      "labs": {},
+      "diagnosesEvents": [],
+      "medicationEvents": [
+        {
+          "id": "med-002a",
+          "name": "Lisinopril",
+          "dose": "20 mg",
+          "route": "PO",
+          "frequency": "Daily",
+          "action": "change"
+        }
+      ],
+      "notes": "BP still elevated. Lisinopril increased.",
+      "setting": "Primary Care"
+    },
+    {
+      "id": "enc-2023-04-18",
+      "date": "2023-04-18",
+      "type": "Primary Care Follow-up",
+      "location": "Outpatient",
+      "reason": "Diabetes follow-up and lab review",
+      "vitals": {
+        "hr": 78,
+        "bp_sys": 134,
+        "bp_dia": 86,
+        "spo2": 98,
+        "temp_c": 36.6
+      },
+      "labs": {
+        "a1c_pct": 7.8,
+        "glucose_mg_dl": 168,
+        "ldl_mg_dl": 148,
+        "triglycerides_mg_dl": 185,
+        "creatinine_mg_dl": 1.01
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [
+        {
+          "id": "med-001a",
+          "name": "Metformin",
+          "dose": "1000 mg",
+          "route": "PO",
+          "frequency": "BID",
+          "action": "change"
+        },
+        {
+          "id": "med-003",
+          "name": "Atorvastatin",
+          "dose": "20 mg",
+          "route": "PO",
+          "frequency": "Daily",
+          "action": "start"
+        }
+      ],
+      "notes": "Glycemic control improving but above goal. Statin started for LDL.",
+      "setting": "Primary Care"
+    },
+    {
+      "id": "enc-2023-05-09",
+      "date": "2023-05-09",
+      "type": "Telehealth",
+      "location": "Virtual",
+      "reason": "Medication tolerance check",
+      "vitals": {},
+      "labs": {},
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "Tolerating metformin. No adverse effects. Reinforced adherence.",
+      "setting": "Telehealth"
+    },
+    {
+      "id": "enc-2023-10-02",
+      "date": "2023-10-02",
+      "type": "Urgent Care",
+      "location": "Urgent Care",
+      "reason": "Blurred vision, polyuria; stopped meds for months",
+      "vitals": {
+        "hr": 104,
+        "bp_sys": 158,
+        "bp_dia": 98,
+        "spo2": 97,
+        "temp_c": 37
+      },
+      "labs": {
+        "a1c_pct": 10.4,
+        "glucose_mg_dl": 312,
+        "ldl_mg_dl": 176,
+        "triglycerides_mg_dl": 260,
+        "creatinine_mg_dl": 1.12
+      },
+      "diagnosesEvents": [
+        {
+          "id": "dx-001-ex1",
+          "code": "E11.65",
+          "label": "Type 2 diabetes mellitus with hyperglycemia",
+          "action": "exacerbation"
+        }
+      ],
+      "medicationEvents": [
+        {
+          "id": "med-001b",
+          "name": "Metformin",
+          "dose": "1000 mg",
+          "route": "PO",
+          "frequency": "BID",
+          "action": "restart"
+        },
+        {
+          "id": "med-002b",
+          "name": "Lisinopril",
+          "dose": "20 mg",
+          "route": "PO",
+          "frequency": "Daily",
+          "action": "restart"
+        },
+        {
+          "id": "med-003b",
+          "name": "Atorvastatin",
+          "dose": "20 mg",
+          "route": "PO",
+          "frequency": "Daily",
+          "action": "restart"
+        }
+      ],
+      "notes": "Clear lapse in care. Restarted meds. Advised close follow-up.",
+      "setting": "Urgent Care"
+    },
+    {
+      "id": "enc-2023-11-14",
+      "date": "2023-11-14",
+      "type": "Primary Care Follow-up",
+      "location": "Outpatient",
+      "reason": "Post-lapse follow-up",
+      "vitals": {
+        "hr": 82,
+        "bp_sys": 138,
+        "bp_dia": 88,
+        "spo2": 98,
+        "temp_c": 36.7
+      },
+      "labs": {
+        "a1c_pct": 9.6,
+        "glucose_mg_dl": 224,
+        "ldl_mg_dl": 150,
+        "triglycerides_mg_dl": 220,
+        "creatinine_mg_dl": 1.05
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [
+        {
+          "id": "med-002c",
+          "name": "Lisinopril",
+          "dose": "30 mg",
+          "route": "PO",
+          "frequency": "Daily",
+          "action": "change"
+        }
+      ],
+      "notes": "BP improving but not at goal. Increased lisinopril. Encouraged monitoring.",
+      "setting": "Primary Care"
+    },
+    {
+      "id": "enc-2024-03-28",
+      "date": "2024-03-28",
+      "type": "Primary Care Follow-up",
+      "location": "Outpatient",
+      "reason": "Quarterly diabetes check",
+      "vitals": {
+        "hr": 74,
+        "bp_sys": 128,
+        "bp_dia": 82,
+        "spo2": 98,
+        "temp_c": 36.6
+      },
+      "labs": {
+        "a1c_pct": 7.1,
+        "glucose_mg_dl": 142,
+        "ldl_mg_dl": 112,
+        "triglycerides_mg_dl": 160,
+        "creatinine_mg_dl": 1
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "Back on track. Improved control.",
+      "setting": "Primary Care"
+    },
+    {
+      "id": "enc-2024-04-22",
+      "date": "2024-04-22",
+      "type": "Nutrition Counseling",
+      "location": "Outpatient",
+      "reason": "Dietary counseling",
+      "vitals": {},
+      "labs": {},
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "Reviewed carb targets, meal planning, and activity goals.",
+      "setting": "Primary Care"
+    },
+    {
+      "id": "enc-2024-07-01",
+      "date": "2024-07-01",
+      "type": "Primary Care Follow-up",
+      "location": "Outpatient",
+      "reason": "Routine follow-up; discuss medication simplification",
+      "vitals": {
+        "hr": 72,
+        "bp_sys": 122,
+        "bp_dia": 78,
+        "spo2": 98,
+        "temp_c": 36.6
+      },
+      "labs": {
+        "a1c_pct": 6.8,
+        "glucose_mg_dl": 128,
+        "ldl_mg_dl": 98,
+        "triglycerides_mg_dl": 140,
+        "creatinine_mg_dl": 0.98
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "Stable. Continue current regimen.",
+      "setting": "Primary Care"
+    },
+    {
+      "id": "enc-2025-01-20",
+      "date": "2025-01-20",
+      "type": "Primary Care Visit",
+      "location": "Outpatient",
+      "reason": "Annual review",
+      "vitals": {
+        "hr": 76,
+        "bp_sys": 126,
+        "bp_dia": 80,
+        "spo2": 98,
+        "temp_c": 36.7
+      },
+      "labs": {
+        "a1c_pct": 6.9,
+        "glucose_mg_dl": 132,
+        "ldl_mg_dl": 104,
+        "triglycerides_mg_dl": 150,
+        "creatinine_mg_dl": 1
+      },
+      "diagnosesEvents": [
+        {
+          "id": "dx-004-res",
+          "code": "E66.9",
+          "label": "Obesity, unspecified",
+          "action": "resolve"
+        }
+      ],
+      "medicationEvents": [
+        {
+          "id": "med-001c",
+          "name": "Metformin",
+          "dose": "500 mg",
+          "route": "PO",
+          "frequency": "BID",
+          "action": "change"
+        }
+      ],
+      "notes": "Weight improved. Reduced metformin dose due to GI intolerance.",
+      "setting": "Primary Care"
+    }
+  ],
+  "domainConfig": {
+    "defaultTrackOrder": [
+      "diagnoses",
+      "medications",
+      "labs",
+      "vitals",
+      "encounters"
+    ],
+    "tracks": {
+      "diagnoses": {
+        "type": "continuous",
+        "subtypes": [
+          "problem_list"
+        ]
+      },
+      "medications": {
+        "type": "continuous",
+        "subtypes": [
+          "metformin",
+          "lisinopril",
+          "atorvastatin"
+        ]
+      },
+      "labs": {
+        "type": "point_in_time",
+        "subtypes": [
+          "a1c_pct",
+          "glucose_mg_dl",
+          "ldl_mg_dl",
+          "triglycerides_mg_dl",
+          "creatinine_mg_dl"
+        ]
+      },
+      "vitals": {
+        "type": "point_in_time",
+        "subtypes": [
+          "hr",
+          "bp",
+          "spo2",
+          "temp_c"
+        ]
+      }
+    },
+    "encounters": {
+      "type": "structural",
+      "subtypes": [
+        "encounter"
+      ]
+    }
+  }
+}
