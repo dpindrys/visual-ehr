@@ -33,17 +33,21 @@ export const getGapLabel = (
   endStr: string
 ): string => {
   const days = daysBetween(startStr, endStr)
-  const months = monthsBetween(startStr, endStr)
 
   if (days < 30) {
-    return '<1'
-  } else if (months === 1) {
-    return '1 Month'
-  } else if (months <= 3) {
-    return `${months} Months`
+    return '' // No label for small gaps (25px width)
+  } else if (days <= 180) {
+    return `${days}` // Just number for medium gaps (50px width)
   } else {
-    return `${months} Months`
+    return `${days} days` // Show "days" for large gaps (100px width)
   }
+}
+
+// Get gap column width based on duration
+export const getGapWidth = (durationDays: number): number => {
+  if (durationDays < 30) return 25
+  if (durationDays <= 180) return 50
+  return 100
 }
 
 export const formatDate = (dateStr: string): string => {

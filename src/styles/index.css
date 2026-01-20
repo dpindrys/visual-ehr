@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Value Status Color Variables */
+:root {
+  --status-normal-bg: #F3F4F6;
+  --status-normal-fg: #111827;
+
+  --status-elevated-bg: #FBCFE8;
+  --status-elevated-fg: #111827;
+
+  --status-high-bg: #EC4899;
+  --status-high-fg: #FFFFFF;
+
+  --status-critical-high-bg: #BE185D;
+  --status-critical-high-fg: #FFFFFF;
+
+  --status-low-bg: #CFFAFE;
+  --status-low-fg: #111827;
+
+  --status-critical-low-bg: #0891B2;
+  --status-critical-low-fg: #FFFFFF;
+
+  --status-depressed-bg: #A5F3FC;
+  --status-depressed-fg: #111827;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -29,20 +53,115 @@ html, body, #root {
 
 .timeline-content {
   display: flex;
+  flex-direction: column;
   flex: 1;
   overflow: hidden;
+  position: relative;
 }
 
-/* Patient Rail (Sticky Left) */
+/* Dark Gray Bar (Fixed at Top) */
+.top-nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background-color: #374151;
+  border-bottom: 2px solid #1f2937;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+/* Timeline Navigation Controls */
+.timeline-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-button {
+  padding: 6px 12px;
+  background-color: #4b5563;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.nav-button:hover:not(:disabled) {
+  background-color: #6b7280;
+}
+
+.nav-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nav-info {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+/* Patient Summary Section (Collapsible) */
+.patient-summary-section {
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.patient-summary-section.collapsed {
+  /* When collapsed, only show the toggle bar */
+  border-bottom: none;
+}
+
+.patient-summary-content {
+  display: flex;
+}
+
+/* Collapse Toggle Bar */
+.collapse-toggle-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 24px;
+  background-color: #f3f4f6;
+  border-top: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.collapse-toggle-bar:hover {
+  background-color: #e5e7eb;
+}
+
+.collapse-arrow {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Patient Rail (In Update Panel) */
 .patient-rail {
   width: 200px;
   padding: 16px;
   background-color: white;
   border-right: 1px solid #e5e7eb;
-  overflow-y: auto;
   flex-shrink: 0;
   z-index: 10;
+  color: #111827;
 }
+
+.patient-rail .patient-rail-header {
+  color: #111827;
+}
+
+.patient-rail .patient-rail-info {
+  color: #6b7280;
+}
+
 
 .patient-rail-header {
   font-size: 14px;
@@ -58,18 +177,54 @@ html, body, #root {
   margin-bottom: 4px;
 }
 
-/* Viewport (Scrollable Timeline) */
+/* Main Timeline Area (contains scrollable content + fixed ruler) */
+.timeline-main-area {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0; /* Important for nested flex scroll */
+  overflow: hidden;
+  margin-top: 48px; /* Account for fixed nav bar */
+}
+
+/* Scrollable Area (grid + sidebar scroll together) */
+.timeline-scrollable-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+}
+
+/* Unified Timeline Container (Sidebar + Grid in same layer) */
+.timeline-unified-container {
+  display: flex;
+  min-height: min-content;
+  background-color: white;
+}
+
+/* Timeline Grid Container (holds grid only) */
+.timeline-grid-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  align-items: flex-end; /* Right-align grid content to be flush with sidebar */
+  order: 1; /* Place before sidebar in flex order */
+}
+
+/* Viewport (Scrollable Timeline) - legacy */
 .timeline-viewport {
   flex: 1;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
   position: relative;
+  background-color: white;
 }
 
 .timeline-scroll-container {
   display: flex;
+  flex-direction: column;
   min-width: min-content;
-  height: 100%;
   position: relative;
 }
 
@@ -77,9 +232,29 @@ html, body, #root {
 .track-stack {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   background-color: white;
+}
+
+.track-stack-content {
+  display: flex;
+  flex: 1;
+  position: relative;
+  min-height: min-content;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+/* Unified Timeline Grid */
+.timeline-grid {
+  display: grid;
+  /* grid-template-columns is set dynamically via inline style */
+  grid-auto-rows: min-content;
+  gap: 0;
+  min-height: 100%;
+  z-index: 1; /* Bottom layer */
 }
 
 /* Grid Layout for segments × subtypes */
@@ -92,12 +267,67 @@ html, body, #root {
   min-height: 100%;
 }
 
+/* Track with Domain Header */
+.track-with-header {
+  display: contents;
+}
+
 /* Track Row (Domain) */
 .track-row {
   display: contents;
 }
 
-.track-label {
+/* Domain Header Overlay (Spans across grid) */
+.domain-header-overlay {
+  display: contents;
+}
+
+.domain-header-label {
+  grid-column: 1;
+  padding: 8px 12px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #111827;
+  background-color: #e5e7eb;
+  border-right: 1px solid #d1d5db;
+  border-bottom: 1px solid #d1d5db;
+  text-align: left;
+  min-height: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.domain-header-span {
+  padding: 8px 12px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #111827;
+  background-color: #e5e7eb;
+  border-right: 1px solid #d1d5db;
+  border-bottom: 1px solid #d1d5db;
+  text-align: left;
+  text-transform: uppercase;
+  min-height: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Subtype Row within Track */
+.subtype-row {
+  display: contents;
+}
+
+/* Row highlight when hovering on sidebar subtype */
+.subtype-row.row-highlighted .subtype-cell {
+  border-top: 2px solid #0ea5e9;
+  border-bottom: 2px solid #0ea5e9;
+}
+
+.subtype-label {
   padding: 8px 12px;
   font-weight: 600;
   font-size: 13px;
@@ -109,11 +339,60 @@ html, body, #root {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  grid-column: 1;
+  min-height: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
 }
 
-/* Subtype Row within Track */
-.subtype-row {
-  display: contents;
+/* Domain Sidebar (In same container as grid, on right side) */
+.domain-sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  padding: 0;
+  background-color: #f3f4f6;
+  border-left: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  order: 2; /* Place on right side of flex container */
+}
+
+.domain-section {
+  /* Alignment maintained with grid - no border */
+  display: block;
+}
+
+.domain-header {
+  padding: 8px 12px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #111827;
+  background-color: #e5e7eb;
+  border-bottom: 1px solid #d1d5db;
+  text-transform: uppercase;
+  position: sticky;
+  z-index: 5;
+  min-height: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.domain-subtype {
+  padding: 8px 12px 8px 24px;
+  font-size: 13px;
+  color: #374151;
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+  min-height: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+  box-sizing: border-box;
 }
 
 .subtype-cell {
@@ -122,6 +401,7 @@ html, body, #root {
   border-right: 1px solid #e5e7eb;
   background-color: white;
   min-height: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -130,15 +410,22 @@ html, body, #root {
   cursor: default;
   user-select: none;
   transition: background-color 0.15s ease;
+  box-sizing: border-box;
 }
 
 .subtype-cell:hover {
-  background-color: #f0f9ff;
+  /* No background change on hover - outline handled by context-highlighted */
 }
 
 .subtype-cell.context-highlighted {
-  background-color: #eff6ff;
   border-left: 2px solid #0ea5e9;
+  border-right: 2px solid #0ea5e9;
+}
+
+/* Column highlight - ensure all cells in same column are highlighted */
+.timeline-grid:has(.subtype-cell.context-highlighted) .subtype-cell.context-highlighted,
+.timeline-grid:has(.timeline-segment.context-highlighted) .timeline-segment.context-highlighted {
+  /* No background change - outline only */
 }
 
 .subtype-cell.press-held {
@@ -151,6 +438,36 @@ html, body, #root {
   font-style: italic;
 }
 
+.subtype-cell.gap {
+  background-color: #f9fafb;
+}
+
+/* Encounter cells - displayed prominently */
+.subtype-cell.encounter-cell {
+  background-color: #6b7280;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  min-height: 48px;
+  height: 48px;
+}
+
+.subtype-cell.encounter-cell:hover {
+  /* No background change on hover */
+}
+
+.subtype-cell.encounter-cell.gap {
+  background-color: #e5e7eb;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Active diagnosis indicator */
+.subtype-cell .diagnosis-active {
+  color: #059669;
+  font-size: 16px;
+}
+
 .subtype-cell-content {
   padding: 4px 8px;
   text-align: center;
@@ -159,37 +476,217 @@ html, body, #root {
   font-weight: 500;
 }
 
-/* Segment Column Headers */
-.segment-header-row {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 120px;
-  gap: 0;
-  background-color: #f9fafb;
-  border-bottom: 2px solid #d1d5db;
-  position: fixed;
-  bottom: 0;
-  z-index: 5;
-  padding-left: 200px;
+/* Value Status Classes for Vitals/Labs */
+.subtype-cell.status-normal {
+  background-color: var(--status-normal-bg);
+  color: var(--status-normal-fg);
 }
 
-.segment-header {
+.subtype-cell.status-elevated {
+  background-color: var(--status-elevated-bg);
+  color: var(--status-elevated-fg);
+}
+
+.subtype-cell.status-high {
+  background-color: var(--status-high-bg);
+  color: var(--status-high-fg);
+}
+
+.subtype-cell.status-critical-high {
+  background-color: var(--status-critical-high-bg);
+  color: var(--status-critical-high-fg);
+}
+
+.subtype-cell.status-low {
+  background-color: var(--status-low-bg);
+  color: var(--status-low-fg);
+}
+
+.subtype-cell.status-critical-low {
+  background-color: var(--status-critical-low-bg);
+  color: var(--status-critical-low-fg);
+}
+
+.subtype-cell.status-depressed {
+  background-color: var(--status-depressed-bg);
+  color: var(--status-depressed-fg);
+}
+
+/* Clinical Summary Header (Patient Update Summary Panel) */
+.clinical-summary-header {
+  flex: 1;
+  padding: 16px;
+  background-color: white;
+  flex-shrink: 0;
+  color: #111827;
+}
+
+.summary-section {
+  margin-bottom: 16px;
+}
+
+.summary-section:last-child {
+  margin-bottom: 0;
+}
+
+.summary-section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.summary-section-header.critical {
+  color: #dc2626;
+}
+
+.summary-section-header.trending {
+  color: #ea580c;
+}
+
+.summary-section-header.stable {
+  color: #16a34a;
+}
+
+.summary-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.summary-icon.critical {
+  background-color: #dc2626;
+  color: white;
+}
+
+.summary-icon.trending {
+  background-color: #ea580c;
+  color: white;
+}
+
+.summary-icon.stable {
+  background-color: #16a34a;
+  color: white;
+}
+
+.summary-cards {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.summary-card {
+  flex: 1 1 280px; /* Grow, shrink, base width */
+  min-width: 200px;
+  max-width: 100%;
+  padding: 12px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  border-left: 4px solid #e5e7eb;
+}
+
+.summary-card.critical {
+  border-left-color: #dc2626;
+}
+
+.summary-card.trending {
+  border-left-color: #ea580c;
+}
+
+.summary-card.stable {
+  border-left-color: #16a34a;
+}
+
+.summary-card-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.summary-card-content {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+/* Timeline Ruler Container (Sticky at bottom of scroll area) */
+.timeline-ruler-container {
+  display: flex;
+  justify-content: flex-end; /* Right-align ruler to match grid */
+  background-color: #f9fafb;
+  border-top: 2px solid #d1d5db;
+  height: 40px; /* Fixed height for timeline ruler */
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  padding-right: 200px; /* Account for sidebar width */
+}
+
+.timeline-ruler-scroll {
+  display: flex;
+  min-width: min-content;
+  justify-content: flex-end;
+}
+
+/* Timeline Ruler (Footer) */
+.timeline-ruler {
+  display: flex;
+  min-width: min-content;
+}
+
+.timeline-segment {
   padding: 12px 4px;
   font-weight: 600;
   font-size: 12px;
   color: #374151;
   text-align: center;
   border-right: 1px solid #e5e7eb;
+  border-top: 2px solid #d1d5db;
   word-break: break-word;
+  background-color: #f9fafb;
+  height: 100%;
+  box-sizing: border-box;
 }
 
-.segment-header.gap {
-  background-color: #fef3c7;
-  color: #92400e;
+.timeline-label {
+  border-top: 2px solid #d1d5db;
+  background-color: #f9fafb;
+  height: 100%;
 }
 
-.segment-header.encounter {
-  background-color: white;
+.timeline-label-right {
+  border-top: 2px solid #d1d5db;
+  background-color: #f9fafb;
+  height: 100%;
+}
+
+
+.timeline-segment.gap {
+  background-color: #f3f4f6;
+  color: #9ca3af;
+}
+
+.timeline-segment.encounter {
+  background-color: #6b7280;
+  color: white;
+}
+
+.timeline-segment.encounter:hover {
+  /* No background change on hover */
+}
+
+.timeline-segment.context-highlighted {
+  border-left: 2px solid #0ea5e9;
+  border-right: 2px solid #0ea5e9;
 }
 
 /* Peek Card (Modal) */

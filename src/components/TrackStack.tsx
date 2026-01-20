@@ -1,49 +1,26 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, forwardRef, useMemo } from 'react'
 import { PatientData, Segment, PeekCardState } from '../utils/types'
+import { getGapWidth } from '../utils/helpers'
 import Track from './Track'
 import PeekCard from './PeekCard'
 
 interface TrackStackProps {
   patientData: PatientData
   segments: Segment[]
-  onScrollX: (x: number) => void
   onContextHighlight: (segmentId?: string) => void
   contextHighlightSegmentId?: string
+  highlightedRow?: { trackName: string; subtypeName: string } | null
 }
 
-const TrackStack = ({
+const TrackStack = forwardRef<HTMLDivElement, TrackStackProps>(({
   patientData,
   segments,
-  onScrollX,
   onContextHighlight,
   contextHighlightSegmentId,
-}: TrackStackProps) => {
+  highlightedRow,
+}, ref) => {
   const [peekCardState, setPeekCardState] = useState<PeekCardState>({ isVisible: false })
-  const [isDragging, setIsDragging] = useState(false)
-  const [dragStartX, setDragStartX] = useState(0)
-  const [dragStartScrollX, setDragStartScrollX] = useState(0)
   const trackStackRef = useRef<HTMLDivElement>(null)
-
-  // Horizontal pan (drag to scroll)
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true)
-    setDragStartX(e.clientX)
-    setDragStartScrollX(e.currentTarget.scrollLeft || 0)
-  }
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return
-
-    const delta = e.clientX - dragStartX
-    const newScrollX = Math.max(0, dragStartScrollX - delta)
-
-    // Update parent's scrollX
-    onScrollX(newScrollX)
-  }
-
-  const handleMouseUp = () => {
-    setIsDragging(false)
-  }
 
   // Close Peek Card when clicking outside
   useEffect(() => {
@@ -62,32 +39,67 @@ const TrackStack = ({
 
   const trackOrder = patientData.domainConfig.defaultTrackOrder
 
-  return (
-  <div
-    ref={trackStackRef}
-    className="track-stack"
-    onMouseDown={handleMouseDown}
-    onMouseMove={handleMouseMove}
-    onMouseUp={handleMouseUp}
-    onMouseLeave={handleMouseUp}
-  >
-    {/* Tracks */}
-    {trackOrder.map((trackName) => (
-      <Track
-        key={trackName}
-        trackName={trackName}
-        patientData={patientData}
-        segments={segments}
-        contextHighlightSegmentId={contextHighlightSegmentId}
-        onContextHighlight={onContextHighlight}
-        onPeekCard={setPeekCardState}
-      />
-    ))}
+  // Generate dynamic grid column widths based on segment types
+  const gridTemplateColumns = useMemo(() => {
+    return segments.map(segment => {
+      if (segment.type === 'encounter') {
+        return '120px'
+      } else {
+        // Gap segment - width based on duration
+        const width = getGapWidth(segment.durationDays || 0)
+        return `${width}px`
+      }
+    }).join(' ')
+  }, [segments])
 
-    {/* Peek Card */}
-    {peekCardState.isVisible && <PeekCard state={peekCardState} />}
-  </div>
-)
-}
+  return (
+    <div
+      ref={ref || trackStackRef}
+      className="track-stack"
+    >
+      <div className="track-stack-content">
+        <div 
+          className="timeline-grid"
+          style={{ gridTemplateColumns }}
+        >
+          {/* Domain Headers and Tracks */}
+          {trackOrder.map((trackName) => {
+            const trackConfig = patientData.domainConfig.tracks[trackName]
+            if (!trackConfig) return null
+
+            return (
+              <div key={trackName} className="track-with-header">
+                {/* Domain Header (Spans across grid) - Blank row for alignment with sidebar */}
+                <div className="domain-header-overlay">
+                  <div 
+                    className="domain-header-span"
+                    style={{ gridColumn: `1 / ${1 + segments.length}` }}
+                  >
+                    {/* Empty - domain label only appears in sidebar */}
+                  </div>
+                </div>
+                {/* Track Subtypes */}
+                <Track
+                  trackName={trackName}
+                  patientData={patientData}
+                  segments={segments}
+                  contextHighlightSegmentId={contextHighlightSegmentId}
+                  onContextHighlight={onContextHighlight}
+                  onPeekCard={setPeekCardState}
+                  highlightedRow={highlightedRow}
+                />
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Peek Card */}
+      {peekCardState.isVisible && <PeekCard state={peekCardState} />}
+    </div>
+  )
+})
+
+TrackStack.displayName = 'TrackStack'
 
 export default TrackStack

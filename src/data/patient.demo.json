@@ -2,7 +2,7 @@
   "patient": {
     "id": "demo-001",
     "name": "Jordan Reyes",
-    "dob": "1972-08-14",
+    "dob": "1970-03-15",
     "sex": "M",
     "mrn": "MRN-483920",
     "summary": {
@@ -17,15 +17,503 @@
         "Type 2 diabetes mellitus",
         "Hypertension",
         "Hyperlipidemia",
-        "Obesity"
+        "CKD Stage 3",
+        "Hypothyroidism"
       ]
     }
   },
   "encounters": [
     {
+      "id": "enc-2014-03-18",
+      "date": "2014-03-18",
+      "type": "Annual Physical",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Annual physical exam",
+      "vitals": {
+        "hr": 76,
+        "bp_sys": 128,
+        "bp_dia": 82,
+        "spo2": 98,
+        "temp_c": 36.6
+      },
+      "labs": {
+        "a1c_pct": 5.4,
+        "glucose_mg_dl": 98,
+        "ldl_mg_dl": 128,
+        "triglycerides_mg_dl": 145,
+        "creatinine_mg_dl": 0.92,
+        "bun_mg_dl": 14,
+        "efgr_ml_min": 95,
+        "sodium_meq_l": 141,
+        "potassium_meq_l": 4.1
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "44yo male, overweight (BMI 28). Labs normal. Counseled on weight management and diet."
+    },
+    {
+      "id": "enc-2015-04-22",
+      "date": "2015-04-22",
+      "type": "Annual Physical",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Annual physical exam",
+      "vitals": {
+        "hr": 78,
+        "bp_sys": 132,
+        "bp_dia": 84,
+        "spo2": 98,
+        "temp_c": 36.7
+      },
+      "labs": {
+        "a1c_pct": 5.5,
+        "glucose_mg_dl": 102,
+        "ldl_mg_dl": 135,
+        "triglycerides_mg_dl": 152,
+        "creatinine_mg_dl": 0.94,
+        "bun_mg_dl": 15,
+        "efgr_ml_min": 93,
+        "sodium_meq_l": 140,
+        "potassium_meq_l": 4.0
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "BP slightly elevated today. LDL mildly elevated. Discussed lifestyle modifications. Recheck in 1 year."
+    },
+    {
+      "id": "enc-2016-09-14",
+      "date": "2016-09-14",
+      "type": "Routine Visit",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Routine checkup, knee pain",
+      "vitals": {
+        "hr": 80,
+        "bp_sys": 138,
+        "bp_dia": 86,
+        "spo2": 97,
+        "temp_c": 36.6
+      },
+      "labs": {
+        "a1c_pct": 5.6,
+        "glucose_mg_dl": 108,
+        "ldl_mg_dl": 142,
+        "triglycerides_mg_dl": 158,
+        "creatinine_mg_dl": 0.95,
+        "bun_mg_dl": 15,
+        "efgr_ml_min": 92,
+        "sodium_meq_l": 142,
+        "potassium_meq_l": 4.2
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "BP trending higher. LDL continues to rise. Weight up 5 lbs. Reinforced diet and exercise. Will monitor BP closely."
+    },
+    {
+      "id": "enc-2017-10-05",
+      "date": "2017-10-05",
+      "type": "Annual Physical",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Annual physical exam",
+      "vitals": {
+        "hr": 82,
+        "bp_sys": 134,
+        "bp_dia": 84,
+        "spo2": 98,
+        "temp_c": 36.7
+      },
+      "labs": {
+        "a1c_pct": 5.7,
+        "glucose_mg_dl": 112,
+        "ldl_mg_dl": 148,
+        "triglycerides_mg_dl": 165,
+        "creatinine_mg_dl": 0.96,
+        "bun_mg_dl": 16,
+        "efgr_ml_min": 90,
+        "sodium_meq_l": 140,
+        "potassium_meq_l": 4.1
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "A1c at upper limit of normal. LDL persistently elevated. BP intermittently elevated. Continue lifestyle modifications. May need medication if trends continue."
+    },
+    {
+      "id": "enc-2018-03-20",
+      "date": "2018-03-20",
+      "type": "Annual Physical",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Annual physical exam",
+      "vitals": {
+        "hr": 84,
+        "bp_sys": 136,
+        "bp_dia": 86,
+        "spo2": 98,
+        "temp_c": 36.6
+      },
+      "labs": {
+        "a1c_pct": 5.9,
+        "glucose_mg_dl": 118,
+        "ldl_mg_dl": 155,
+        "triglycerides_mg_dl": 172,
+        "creatinine_mg_dl": 0.98,
+        "bun_mg_dl": 16,
+        "efgr_ml_min": 88,
+        "sodium_meq_l": 141,
+        "potassium_meq_l": 4.3
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "A1c 5.9% - now in prediabetes range. LDL 155 - should be on statin but patient prefers lifestyle changes first. Discussed diabetes prevention program. Follow-up in 6 months."
+    },
+    {
+      "id": "enc-2018-10-10",
+      "date": "2018-10-10",
+      "type": "Follow-up Visit",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Prediabetes follow-up",
+      "vitals": {
+        "hr": 82,
+        "bp_sys": 140,
+        "bp_dia": 88,
+        "spo2": 98,
+        "temp_c": 36.7
+      },
+      "labs": {
+        "a1c_pct": 6.1,
+        "glucose_mg_dl": 124,
+        "ldl_mg_dl": 162,
+        "triglycerides_mg_dl": 178,
+        "creatinine_mg_dl": 0.99,
+        "bun_mg_dl": 17,
+        "efgr_ml_min": 87,
+        "sodium_meq_l": 140,
+        "potassium_meq_l": 4.2
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "A1c risen to 6.1%. BP elevated again today. LDL worse. Strongly encouraged lifestyle changes. Patient still resistant to medications. Will recheck in 6 months - may need to start meds."
+    },
+    {
+      "id": "enc-2019-04-15",
+      "date": "2019-04-15",
+      "type": "Annual Physical",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Annual physical exam, elevated BP",
+      "vitals": {
+        "hr": 86,
+        "bp_sys": 148,
+        "bp_dia": 92,
+        "spo2": 97,
+        "temp_c": 36.7
+      },
+      "labs": {
+        "a1c_pct": 6.2,
+        "glucose_mg_dl": 128,
+        "ldl_mg_dl": 158,
+        "triglycerides_mg_dl": 182,
+        "creatinine_mg_dl": 1.0,
+        "bun_mg_dl": 17,
+        "efgr_ml_min": 85,
+        "sodium_meq_l": 141,
+        "potassium_meq_l": 4.4
+      },
+      "diagnosesEvents": [
+        {
+          "id": "dx-htn-001",
+          "code": "I10",
+          "label": "Essential hypertension",
+          "action": "start"
+        }
+      ],
+      "medicationEvents": [
+        {
+          "id": "med-lis-001",
+          "name": "Lisinopril",
+          "dose": "5 mg",
+          "route": "PO",
+          "frequency": "Daily",
+          "action": "start"
+        }
+      ],
+      "notes": "BP consistently elevated - now meets criteria for hypertension. Starting lisinopril 5mg daily. A1c still prediabetic. LDL still high. Follow-up in 6-8 weeks for BP check."
+    },
+    {
+      "id": "enc-2019-11-12",
+      "date": "2019-11-12",
+      "type": "Follow-up Visit",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "BP follow-up, medication check",
+      "vitals": {
+        "hr": 78,
+        "bp_sys": 138,
+        "bp_dia": 86,
+        "spo2": 98,
+        "temp_c": 36.6
+      },
+      "labs": {
+        "a1c_pct": 6.3,
+        "glucose_mg_dl": 132,
+        "ldl_mg_dl": 160,
+        "triglycerides_mg_dl": 185,
+        "creatinine_mg_dl": 1.0,
+        "bun_mg_dl": 18,
+        "efgr_ml_min": 84,
+        "sodium_meq_l": 140,
+        "potassium_meq_l": 4.3
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [
+        {
+          "id": "med-lis-002",
+          "name": "Lisinopril",
+          "dose": "10 mg",
+          "route": "PO",
+          "frequency": "Daily",
+          "action": "change"
+        }
+      ],
+      "notes": "BP improved but still above goal. Increased lisinopril to 10mg. A1c 6.3 - approaching diabetes threshold. Triglycerides rising. Discussed statin again - patient will consider."
+    },
+    {
+      "id": "enc-2020-05-18",
+      "date": "2020-05-18",
+      "type": "Annual Physical",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Annual physical exam (delayed due to COVID)",
+      "vitals": {
+        "hr": 84,
+        "bp_sys": 142,
+        "bp_dia": 88,
+        "spo2": 97,
+        "temp_c": 36.7
+      },
+      "labs": {
+        "a1c_pct": 6.4,
+        "glucose_mg_dl": 138,
+        "ldl_mg_dl": 168,
+        "triglycerides_mg_dl": 198,
+        "creatinine_mg_dl": 1.02,
+        "bun_mg_dl": 18,
+        "efgr_ml_min": 82,
+        "sodium_meq_l": 141,
+        "potassium_meq_l": 4.4
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "A1c 6.4% - one step from diabetes. Triglycerides nearly 200. BP not at goal despite lisinopril 10mg. Patient reports less activity during pandemic. Strongly advised lifestyle changes. Discussed statin."
+    },
+    {
+      "id": "enc-2020-12-08",
+      "date": "2020-12-08",
+      "type": "Follow-up Visit",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Metabolic follow-up",
+      "vitals": {
+        "hr": 86,
+        "bp_sys": 144,
+        "bp_dia": 90,
+        "spo2": 97,
+        "temp_c": 36.8
+      },
+      "labs": {
+        "a1c_pct": 6.4,
+        "glucose_mg_dl": 142,
+        "ldl_mg_dl": 172,
+        "triglycerides_mg_dl": 205,
+        "creatinine_mg_dl": 1.04,
+        "bun_mg_dl": 19,
+        "efgr_ml_min": 80,
+        "sodium_meq_l": 140,
+        "potassium_meq_l": 4.5
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "A1c stable at 6.4% but concerning trajectory. BP still elevated. Will watch closely - if A1c crosses 6.5% will need to start metformin. Patient agreed to start statin if lipids worsen further."
+    },
+    {
+      "id": "enc-2021-06-22",
+      "date": "2021-06-22",
+      "type": "Annual Physical",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Annual physical exam",
+      "vitals": {
+        "hr": 88,
+        "bp_sys": 146,
+        "bp_dia": 90,
+        "spo2": 97,
+        "temp_c": 36.7
+      },
+      "labs": {
+        "a1c_pct": 6.8,
+        "glucose_mg_dl": 152,
+        "ldl_mg_dl": 175,
+        "triglycerides_mg_dl": 212,
+        "creatinine_mg_dl": 1.06,
+        "bun_mg_dl": 19,
+        "efgr_ml_min": 78,
+        "sodium_meq_l": 140,
+        "potassium_meq_l": 4.4
+      },
+      "diagnosesEvents": [
+        {
+          "id": "dx-dm-001",
+          "code": "E11.9",
+          "label": "Type 2 diabetes mellitus",
+          "action": "start"
+        }
+      ],
+      "medicationEvents": [
+        {
+          "id": "med-met-001",
+          "name": "Metformin",
+          "dose": "500 mg",
+          "route": "PO",
+          "frequency": "BID",
+          "action": "start"
+        }
+      ],
+      "notes": "A1c 6.8% - now meets criteria for Type 2 diabetes. Starting metformin 500mg BID. BP still not at goal. eGFR slipping (78). Started diabetes education. Follow-up in 3 months."
+    },
+    {
+      "id": "enc-2021-12-14",
+      "date": "2021-12-14",
+      "type": "Follow-up Visit",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Diabetes follow-up",
+      "vitals": {
+        "hr": 84,
+        "bp_sys": 142,
+        "bp_dia": 88,
+        "spo2": 98,
+        "temp_c": 36.6
+      },
+      "labs": {
+        "a1c_pct": 7.2,
+        "glucose_mg_dl": 158,
+        "ldl_mg_dl": 168,
+        "triglycerides_mg_dl": 195,
+        "creatinine_mg_dl": 1.08,
+        "bun_mg_dl": 18,
+        "efgr_ml_min": 74,
+        "sodium_meq_l": 141,
+        "potassium_meq_l": 4.3
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [
+        {
+          "id": "med-ator-001",
+          "name": "Atorvastatin",
+          "dose": "20 mg",
+          "route": "PO",
+          "frequency": "Daily",
+          "action": "start"
+        }
+      ],
+      "notes": "A1c risen to 7.2% on metformin 500 BID. Tolerating metformin. Starting atorvastatin 20mg for elevated LDL and cardiovascular risk. eGFR 74 - early CKD signals. Follow-up in 3 months."
+    },
+    {
+      "id": "enc-2022-06-15",
+      "date": "2022-06-15",
+      "type": "Annual Physical",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Annual physical, fatigue, weight gain",
+      "vitals": {
+        "hr": 88,
+        "bp_sys": 142,
+        "bp_dia": 88,
+        "spo2": 97,
+        "temp_c": 36.7
+      },
+      "labs": {
+        "a1c_pct": 7.5,
+        "glucose_mg_dl": 168,
+        "ldl_mg_dl": 145,
+        "triglycerides_mg_dl": 178,
+        "creatinine_mg_dl": 1.1,
+        "bun_mg_dl": 18,
+        "efgr_ml_min": 68,
+        "tsh_miu_l": 6.8,
+        "sodium_meq_l": 140,
+        "potassium_meq_l": 4.2
+      },
+      "diagnosesEvents": [
+        {
+          "id": "dx-ckd-001",
+          "code": "N18.3",
+          "label": "CKD Stage 3",
+          "action": "start"
+        },
+        {
+          "id": "dx-hypo-001",
+          "code": "E03.9",
+          "label": "Hypothyroidism",
+          "action": "start"
+        },
+        {
+          "id": "dx-anemia-001",
+          "code": "D64.9",
+          "label": "Anemia, unspecified",
+          "action": "start"
+        }
+      ],
+      "medicationEvents": [
+        {
+          "id": "med-met-002",
+          "name": "Metformin",
+          "dose": "1000 mg",
+          "route": "PO",
+          "frequency": "BID",
+          "action": "change"
+        }
+      ],
+      "notes": "eGFR now 68 - CKD Stage 3 diagnosed. TSH elevated at 6.8 - new hypothyroidism, starting levothyroxine. Mild anemia noted. A1c 7.5% - increased metformin to 1000 BID. LDL improved on statin."
+    },
+    {
+      "id": "enc-2022-09-20",
+      "date": "2022-09-20",
+      "type": "Follow-up Visit",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "3-month follow-up, lab review",
+      "vitals": {
+        "hr": 82,
+        "bp_sys": 138,
+        "bp_dia": 86,
+        "spo2": 98,
+        "temp_c": 36.6
+      },
+      "labs": {
+        "a1c_pct": 7.6,
+        "glucose_mg_dl": 168,
+        "ldl_mg_dl": 128,
+        "triglycerides_mg_dl": 165,
+        "creatinine_mg_dl": 1.08,
+        "bun_mg_dl": 19,
+        "efgr_ml_min": 70,
+        "tsh_miu_l": 3.2,
+        "sodium_meq_l": 141,
+        "potassium_meq_l": 4.4
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "A1c trending up slightly. TSH normalized on levothyroxine. Continue current regimen."
+    },
+    {
       "id": "enc-2023-01-10",
       "date": "2023-01-10",
       "type": "Primary Care Visit",
+      "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Fatigue, increased thirst, elevated home BP readings",
       "vitals": {
@@ -36,77 +524,20 @@
         "temp_c": 36.8
       },
       "labs": {
-        "a1c_pct": 9.2,
-        "glucose_mg_dl": 248,
-        "ldl_mg_dl": 162,
-        "triglycerides_mg_dl": 210,
-        "creatinine_mg_dl": 1.02
+        "a1c_pct": 8.4,
+        "glucose_mg_dl": 198,
+        "ldl_mg_dl": 138,
+        "triglycerides_mg_dl": 195,
+        "creatinine_mg_dl": 1.12,
+        "bun_mg_dl": 22,
+        "efgr_ml_min": 65,
+        "sodium_meq_l": 139,
+        "potassium_meq_l": 4.6
       },
-      "diagnosesEvents": [
-        {
-          "id": "dx-001",
-          "code": "E11.9",
-          "label": "Type 2 diabetes mellitus without complications",
-          "action": "start"
-        },
-        {
-          "id": "dx-002",
-          "code": "I10",
-          "label": "Essential (primary) hypertension",
-          "action": "start"
-        },
-        {
-          "id": "dx-003",
-          "code": "E78.5",
-          "label": "Hyperlipidemia, unspecified",
-          "action": "start"
-        },
-        {
-          "id": "dx-004",
-          "code": "E66.9",
-          "label": "Obesity, unspecified",
-          "action": "start"
-        }
-      ],
-      "medicationEvents": [
-        {
-          "id": "med-001",
-          "name": "Metformin",
-          "dose": "500 mg",
-          "route": "PO",
-          "frequency": "BID",
-          "action": "start"
-        },
-        {
-          "id": "med-002",
-          "name": "Lisinopril",
-          "dose": "10 mg",
-          "route": "PO",
-          "frequency": "Daily",
-          "action": "start"
-        }
-      ],
-      "notes": "Counseled on diet/exercise. Ordered follow-up labs in 8–12 weeks.",
-      "setting": "Primary Care"
-    },
-    {
-      "id": "enc-2023-02-03",
-      "date": "2023-02-03",
-      "type": "Nurse BP Check",
-      "location": "Outpatient",
-      "reason": "Blood pressure re-check",
-      "vitals": {
-        "hr": 84,
-        "bp_sys": 146,
-        "bp_dia": 92,
-        "spo2": 98,
-        "temp_c": 36.7
-      },
-      "labs": {},
       "diagnosesEvents": [],
       "medicationEvents": [
         {
-          "id": "med-002a",
+          "id": "med-lis-003",
           "name": "Lisinopril",
           "dose": "20 mg",
           "route": "PO",
@@ -114,95 +545,57 @@
           "action": "change"
         }
       ],
-      "notes": "BP still elevated. Lisinopril increased.",
-      "setting": "Primary Care"
+      "notes": "Worsening glycemic control. BP elevated - increased lisinopril to 20mg. Counseled on diet/exercise and medication adherence."
     },
     {
-      "id": "enc-2023-04-18",
-      "date": "2023-04-18",
-      "type": "Primary Care Follow-up",
-      "location": "Outpatient",
-      "reason": "Diabetes follow-up and lab review",
-      "vitals": {
-        "hr": 78,
-        "bp_sys": 134,
-        "bp_dia": 86,
-        "spo2": 98,
-        "temp_c": 36.6
-      },
-      "labs": {
-        "a1c_pct": 7.8,
-        "glucose_mg_dl": 168,
-        "ldl_mg_dl": 148,
-        "triglycerides_mg_dl": 185,
-        "creatinine_mg_dl": 1.01
-      },
-      "diagnosesEvents": [],
-      "medicationEvents": [
-        {
-          "id": "med-001a",
-          "name": "Metformin",
-          "dose": "1000 mg",
-          "route": "PO",
-          "frequency": "BID",
-          "action": "change"
-        },
-        {
-          "id": "med-003",
-          "name": "Atorvastatin",
-          "dose": "20 mg",
-          "route": "PO",
-          "frequency": "Daily",
-          "action": "start"
-        }
-      ],
-      "notes": "Glycemic control improving but above goal. Statin started for LDL.",
-      "setting": "Primary Care"
-    },
-    {
-      "id": "enc-2023-05-09",
-      "date": "2023-05-09",
+      "id": "enc-2023-05-08",
+      "date": "2023-05-08",
       "type": "Telehealth",
+      "setting": "Telehealth",
       "location": "Virtual",
       "reason": "Medication tolerance check",
       "vitals": {},
       "labs": {},
       "diagnosesEvents": [],
       "medicationEvents": [],
-      "notes": "Tolerating metformin. No adverse effects. Reinforced adherence.",
-      "setting": "Telehealth"
+      "notes": "Tolerating increased doses. Reports improved energy. Reinforced adherence."
     },
     {
-      "id": "enc-2023-10-02",
-      "date": "2023-10-02",
+      "id": "enc-2023-09-15",
+      "date": "2023-09-15",
       "type": "Urgent Care",
-      "location": "Urgent Care",
-      "reason": "Blurred vision, polyuria; stopped meds for months",
+      "setting": "Urgent Care",
+      "location": "Urgent Care Center",
+      "reason": "Blurred vision, polyuria, reports stopped meds 2 months ago",
       "vitals": {
-        "hr": 104,
-        "bp_sys": 158,
+        "hr": 108,
+        "bp_sys": 162,
         "bp_dia": 98,
-        "spo2": 97,
-        "temp_c": 37
+        "spo2": 96,
+        "temp_c": 37.2
       },
       "labs": {
-        "a1c_pct": 10.4,
-        "glucose_mg_dl": 312,
-        "ldl_mg_dl": 176,
-        "triglycerides_mg_dl": 260,
-        "creatinine_mg_dl": 1.12
+        "a1c_pct": 10.8,
+        "glucose_mg_dl": 342,
+        "ldl_mg_dl": 168,
+        "triglycerides_mg_dl": 285,
+        "creatinine_mg_dl": 1.28,
+        "bun_mg_dl": 32,
+        "efgr_ml_min": 58,
+        "sodium_meq_l": 136,
+        "potassium_meq_l": 5.2
       },
       "diagnosesEvents": [
         {
-          "id": "dx-001-ex1",
+          "id": "dx-dm-exac",
           "code": "E11.65",
-          "label": "Type 2 diabetes mellitus with hyperglycemia",
+          "label": "Type 2 diabetes with hyperglycemia",
           "action": "exacerbation"
         }
       ],
       "medicationEvents": [
         {
-          "id": "med-001b",
+          "id": "med-met-003",
           "name": "Metformin",
           "dose": "1000 mg",
           "route": "PO",
@@ -210,7 +603,7 @@
           "action": "restart"
         },
         {
-          "id": "med-002b",
+          "id": "med-lis-004",
           "name": "Lisinopril",
           "dose": "20 mg",
           "route": "PO",
@@ -218,7 +611,7 @@
           "action": "restart"
         },
         {
-          "id": "med-003b",
+          "id": "med-ator-002",
           "name": "Atorvastatin",
           "dose": "20 mg",
           "route": "PO",
@@ -226,33 +619,69 @@
           "action": "restart"
         }
       ],
-      "notes": "Clear lapse in care. Restarted meds. Advised close follow-up.",
-      "setting": "Urgent Care"
+      "notes": "Severe metabolic decompensation after medication lapse. Restarted all meds. Urgent PCP follow-up scheduled."
     },
     {
-      "id": "enc-2023-11-14",
-      "date": "2023-11-14",
-      "type": "Primary Care Follow-up",
-      "location": "Outpatient",
-      "reason": "Post-lapse follow-up",
+      "id": "enc-2023-09-22",
+      "date": "2023-09-22",
+      "type": "Emergency Department",
+      "setting": "Emergency",
+      "location": "Hospital ED",
+      "reason": "Chest pain, palpitations",
       "vitals": {
-        "hr": 82,
-        "bp_sys": 138,
-        "bp_dia": 88,
+        "hr": 112,
+        "bp_sys": 158,
+        "bp_dia": 96,
+        "spo2": 97,
+        "temp_c": 37.0
+      },
+      "labs": {
+        "glucose_mg_dl": 268,
+        "creatinine_mg_dl": 1.22,
+        "bun_mg_dl": 28,
+        "sodium_meq_l": 138,
+        "potassium_meq_l": 4.8
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "Chest pain workup negative for ACS. Troponins negative x2. EKG normal sinus rhythm. Likely metabolic/stress related. Discharged with close follow-up."
+    },
+    {
+      "id": "enc-2023-10-15",
+      "date": "2023-10-15",
+      "type": "Follow-up Visit",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Post-ED and post-UC follow-up",
+      "vitals": {
+        "hr": 88,
+        "bp_sys": 148,
+        "bp_dia": 92,
         "spo2": 98,
         "temp_c": 36.7
       },
       "labs": {
-        "a1c_pct": 9.6,
-        "glucose_mg_dl": 224,
-        "ldl_mg_dl": 150,
-        "triglycerides_mg_dl": 220,
-        "creatinine_mg_dl": 1.05
+        "a1c_pct": 9.8,
+        "glucose_mg_dl": 238,
+        "ldl_mg_dl": 152,
+        "triglycerides_mg_dl": 242,
+        "creatinine_mg_dl": 1.18,
+        "bun_mg_dl": 26,
+        "efgr_ml_min": 60,
+        "sodium_meq_l": 140,
+        "potassium_meq_l": 4.5
       },
-      "diagnosesEvents": [],
+      "diagnosesEvents": [
+        {
+          "id": "dx-anemia-res",
+          "code": "D64.9",
+          "label": "Anemia, unspecified",
+          "action": "resolve"
+        }
+      ],
       "medicationEvents": [
         {
-          "id": "med-002c",
+          "id": "med-lis-005",
           "name": "Lisinopril",
           "dose": "30 mg",
           "route": "PO",
@@ -260,103 +689,97 @@
           "action": "change"
         }
       ],
-      "notes": "BP improving but not at goal. Increased lisinopril. Encouraged monitoring.",
-      "setting": "Primary Care"
+      "notes": "Recovering from metabolic crisis. A1c still very elevated. Increased lisinopril. Anemia resolved. Close monitoring needed."
     },
     {
-      "id": "enc-2024-03-28",
-      "date": "2024-03-28",
-      "type": "Primary Care Follow-up",
+      "id": "enc-2024-01-20",
+      "date": "2024-01-20",
+      "type": "Follow-up Visit",
+      "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Quarterly diabetes check",
       "vitals": {
+        "hr": 78,
+        "bp_sys": 136,
+        "bp_dia": 84,
+        "spo2": 98,
+        "temp_c": 36.6
+      },
+      "labs": {
+        "a1c_pct": 8.2,
+        "glucose_mg_dl": 186,
+        "ldl_mg_dl": 118,
+        "triglycerides_mg_dl": 178,
+        "creatinine_mg_dl": 1.08,
+        "bun_mg_dl": 21,
+        "efgr_ml_min": 65,
+        "tsh_miu_l": 2.8,
+        "sodium_meq_l": 141,
+        "potassium_meq_l": 4.3
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "Improving. A1c down from 9.8 to 8.2. Continue current regimen."
+    },
+    {
+      "id": "enc-2024-04-18",
+      "date": "2024-04-18",
+      "type": "Follow-up Visit",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Routine follow-up",
+      "vitals": {
         "hr": 74,
         "bp_sys": 128,
-        "bp_dia": 82,
-        "spo2": 98,
-        "temp_c": 36.6
-      },
-      "labs": {
-        "a1c_pct": 7.1,
-        "glucose_mg_dl": 142,
-        "ldl_mg_dl": 112,
-        "triglycerides_mg_dl": 160,
-        "creatinine_mg_dl": 1
-      },
-      "diagnosesEvents": [],
-      "medicationEvents": [],
-      "notes": "Back on track. Improved control.",
-      "setting": "Primary Care"
-    },
-    {
-      "id": "enc-2024-04-22",
-      "date": "2024-04-22",
-      "type": "Nutrition Counseling",
-      "location": "Outpatient",
-      "reason": "Dietary counseling",
-      "vitals": {},
-      "labs": {},
-      "diagnosesEvents": [],
-      "medicationEvents": [],
-      "notes": "Reviewed carb targets, meal planning, and activity goals.",
-      "setting": "Primary Care"
-    },
-    {
-      "id": "enc-2024-07-01",
-      "date": "2024-07-01",
-      "type": "Primary Care Follow-up",
-      "location": "Outpatient",
-      "reason": "Routine follow-up; discuss medication simplification",
-      "vitals": {
-        "hr": 72,
-        "bp_sys": 122,
-        "bp_dia": 78,
-        "spo2": 98,
-        "temp_c": 36.6
-      },
-      "labs": {
-        "a1c_pct": 6.8,
-        "glucose_mg_dl": 128,
-        "ldl_mg_dl": 98,
-        "triglycerides_mg_dl": 140,
-        "creatinine_mg_dl": 0.98
-      },
-      "diagnosesEvents": [],
-      "medicationEvents": [],
-      "notes": "Stable. Continue current regimen.",
-      "setting": "Primary Care"
-    },
-    {
-      "id": "enc-2025-01-20",
-      "date": "2025-01-20",
-      "type": "Primary Care Visit",
-      "location": "Outpatient",
-      "reason": "Annual review",
-      "vitals": {
-        "hr": 76,
-        "bp_sys": 126,
         "bp_dia": 80,
         "spo2": 98,
-        "temp_c": 36.7
+        "temp_c": 36.6
+      },
+      "labs": {
+        "a1c_pct": 7.4,
+        "glucose_mg_dl": 152,
+        "ldl_mg_dl": 105,
+        "triglycerides_mg_dl": 158,
+        "creatinine_mg_dl": 1.02,
+        "bun_mg_dl": 19,
+        "efgr_ml_min": 68,
+        "sodium_meq_l": 142,
+        "potassium_meq_l": 4.1
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "Excellent progress. A1c approaching goal. BP at target. Continue current management."
+    },
+    {
+      "id": "enc-2024-07-25",
+      "date": "2024-07-25",
+      "type": "Follow-up Visit",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Routine follow-up",
+      "vitals": {
+        "hr": 72,
+        "bp_sys": 124,
+        "bp_dia": 78,
+        "spo2": 99,
+        "temp_c": 36.5
       },
       "labs": {
         "a1c_pct": 6.9,
-        "glucose_mg_dl": 132,
-        "ldl_mg_dl": 104,
-        "triglycerides_mg_dl": 150,
-        "creatinine_mg_dl": 1
+        "glucose_mg_dl": 128,
+        "ldl_mg_dl": 98,
+        "triglycerides_mg_dl": 142,
+        "creatinine_mg_dl": 1.0,
+        "bun_mg_dl": 18,
+        "efgr_ml_min": 72,
+        "tsh_miu_l": 2.4,
+        "sodium_meq_l": 141,
+        "potassium_meq_l": 4.0
       },
-      "diagnosesEvents": [
-        {
-          "id": "dx-004-res",
-          "code": "E66.9",
-          "label": "Obesity, unspecified",
-          "action": "resolve"
-        }
-      ],
+      "diagnosesEvents": [],
       "medicationEvents": [
         {
-          "id": "med-001c",
+          "id": "med-met-004",
           "name": "Metformin",
           "dose": "500 mg",
           "route": "PO",
@@ -364,23 +787,90 @@
           "action": "change"
         }
       ],
-      "notes": "Weight improved. Reduced metformin dose due to GI intolerance.",
-      "setting": "Primary Care"
+      "notes": "A1c at goal! Reduced metformin due to GI side effects at higher dose. BP excellent."
+    },
+    {
+      "id": "enc-2024-10-30",
+      "date": "2024-10-30",
+      "type": "Follow-up Visit",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Routine follow-up",
+      "vitals": {
+        "hr": 70,
+        "bp_sys": 122,
+        "bp_dia": 76,
+        "spo2": 98,
+        "temp_c": 36.6
+      },
+      "labs": {
+        "a1c_pct": 6.8,
+        "glucose_mg_dl": 122,
+        "ldl_mg_dl": 94,
+        "triglycerides_mg_dl": 138,
+        "creatinine_mg_dl": 0.98,
+        "bun_mg_dl": 17,
+        "efgr_ml_min": 75,
+        "sodium_meq_l": 140,
+        "potassium_meq_l": 4.2
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "Stable and well-controlled. Continue current regimen."
+    },
+    {
+      "id": "enc-2025-01-15",
+      "date": "2025-01-15",
+      "type": "Annual Physical",
+      "setting": "Primary Care",
+      "location": "Outpatient",
+      "reason": "Annual review",
+      "vitals": {
+        "hr": 72,
+        "bp_sys": 120,
+        "bp_dia": 78,
+        "spo2": 98,
+        "temp_c": 36.7
+      },
+      "labs": {
+        "a1c_pct": 6.7,
+        "glucose_mg_dl": 118,
+        "ldl_mg_dl": 92,
+        "triglycerides_mg_dl": 135,
+        "creatinine_mg_dl": 0.97,
+        "bun_mg_dl": 16,
+        "efgr_ml_min": 78,
+        "tsh_miu_l": 2.2,
+        "sodium_meq_l": 141,
+        "potassium_meq_l": 4.1
+      },
+      "diagnosesEvents": [],
+      "medicationEvents": [],
+      "notes": "Excellent control across all metrics. Patient adherent, engaged in care. Continue current management."
     }
   ],
   "domainConfig": {
     "defaultTrackOrder": [
       "diagnoses",
-      "medications",
-      "labs",
+      "encounters",
       "vitals",
-      "encounters"
+      "labs",
+      "medications"
     ],
     "tracks": {
       "diagnoses": {
         "type": "continuous",
         "subtypes": [
-          "problem_list"
+          "type_2_diabetes",
+          "hypertension",
+          "hypothyroidism",
+          "anemia"
+        ]
+      },
+      "encounters": {
+        "type": "structural",
+        "subtypes": [
+          "encounter"
         ]
       },
       "medications": {
@@ -398,7 +888,12 @@
           "glucose_mg_dl",
           "ldl_mg_dl",
           "triglycerides_mg_dl",
-          "creatinine_mg_dl"
+          "creatinine_mg_dl",
+          "bun_mg_dl",
+          "efgr_ml_min",
+          "tsh_miu_l",
+          "sodium_meq_l",
+          "potassium_meq_l"
         ]
       },
       "vitals": {
@@ -410,12 +905,6 @@
           "temp_c"
         ]
       }
-    },
-    "encounters": {
-      "type": "structural",
-      "subtypes": [
-        "encounter"
-      ]
     }
   }
 }

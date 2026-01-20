@@ -8,6 +8,7 @@ interface TrackProps {
   contextHighlightSegmentId?: string
   onContextHighlight: (segmentId?: string) => void
   onPeekCard: (state: PeekCardState) => void
+  highlightedRow?: { trackName: string; subtypeName: string } | null
 }
 
 const Track = ({
@@ -17,30 +18,30 @@ const Track = ({
   contextHighlightSegmentId,
   onContextHighlight,
   onPeekCard,
+  highlightedRow,
 }: TrackProps) => {
   const trackConfig = patientData.domainConfig.tracks[trackName]
 
   if (!trackConfig) return null
 
-  // Format track name for display
-  const displayName = trackName.charAt(0).toUpperCase() + trackName.slice(1)
-
   return (
     <div className="track-row">
-      <div className="track-label">{displayName}</div>
-
-      {trackConfig.subtypes.map((subtype) => (
-        <SubtypeRow
-          key={`${trackName}-${subtype}`}
-          trackName={trackName}
-          subtypeName={subtype}
-          patientData={patientData}
-          segments={segments}
-          contextHighlightSegmentId={contextHighlightSegmentId}
-          onContextHighlight={onContextHighlight}
-          onPeekCard={onPeekCard}
-        />
-      ))}
+      {trackConfig.subtypes.map((subtype) => {
+        const isRowHighlighted = highlightedRow?.trackName === trackName && highlightedRow?.subtypeName === subtype
+        return (
+          <SubtypeRow
+            key={`${trackName}-${subtype}`}
+            trackName={trackName}
+            subtypeName={subtype}
+            patientData={patientData}
+            segments={segments}
+            contextHighlightSegmentId={contextHighlightSegmentId}
+            onContextHighlight={onContextHighlight}
+            onPeekCard={onPeekCard}
+            isRowHighlighted={isRowHighlighted}
+          />
+        )
+      })}
     </div>
   )
 }

@@ -9,6 +9,7 @@ interface SubtypeRowProps {
   contextHighlightSegmentId?: string
   onContextHighlight: (segmentId?: string) => void
   onPeekCard: (state: PeekCardState) => void
+  isRowHighlighted?: boolean
 }
 
 const SubtypeRow = ({
@@ -19,9 +20,10 @@ const SubtypeRow = ({
   contextHighlightSegmentId,
   onContextHighlight,
   onPeekCard,
+  isRowHighlighted,
 }: SubtypeRowProps) => {
   return (
-    <div className="subtype-row">
+    <div className={`subtype-row ${isRowHighlighted ? 'row-highlighted' : ''}`}>
       {segments.map((segment) => {
         let encounter: Encounter | undefined
         if (segment.type === 'encounter' && segment.encounterId) {

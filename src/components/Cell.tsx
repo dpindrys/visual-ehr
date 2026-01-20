@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { PatientData, Segment, Encounter, PeekCardState } from '../utils/types'
 import { computeActiveDiagnosesBySegment, computeActiveMedicationsBySegment } from '../utils/continuousStateEngine'
+import { getVitalStatus, getLabStatus, ValueStatus } from '../utils/referenceRanges'
 
 interface CellProps {
   segment: Segment
@@ -64,20 +65,39 @@ const [pressHoldTimer, setPressHoldTimer] =
     return { value: '' }
     }
 
+    // Gaps: no clinical data exists, show "—" for all domains
+    if (segment.type === 'gap') {
+      return { value: '—' };
+    }
+
     // Continuous domains: use fill-forward state engine
     if (trackConfig?.type === 'continuous') {
       if (trackName === 'diagnoses') {
-        // All diagnoses in one row (problem_list)
+        // Individual diagnosis subtypes - check if this specific diagnosis is active
         const diagnosesBySegment = computeActiveDiagnosesBySegment(patientData, segments);
         const active = diagnosesBySegment[segment.id] || [];
-        if (active.length === 0) return { value: '—' };
-        // Show up to 2, then +N
-        const labels = active.map(d => d.label.split(' ')[0]);
-        let value = labels.slice(0, 2).join(', ');
-        if (active.length > 2) value += ` +${active.length - 2}`;
+        
+        // Map subtype names to diagnosis labels/codes
+        const diagnosisMap: Record<string, string[]> = {
+          type_2_diabetes: ['diabetes', 'e11'],
+          asthma: ['asthma', 'j45'],
+          anemia: ['anemia', 'd64'],
+          hypertension: ['hypertension', 'i10'],
+          hypothyroidism: ['hypothyroidism', 'e03'],
+        };
+        
+        const matchTerms = diagnosisMap[subtypeName] || [subtypeName];
+        const matchingDx = active.find(d => 
+          matchTerms.some(term => 
+            d.label.toLowerCase().includes(term) || 
+            d.code.toLowerCase().includes(term)
+          )
+        );
+        
+        if (!matchingDx) return { value: '—' };
         return {
-          value,
-          metadata: { diagnoses: active },
+          value: '●', // Active indicator
+          metadata: { diagnosis: matchingDx },
         };
       }
       if (trackName === 'medications') {
@@ -104,16 +124,30 @@ const [pressHoldTimer, setPressHoldTimer] =
         return { value: vitalsMap[subtypeName] || '—' };
       }
       if (trackName === 'labs') {
-        const labsMap: Record<string, { value: number | undefined; unit: string }> = {
-          a1c_pct: { value: encounter.labs?.a1c_pct, unit: '%' },
-          glucose_mg_dl: { value: encounter.labs?.glucose_mg_dl, unit: 'mg/dL' },
-          ldl_mg_dl: { value: encounter.labs?.ldl_mg_dl, unit: 'mg/dL' },
-          triglycerides_mg_dl: { value: encounter.labs?.triglycerides_mg_dl, unit: 'mg/dL' },
-          creatinine_mg_dl: { value: encounter.labs?.creatinine_mg_dl, unit: 'mg/dL' },
+        const labs = encounter.labs as Record<string, number | undefined> | undefined;
+        const labsMap: Record<string, { key: string; unit: string }> = {
+          a1c_pct: { key: 'a1c_pct', unit: '%' },
+          glucose_mg_dl: { key: 'glucose_mg_dl', unit: 'mg/dL' },
+          ldl_mg_dl: { key: 'ldl_mg_dl', unit: 'mg/dL' },
+          triglycerides_mg_dl: { key: 'triglycerides_mg_dl', unit: 'mg/dL' },
+          creatinine_mg_dl: { key: 'creatinine_mg_dl', unit: 'mg/dL' },
+          tsh_miu_l: { key: 'tsh_miu_l', unit: 'mIU/L' },
+          bun_mg_dl: { key: 'bun_mg_dl', unit: 'mg/dL' },
+          efgr_ml_min: { key: 'efgr_ml_min', unit: 'mL/min' },
+          sodium_meq_l: { key: 'sodium_meq_l', unit: 'mEq/L' },
+          potassium_meq_l: { key: 'potassium_meq_l', unit: 'mEq/L' },
+          chloride_meq_l: { key: 'chloride_meq_l', unit: 'mEq/L' },
+          co2_meq_l: { key: 'co2_meq_l', unit: 'mEq/L' },
+          calcium_mg_dl: { key: 'calcium_mg_dl', unit: 'mg/dL' },
+          protein_g_dl: { key: 'protein_g_dl', unit: 'g/dL' },
+          albumin_g_dl: { key: 'albumin_g_dl', unit: 'g/dL' },
         };
-        const lab = labsMap[subtypeName];
-        if (lab && lab.value !== undefined) {
-          return { value: `${lab.value}${lab.unit}` };
+        const labConfig = labsMap[subtypeName];
+        if (labConfig && labs) {
+          const value = labs[labConfig.key];
+          if (value !== undefined) {
+            return { value: `${value}${labConfig.unit}` };
+          }
         }
         return { value: '—' };
       }
@@ -134,6 +168,45 @@ const [pressHoldTimer, setPressHoldTimer] =
 
 
   const { value, metadata } = getCellContent()
+
+  // Calculate status for vitals/labs
+  const getValueStatus = (): ValueStatus | null => {
+    if (segment.type === 'gap' || !encounter) return null
+    
+    if (trackName === 'vitals') {
+      const vitals = encounter.vitals
+      if (!vitals) return null
+      
+      switch (subtypeName) {
+        case 'hr':
+          return vitals.hr ? getVitalStatus('hr', vitals.hr) : null
+        case 'bp':
+          return (vitals.bp_sys && vitals.bp_dia) 
+            ? getVitalStatus('bp', vitals.bp_sys, vitals.bp_dia) 
+            : null
+        case 'spo2':
+          return vitals.spo2 ? getVitalStatus('spo2', vitals.spo2) : null
+        case 'temp_c':
+          return vitals.temp_c ? getVitalStatus('temp_c', vitals.temp_c) : null
+        default:
+          return null
+      }
+    }
+    
+    if (trackName === 'labs') {
+      const labs = encounter.labs as Record<string, number | undefined> | undefined
+      if (!labs) return null
+      
+      const labValue = labs[subtypeName]
+      if (labValue === undefined) return null
+      
+      return getLabStatus(subtypeName, labValue)
+    }
+    
+    return null
+  }
+
+  const valueStatus = getValueStatus()
 
   // Press-and-hold logic
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -193,13 +266,15 @@ const [pressHoldTimer, setPressHoldTimer] =
   }, [pressHoldTimer])
 
   const isEmpty = value === '—'
+  const isEncounterCell = trackName === 'encounters'
+  const statusClass = valueStatus ? `status-${valueStatus}` : ''
 
   return (
     <div
       ref={cellRef}
-      className={`subtype-cell ${isEmpty ? 'empty' : ''} ${
+      className={`subtype-cell ${segment.type === 'gap' ? 'gap' : ''} ${isEmpty ? 'empty' : ''} ${
         isHighlighted ? 'context-highlighted' : ''
-      } ${isPressHeld ? 'press-held' : ''}`}
+      } ${isPressHeld ? 'press-held' : ''} ${isEncounterCell ? 'encounter-cell' : ''} ${statusClass}`}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseEnter={handleMouseEnter}

@@ -1,7 +1,7 @@
 // Segment array generation: converts encounters into compressed timeline segments
 
 import { PatientData, Segment, Encounter } from './types'
-import { sortEncountersByDate, getGapMagnitude, getGapLabel, formatDate } from './helpers'
+import { sortEncountersByDate, getGapMagnitude, getGapLabel, formatDate, daysBetween } from './helpers'
 
 export const generateSegmentArray = (patientData: PatientData): Segment[] => {
   const encounters = patientData.encounters
@@ -31,6 +31,7 @@ export const generateSegmentArray = (patientData: PatientData): Segment[] => {
     if (i < encounterDates.length - 1) {
       const nextDate = encounterDates[i + 1]
       const magnitude = getGapMagnitude(currentDate, nextDate)
+      const durationDays = daysBetween(currentDate, nextDate)
       const label = getGapLabel(currentDate, nextDate)
 
       segments.push({
@@ -38,6 +39,7 @@ export const generateSegmentArray = (patientData: PatientData): Segment[] => {
         type: 'gap',
         startDate: currentDate,
         endDate: nextDate,
+        durationDays,
         magnitude,
         label,
       })

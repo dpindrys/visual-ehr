@@ -68,7 +68,7 @@ export type DomainConfig = {
 }
 
 export type TrackConfig = {
-  type: 'continuous' | 'point_in_time'
+  type: 'continuous' | 'point_in_time' | 'structural'
   subtypes: string[]
 }
 
