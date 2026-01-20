@@ -40,14 +40,15 @@ const TrackStack = forwardRef<HTMLDivElement, TrackStackProps>(({
   const trackOrder = patientData.domainConfig.defaultTrackOrder
 
   // Generate dynamic grid column widths based on segment types
+  // Uses minmax to fill available space while respecting minimums
   const gridTemplateColumns = useMemo(() => {
     return segments.map(segment => {
       if (segment.type === 'encounter') {
-        return '120px'
+        return 'minmax(120px, 1fr)'
       } else {
-        // Gap segment - width based on duration
-        const width = getGapWidth(segment.durationDays || 0)
-        return `${width}px`
+        // Gap segment - min width based on duration
+        const minWidth = getGapWidth(segment.durationDays || 0)
+        return `minmax(${minWidth}px, 1fr)`
       }
     }).join(' ')
   }, [segments])

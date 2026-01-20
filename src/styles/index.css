@@ -193,6 +193,7 @@ html, body, #root {
   overflow-y: auto;
   overflow-x: hidden;
   min-height: 0;
+  padding-bottom: 44px; /* Account for fixed nav tabs at bottom */
 }
 
 /* Unified Timeline Container (Sidebar + Grid in same layer) */
@@ -687,6 +688,57 @@ html, body, #root {
 .timeline-segment.context-highlighted {
   border-left: 2px solid #0ea5e9;
   border-right: 2px solid #0ea5e9;
+}
+
+/* Timeline Navigation Tabs */
+.timeline-nav-tabs {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  background-color: #1f2937;
+  border-top: 1px solid #374151;
+  z-index: 100;
+}
+
+.nav-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  border-right: 1px solid #374151;
+  color: #9ca3af;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.nav-tab:last-child {
+  border-right: none;
+}
+
+.nav-tab:hover {
+  background-color: #374151;
+  color: #f3f4f6;
+}
+
+.nav-tab.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.nav-tab .tab-date-range {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Peek Card (Modal) */

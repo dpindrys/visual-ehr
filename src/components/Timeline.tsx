@@ -7,6 +7,7 @@ import TrackStack from './TrackStack'
 import ClinicalSummaryHeader from './ClinicalSummaryHeader'
 import TimelineRuler from './TimelineRuler'
 import DomainSidebar from './DomainSidebar'
+import TimelineNavTabs from './TimelineNavTabs'
 
 interface TimelineProps {
   patientData: PatientData
@@ -118,38 +119,57 @@ const Timeline = ({ patientData }: TimelineProps) => {
   // Check if we can go forward (show more recent segments)
   const canGoForward = visibleSegmentStart + currentVisibleCount < allSegments.length
 
+  // Calculate the max start index (shows the final page of segments)
+  const calculateMaxStart = useCallback((): number => {
+    if (containerWidth === 0 || allSegments.length === 0) return 0
+    
+    const maxWidth = containerWidth - SIDEBAR_WIDTH
+    let totalWidth = 0
+    let count = 0
+    
+    // Count backwards from end to find how many fit
+    for (let i = allSegments.length - 1; i >= 0; i--) {
+      const width = getSegmentWidth(allSegments[i])
+      if (totalWidth + width > maxWidth && count > 0) break
+      totalWidth += width
+      count++
+    }
+    
+    return Math.max(0, allSegments.length - count)
+  }, [allSegments, containerWidth, getSegmentWidth])
+
   // Navigate forward in time (show more recent segments)
   const handleGoForward = () => {
     const jumpCount = Math.max(1, currentVisibleCount)
-    const maxStart = Math.max(0, allSegments.length - calculateSegmentCount(allSegments.length - 1, containerWidth))
+    const maxStart = calculateMaxStart()
     const newStart = Math.min(maxStart, visibleSegmentStart + jumpCount)
     setVisibleSegmentStart(newStart)
+  }
+
+  // Handle tab navigation - ensure grid is always full
+  const handleTabClick = (startIndex: number) => {
+    // Calculate how many segments would be visible from this start point
+    const segmentsFromStart = allSegments.length - startIndex
+    const segmentsThatFit = calculateSegmentCount(0, containerWidth) // How many typically fit
+    
+    // If there aren't enough segments from startIndex to fill the screen,
+    // start earlier so the grid is full
+    if (segmentsFromStart < segmentsThatFit) {
+      const adjustedStart = Math.max(0, allSegments.length - segmentsThatFit)
+      setVisibleSegmentStart(adjustedStart)
+    } else {
+      setVisibleSegmentStart(startIndex)
+    }
   }
 
   return (
     <div className="timeline-content">
       {/* Dark Gray Bar (Fixed at Top) */}
       <div className="top-nav-bar">
-        {/* Navigation Controls */}
+        {/* Patient Info */}
         <div className="timeline-nav-controls">
-          <button
-            onClick={handleGoBack}
-            disabled={!canGoBack}
-            className="nav-button"
-            title="Go back in time (show earlier dates)"
-          >
-            ← Go Back
-          </button>
-          <button
-            onClick={handleGoForward}
-            disabled={!canGoForward}
-            className="nav-button"
-            title="Go forward in time (show more recent dates)"
-          >
-            Go Forward →
-          </button>
           <span className="nav-info">
-            Showing {visibleSegmentStart + 1}-{visibleSegmentStart + currentVisibleCount} of {allSegments.length} segments
+            {patientData.patient.name} • {allSegments.filter(s => s.type === 'encounter').length} encounters
           </span>
         </div>
       </div>
@@ -205,6 +225,14 @@ const Timeline = ({ patientData }: TimelineProps) => {
           </div>
         </div>
       </div>
+
+      {/* Navigation Tabs (Fixed at bottom) - only shows when needed */}
+      <TimelineNavTabs
+        allSegments={allSegments}
+        visibleSegmentStart={visibleSegmentStart}
+        segmentsThatFit={calculateSegmentCount(0, containerWidth)}
+        onTabClick={handleTabClick}
+      />
     </div>
   )
 }

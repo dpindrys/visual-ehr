@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Segment } from '../utils/types'
 import { getGapWidth } from '../utils/helpers'
 
@@ -7,31 +8,33 @@ interface TimelineRulerProps {
 }
 
 const TimelineRuler = ({ segments, contextHighlightSegmentId }: TimelineRulerProps) => {
-  // Calculate width for each segment
-  const getSegmentWidth = (segment: Segment): number => {
-    if (segment.type === 'encounter') {
-      return 120
-    } else {
-      return getGapWidth(segment.durationDays || 0)
-    }
-  }
+  // Generate grid template columns matching TrackStack
+  const gridTemplateColumns = useMemo(() => {
+    return segments.map(segment => {
+      if (segment.type === 'encounter') {
+        return 'minmax(120px, 1fr)'
+      } else {
+        const minWidth = getGapWidth(segment.durationDays || 0)
+        return `minmax(${minWidth}px, 1fr)`
+      }
+    }).join(' ')
+  }, [segments])
 
   return (
-    <div className="timeline-ruler">
-      {segments.map((segment) => {
-        const width = getSegmentWidth(segment)
-        return (
-          <div
-            key={segment.id}
-            className={`timeline-segment ${segment.type === 'gap' ? 'gap' : 'encounter'} ${
-              contextHighlightSegmentId === segment.id ? 'context-highlighted' : ''
-            }`}
-            style={{ width: `${width}px`, flexShrink: 0 }}
-          >
-            {segment.label}
-          </div>
-        )
-      })}
+    <div 
+      className="timeline-ruler"
+      style={{ display: 'grid', gridTemplateColumns }}
+    >
+      {segments.map((segment) => (
+        <div
+          key={segment.id}
+          className={`timeline-segment ${segment.type === 'gap' ? 'gap' : 'encounter'} ${
+            contextHighlightSegmentId === segment.id ? 'context-highlighted' : ''
+          }`}
+        >
+          {segment.label}
+        </div>
+      ))}
     </div>
   )
 }
