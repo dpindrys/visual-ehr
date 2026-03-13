@@ -1,7 +1,8 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { PatientData, Segment, Encounter, PeekCardState } from '../utils/types'
 import { computeActiveDiagnosesBySegment, computeActiveMedicationsBySegment } from '../utils/continuousStateEngine'
-import { getVitalStatus, getLabStatus, ValueStatus } from '../utils/referenceRanges'
+import { getVitalStatus, getLabStatus, getRangeConfig, ValueStatus } from '../utils/referenceRanges'
+import { getEncounterTypeKey, getEncounterTypeColors, formatSetting } from '../utils/helpers'
 
 interface CellProps {
   segment: Segment
@@ -26,22 +27,18 @@ const Cell = ({
   onContextHighlight,
   onPeekCard,
 }: CellProps) => {
-const [pressHoldTimer, setPressHoldTimer] =
-  useState<ReturnType<typeof setTimeout> | null>(null)
   const [isPressHeld, setIsPressHeld] = useState(false)
   const cellRef = useRef<HTMLDivElement>(null)
 
-  // Get cell value and metadata (now using fill-forward state engine for continuous domains)
   const getCellContent = (): { value: string; metadata?: Record<string, unknown> } => {
-    const trackConfig = patientData.domainConfig.tracks[trackName];
-    // Encounters row: render encounter/gap info as a domain row
-    if (trackName === 'encounters') {
-    if (segment.type === 'encounter' && encounter) {
-        const displayLabel = formatSetting(encounter.setting) || encounter.type
+    const trackConfig = patientData.domainConfig.tracks[trackName]
 
+    if (trackName === 'encounters') {
+      if (segment.type === 'encounter' && encounter) {
+        const typeKey = getEncounterTypeKey(encounter)
         return {
-        value: displayLabel,
-        metadata: {
+          value: typeKey !== 'OTHER' ? typeKey : formatSetting(encounter.setting) || encounter.type,
+          metadata: {
             date: encounter.date,
             type: encounter.type,
             setting: encounter.setting,
@@ -49,70 +46,57 @@ const [pressHoldTimer, setPressHoldTimer] =
             address: encounter.address,
             reason: encounter.reason,
             notes: encounter.notes,
-        },
+            encounter,
+            encounterTypeKey: typeKey,
+          },
         }
-    } else if (segment.type === 'gap') {
+      } else if (segment.type === 'gap') {
         return {
-        value: segment.label,
-        metadata: {
+          value: segment.label,
+          metadata: {
             startDate: segment.startDate,
             endDate: segment.endDate,
             durationDays: segment.durationDays,
             message: 'No clinical data exists in this interval.',
-        },
+          },
         }
-    }
-    return { value: '' }
-    }
-
-    // Gaps: no clinical data exists, show "—" for all domains
-    if (segment.type === 'gap') {
-      return { value: '—' };
+      }
+      return { value: '' }
     }
 
-    // Continuous domains: use fill-forward state engine
+    if (segment.type === 'gap') return { value: '—' }
+
     if (trackConfig?.type === 'continuous') {
       if (trackName === 'diagnoses') {
-        // Individual diagnosis subtypes - check if this specific diagnosis is active
-        const diagnosesBySegment = computeActiveDiagnosesBySegment(patientData, segments);
-        const active = diagnosesBySegment[segment.id] || [];
-        
-        // Map subtype names to diagnosis labels/codes
+        const diagnosesBySegment = computeActiveDiagnosesBySegment(patientData, segments)
+        const active = diagnosesBySegment[segment.id] || []
         const diagnosisMap: Record<string, string[]> = {
           type_2_diabetes: ['diabetes', 'e11'],
           asthma: ['asthma', 'j45'],
           anemia: ['anemia', 'd64'],
           hypertension: ['hypertension', 'i10'],
           hypothyroidism: ['hypothyroidism', 'e03'],
-        };
-        
-        const matchTerms = diagnosisMap[subtypeName] || [subtypeName];
-        const matchingDx = active.find(d => 
-          matchTerms.some(term => 
-            d.label.toLowerCase().includes(term) || 
-            d.code.toLowerCase().includes(term)
+        }
+        const matchTerms = diagnosisMap[subtypeName] || [subtypeName]
+        const matchingDx = active.find((d) =>
+          matchTerms.some(
+            (term) =>
+              d.label.toLowerCase().includes(term) ||
+              d.code.toLowerCase().includes(term)
           )
-        );
-        
-        if (!matchingDx) return { value: '—' };
-        return {
-          value: '●', // Active indicator
-          metadata: { diagnosis: matchingDx },
-        };
+        )
+        if (!matchingDx) return { value: '—' }
+        return { value: '●', metadata: { diagnosis: matchingDx } }
       }
       if (trackName === 'medications') {
-        const medsBySegment = computeActiveMedicationsBySegment(patientData, segments);
-        const active = medsBySegment[segment.id] || [];
-        // Find the one for this subtype (medication name)
-        const med = active.find(m => m.name.toLowerCase() === subtypeName.toLowerCase());
-        if (!med) return { value: '—' };
-        return {
-          value: med.dose,
-          metadata: med,
-        };
+        const medsBySegment = computeActiveMedicationsBySegment(patientData, segments)
+        const active = medsBySegment[segment.id] || []
+        const med = active.find((m) => m.name.toLowerCase() === subtypeName.toLowerCase())
+        if (!med) return { value: '—' }
+        return { value: med.dose, metadata: med }
       }
     }
-    // Point-in-time domains: only show value in encounter segments
+
     if (segment.type === 'encounter' && encounter) {
       if (trackName === 'vitals') {
         const vitalsMap: Record<string, string> = {
@@ -120,11 +104,11 @@ const [pressHoldTimer, setPressHoldTimer] =
           bp: `${encounter.vitals?.bp_sys ?? '—'}/${encounter.vitals?.bp_dia ?? '—'}`,
           spo2: `${encounter.vitals?.spo2 ?? '—'}%`,
           temp_c: `${encounter.vitals?.temp_c ?? '—'}°C`,
-        };
-        return { value: vitalsMap[subtypeName] || '—' };
+        }
+        return { value: vitalsMap[subtypeName] || '—' }
       }
       if (trackName === 'labs') {
-        const labs = encounter.labs as Record<string, number | undefined> | undefined;
+        const labs = encounter.labs as Record<string, number | undefined> | undefined
         const labsMap: Record<string, { key: string; unit: string }> = {
           a1c_pct: { key: 'a1c_pct', unit: '%' },
           glucose_mg_dl: { key: 'glucose_mg_dl', unit: 'mg/dL' },
@@ -141,133 +125,126 @@ const [pressHoldTimer, setPressHoldTimer] =
           calcium_mg_dl: { key: 'calcium_mg_dl', unit: 'mg/dL' },
           protein_g_dl: { key: 'protein_g_dl', unit: 'g/dL' },
           albumin_g_dl: { key: 'albumin_g_dl', unit: 'g/dL' },
-        };
-        const labConfig = labsMap[subtypeName];
-        if (labConfig && labs) {
-          const value = labs[labConfig.key];
-          if (value !== undefined) {
-            return { value: `${value}${labConfig.unit}` };
-          }
         }
-        return { value: '—' };
+        const labConfig = labsMap[subtypeName]
+        if (labConfig && labs) {
+          const value = labs[labConfig.key]
+          if (value !== undefined) return { value: `${value}${labConfig.unit}` }
+        }
+        return { value: '—' }
       }
     }
-    // Otherwise, empty
-    return { value: '—' };
-  };
-
-    const formatSetting = (setting?: string) => {
-    if (!setting) return ''
-    const s = setting.toLowerCase()
-    if (s.includes('primary')) return 'PCP'
-    if (s.includes('urgent')) return 'UC'
-    if (s.includes('emergency') || s === 'ed') return 'ED'
-    return setting
-    }
-
-
+    return { value: '—' }
+  }
 
   const { value, metadata } = getCellContent()
 
-  // Calculate status for vitals/labs
   const getValueStatus = (): ValueStatus | null => {
     if (segment.type === 'gap' || !encounter) return null
-    
     if (trackName === 'vitals') {
       const vitals = encounter.vitals
       if (!vitals) return null
-      
       switch (subtypeName) {
-        case 'hr':
-          return vitals.hr ? getVitalStatus('hr', vitals.hr) : null
-        case 'bp':
-          return (vitals.bp_sys && vitals.bp_dia) 
-            ? getVitalStatus('bp', vitals.bp_sys, vitals.bp_dia) 
-            : null
-        case 'spo2':
-          return vitals.spo2 ? getVitalStatus('spo2', vitals.spo2) : null
-        case 'temp_c':
-          return vitals.temp_c ? getVitalStatus('temp_c', vitals.temp_c) : null
-        default:
-          return null
+        case 'hr': return vitals.hr ? getVitalStatus('hr', vitals.hr) : null
+        case 'bp': return (vitals.bp_sys && vitals.bp_dia) ? getVitalStatus('bp', vitals.bp_sys, vitals.bp_dia) : null
+        case 'spo2': return vitals.spo2 ? getVitalStatus('spo2', vitals.spo2) : null
+        case 'temp_c': return vitals.temp_c ? getVitalStatus('temp_c', vitals.temp_c) : null
+        default: return null
       }
     }
-    
     if (trackName === 'labs') {
       const labs = encounter.labs as Record<string, number | undefined> | undefined
       if (!labs) return null
-      
       const labValue = labs[subtypeName]
-      if (labValue === undefined) return null
-      
-      return getLabStatus(subtypeName, labValue)
+      return labValue === undefined ? null : getLabStatus(subtypeName, labValue)
     }
-    
     return null
+  }
+
+  const getRawValues = (): { value?: number; value2?: number } => {
+    if (segment.type === 'gap' || !encounter) return {}
+    if (trackName === 'vitals') {
+      const vitals = encounter.vitals
+      if (!vitals) return {}
+      switch (subtypeName) {
+        case 'hr': return { value: vitals.hr }
+        case 'bp': return { value: vitals.bp_sys, value2: vitals.bp_dia }
+        case 'spo2': return { value: vitals.spo2 }
+        case 'temp_c': return { value: vitals.temp_c }
+        default: return {}
+      }
+    }
+    if (trackName === 'labs') {
+      const labs = encounter.labs
+      return labs ? { value: labs[subtypeName] } : {}
+    }
+    return {}
   }
 
   const valueStatus = getValueStatus()
 
-  // Press-and-hold logic
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault()
-    const timer = setTimeout(() => {
-      setIsPressHeld(true)
-      onContextHighlight(segment.id)
+    setIsPressHeld(true)
+    onContextHighlight(segment.id)
 
-      if (cellRef.current) {
-        const rect = cellRef.current.getBoundingClientRect()
-        onPeekCard({
-          isVisible: true,
-          cellData: {
-            segmentId: segment.id,
-            subtypeId: subtypeName,
-            trackName,
-            values: value,
-            metadata,
+    if (cellRef.current) {
+      const rect = cellRef.current.getBoundingClientRect()
+      const rawValues = getRawValues()
+      const rangeConfig = getRangeConfig(trackName, subtypeName === 'bp' ? 'bp_sys' : subtypeName)
+      onPeekCard({
+        isVisible: true,
+        cellData: {
+          segmentId: segment.id,
+          subtypeId: subtypeName,
+          trackName,
+          values: value,
+          metadata: {
+            ...metadata,
+            rawValue: rawValues.value,
+            rawValue2: rawValues.value2,
+            rangeConfig,
+            valueStatus,
+            encounter,
           },
-          segment,
-          x: rect.right + 10,
-          y: rect.top,
-        })
-      }
-    }, 500)
-
-    setPressHoldTimer(timer)
+        },
+        segment,
+        x: rect.left + rect.width / 2,
+        y: rect.top,
+      })
+    }
   }
 
   const handleMouseUp = () => {
-    if (pressHoldTimer) {
-      clearTimeout(pressHoldTimer)
-      setPressHoldTimer(null)
-    }
     setIsPressHeld(false)
+    onPeekCard({ isVisible: false })
+    onContextHighlight(undefined)
   }
 
   const handleMouseEnter = () => {
-    if (!isPressHeld) {
-      onContextHighlight(segment.id)
-    }
+    if (!isPressHeld) onContextHighlight(segment.id)
   }
 
   const handleMouseLeave = () => {
-    if (!isPressHeld) {
-      onContextHighlight(undefined)
-    }
+    if (!isPressHeld) onContextHighlight(undefined)
   }
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      if (pressHoldTimer) {
-        clearTimeout(pressHoldTimer)
-      }
-    }
-  }, [pressHoldTimer])
 
   const isEmpty = value === '—'
   const isEncounterCell = trackName === 'encounters'
   const statusClass = valueStatus ? `status-${valueStatus}` : ''
+
+  const encounterStyle = isEncounterCell && segment.type === 'encounter' && encounter
+    ? (() => {
+        const colors = getEncounterTypeColors(getEncounterTypeKey(encounter))
+        return {
+          backgroundColor: colors.bg,
+          color: colors.fg,
+          border: `1px solid ${colors.bd}`,
+          borderRadius: '0px',
+          '--encounter-bd': colors.bd,
+        } as React.CSSProperties
+      })()
+    : undefined
 
   return (
     <div
@@ -275,6 +252,7 @@ const [pressHoldTimer, setPressHoldTimer] =
       className={`subtype-cell ${segment.type === 'gap' ? 'gap' : ''} ${isEmpty ? 'empty' : ''} ${
         isHighlighted ? 'context-highlighted' : ''
       } ${isPressHeld ? 'press-held' : ''} ${isEncounterCell ? 'encounter-cell' : ''} ${statusClass}`}
+      style={encounterStyle}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseEnter={handleMouseEnter}

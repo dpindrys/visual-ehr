@@ -9,6 +9,7 @@ interface TrackProps {
   onContextHighlight: (segmentId?: string) => void
   onPeekCard: (state: PeekCardState) => void
   highlightedRow?: { trackName: string; subtypeName: string } | null
+  hiddenSubtypes?: Set<string>
 }
 
 const Track = ({
@@ -19,15 +20,17 @@ const Track = ({
   onContextHighlight,
   onPeekCard,
   highlightedRow,
+  hiddenSubtypes = new Set(),
 }: TrackProps) => {
   const trackConfig = patientData.domainConfig.tracks[trackName]
-
   if (!trackConfig) return null
 
   return (
     <div className="track-row">
       {trackConfig.subtypes.map((subtype) => {
-        const isRowHighlighted = highlightedRow?.trackName === trackName && highlightedRow?.subtypeName === subtype
+        if (hiddenSubtypes.has(`${trackName}-${subtype}`)) return null
+        const isRowHighlighted =
+          highlightedRow?.trackName === trackName && highlightedRow?.subtypeName === subtype
         return (
           <SubtypeRow
             key={`${trackName}-${subtype}`}

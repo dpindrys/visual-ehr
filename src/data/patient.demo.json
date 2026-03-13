@@ -5,14 +5,24 @@
     "dob": "1970-03-15",
     "sex": "M",
     "mrn": "MRN-483920",
+    "age": 56,
+    "phone": "(617) 555-0142",
+    "language": "English",
+    "pharmacy": "CVS Pharmacy - Cambridge",
+    "height": "5'11\" (180 cm)",
+    "weight": "198 lbs (90 kg)",
+    "bmi": 27.6,
+    "allergies": [
+      { "name": "Penicillin", "reaction": "Rash", "severity": "moderate" }
+    ],
+    "careTeam": [
+      { "name": "Dr. A. Patel", "role": "PCP", "specialty": "Internal Medicine" },
+      { "name": "Dr. M. Chen", "role": "Endo", "specialty": "Endocrinology" },
+      { "name": "L. Kim, RN", "role": "Care Coord" }
+    ],
     "summary": {
-      "allergies": [
-        "Penicillin (rash)"
-      ],
-      "careTeam": [
-        "A. Patel, MD (Primary Care)",
-        "L. Kim, RN (Care Manager)"
-      ],
+      "allergies": ["Penicillin (rash)"],
+      "careTeam": ["A. Patel, MD (Primary Care)", "L. Kim, RN (Care Manager)"],
       "problemsAtAGlance": [
         "Type 2 diabetes mellitus",
         "Hypertension",
@@ -30,13 +40,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Annual physical exam",
-      "vitals": {
-        "hr": 76,
-        "bp_sys": 128,
-        "bp_dia": 82,
-        "spo2": 98,
-        "temp_c": 36.6
-      },
+      "vitals": { "hr": 76, "bp_sys": 128, "bp_dia": 82, "spo2": 98, "temp_c": 36.6 },
       "labs": {
         "a1c_pct": 5.4,
         "glucose_mg_dl": 98,
@@ -59,13 +63,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Annual physical exam",
-      "vitals": {
-        "hr": 78,
-        "bp_sys": 132,
-        "bp_dia": 84,
-        "spo2": 98,
-        "temp_c": 36.7
-      },
+      "vitals": { "hr": 78, "bp_sys": 132, "bp_dia": 84, "spo2": 98, "temp_c": 36.7 },
       "labs": {
         "a1c_pct": 5.5,
         "glucose_mg_dl": 102,
@@ -88,13 +86,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Routine checkup, knee pain",
-      "vitals": {
-        "hr": 80,
-        "bp_sys": 138,
-        "bp_dia": 86,
-        "spo2": 97,
-        "temp_c": 36.6
-      },
+      "vitals": { "hr": 80, "bp_sys": 138, "bp_dia": 86, "spo2": 97, "temp_c": 36.6 },
       "labs": {
         "a1c_pct": 5.6,
         "glucose_mg_dl": 108,
@@ -117,13 +109,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Annual physical exam",
-      "vitals": {
-        "hr": 82,
-        "bp_sys": 134,
-        "bp_dia": 84,
-        "spo2": 98,
-        "temp_c": 36.7
-      },
+      "vitals": { "hr": 82, "bp_sys": 134, "bp_dia": 84, "spo2": 98, "temp_c": 36.7 },
       "labs": {
         "a1c_pct": 5.7,
         "glucose_mg_dl": 112,
@@ -146,13 +132,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Annual physical exam",
-      "vitals": {
-        "hr": 84,
-        "bp_sys": 136,
-        "bp_dia": 86,
-        "spo2": 98,
-        "temp_c": 36.6
-      },
+      "vitals": { "hr": 84, "bp_sys": 136, "bp_dia": 86, "spo2": 98, "temp_c": 36.6 },
       "labs": {
         "a1c_pct": 5.9,
         "glucose_mg_dl": 118,
@@ -175,13 +155,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Prediabetes follow-up",
-      "vitals": {
-        "hr": 82,
-        "bp_sys": 140,
-        "bp_dia": 88,
-        "spo2": 98,
-        "temp_c": 36.7
-      },
+      "vitals": { "hr": 82, "bp_sys": 140, "bp_dia": 88, "spo2": 98, "temp_c": 36.7 },
       "labs": {
         "a1c_pct": 6.1,
         "glucose_mg_dl": 124,
@@ -204,13 +178,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Annual physical exam, elevated BP",
-      "vitals": {
-        "hr": 86,
-        "bp_sys": 148,
-        "bp_dia": 92,
-        "spo2": 97,
-        "temp_c": 36.7
-      },
+      "vitals": { "hr": 86, "bp_sys": 148, "bp_dia": 92, "spo2": 97, "temp_c": 36.7 },
       "labs": {
         "a1c_pct": 6.2,
         "glucose_mg_dl": 128,
@@ -249,13 +217,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "BP follow-up, medication check",
-      "vitals": {
-        "hr": 78,
-        "bp_sys": 138,
-        "bp_dia": 86,
-        "spo2": 98,
-        "temp_c": 36.6
-      },
+      "vitals": { "hr": 78, "bp_sys": 138, "bp_dia": 86, "spo2": 98, "temp_c": 36.6 },
       "labs": {
         "a1c_pct": 6.3,
         "glucose_mg_dl": 132,
@@ -287,13 +249,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Annual physical exam (delayed due to COVID)",
-      "vitals": {
-        "hr": 84,
-        "bp_sys": 142,
-        "bp_dia": 88,
-        "spo2": 97,
-        "temp_c": 36.7
-      },
+      "vitals": { "hr": 84, "bp_sys": 142, "bp_dia": 88, "spo2": 97, "temp_c": 36.7 },
       "labs": {
         "a1c_pct": 6.4,
         "glucose_mg_dl": 138,
@@ -316,13 +272,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Metabolic follow-up",
-      "vitals": {
-        "hr": 86,
-        "bp_sys": 144,
-        "bp_dia": 90,
-        "spo2": 97,
-        "temp_c": 36.8
-      },
+      "vitals": { "hr": 86, "bp_sys": 144, "bp_dia": 90, "spo2": 97, "temp_c": 36.8 },
       "labs": {
         "a1c_pct": 6.4,
         "glucose_mg_dl": 142,
@@ -345,13 +295,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Annual physical exam",
-      "vitals": {
-        "hr": 88,
-        "bp_sys": 146,
-        "bp_dia": 90,
-        "spo2": 97,
-        "temp_c": 36.7
-      },
+      "vitals": { "hr": 88, "bp_sys": 146, "bp_dia": 90, "spo2": 97, "temp_c": 36.7 },
       "labs": {
         "a1c_pct": 6.8,
         "glucose_mg_dl": 152,
@@ -390,13 +334,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Diabetes follow-up",
-      "vitals": {
-        "hr": 84,
-        "bp_sys": 142,
-        "bp_dia": 88,
-        "spo2": 98,
-        "temp_c": 36.6
-      },
+      "vitals": { "hr": 84, "bp_sys": 142, "bp_dia": 88, "spo2": 98, "temp_c": 36.6 },
       "labs": {
         "a1c_pct": 7.2,
         "glucose_mg_dl": 158,
@@ -408,7 +346,20 @@
         "sodium_meq_l": 141,
         "potassium_meq_l": 4.3
       },
-      "diagnosesEvents": [],
+      "diagnosesEvents": [
+        {
+          "id": "dx-dm-addr-1",
+          "code": "E11.9",
+          "label": "Type 2 diabetes mellitus",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-htn-addr-1",
+          "code": "I10",
+          "label": "Essential hypertension",
+          "action": "addressed"
+        }
+      ],
       "medicationEvents": [
         {
           "id": "med-ator-001",
@@ -428,13 +379,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Annual physical, fatigue, weight gain",
-      "vitals": {
-        "hr": 88,
-        "bp_sys": 142,
-        "bp_dia": 88,
-        "spo2": 97,
-        "temp_c": 36.7
-      },
+      "vitals": { "hr": 88, "bp_sys": 142, "bp_dia": 88, "spo2": 97, "temp_c": 36.7 },
       "labs": {
         "a1c_pct": 7.5,
         "glucose_mg_dl": 168,
@@ -475,6 +420,15 @@
           "route": "PO",
           "frequency": "BID",
           "action": "change"
+        },
+        {
+          "id": "med-iron-001",
+          "name": "Ferrous sulfate",
+          "dose": "325 mg",
+          "route": "PO",
+          "frequency": "Daily",
+          "action": "start",
+          "indication": "Anemia"
         }
       ],
       "notes": "eGFR now 68 - CKD Stage 3 diagnosed. TSH elevated at 6.8 - new hypothyroidism, starting levothyroxine. Mild anemia noted. A1c 7.5% - increased metformin to 1000 BID. LDL improved on statin."
@@ -486,13 +440,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "3-month follow-up, lab review",
-      "vitals": {
-        "hr": 82,
-        "bp_sys": 138,
-        "bp_dia": 86,
-        "spo2": 98,
-        "temp_c": 36.6
-      },
+      "vitals": { "hr": 82, "bp_sys": 138, "bp_dia": 86, "spo2": 98, "temp_c": 36.6 },
       "labs": {
         "a1c_pct": 7.6,
         "glucose_mg_dl": 168,
@@ -505,7 +453,26 @@
         "sodium_meq_l": 141,
         "potassium_meq_l": 4.4
       },
-      "diagnosesEvents": [],
+      "diagnosesEvents": [
+        {
+          "id": "dx-dm-addr-2",
+          "code": "E11.9",
+          "label": "Type 2 diabetes mellitus",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-hypo-addr-1",
+          "code": "E03.9",
+          "label": "Hypothyroidism",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-ckd-addr-1",
+          "code": "N18.3",
+          "label": "CKD Stage 3",
+          "action": "addressed"
+        }
+      ],
       "medicationEvents": [],
       "notes": "A1c trending up slightly. TSH normalized on levothyroxine. Continue current regimen."
     },
@@ -516,13 +483,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Fatigue, increased thirst, elevated home BP readings",
-      "vitals": {
-        "hr": 92,
-        "bp_sys": 152,
-        "bp_dia": 94,
-        "spo2": 98,
-        "temp_c": 36.8
-      },
+      "vitals": { "hr": 92, "bp_sys": 152, "bp_dia": 94, "spo2": 98, "temp_c": 36.8 },
       "labs": {
         "a1c_pct": 8.4,
         "glucose_mg_dl": 198,
@@ -534,7 +495,26 @@
         "sodium_meq_l": 139,
         "potassium_meq_l": 4.6
       },
-      "diagnosesEvents": [],
+      "diagnosesEvents": [
+        {
+          "id": "dx-dm-addr-3",
+          "code": "E11.9",
+          "label": "Type 2 diabetes mellitus",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-htn-addr-2",
+          "code": "I10",
+          "label": "Essential hypertension",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-ckd-addr-2",
+          "code": "N18.3",
+          "label": "CKD Stage 3",
+          "action": "addressed"
+        }
+      ],
       "medicationEvents": [
         {
           "id": "med-lis-003",
@@ -567,13 +547,7 @@
       "setting": "Urgent Care",
       "location": "Urgent Care Center",
       "reason": "Blurred vision, polyuria, reports stopped meds 2 months ago",
-      "vitals": {
-        "hr": 108,
-        "bp_sys": 162,
-        "bp_dia": 98,
-        "spo2": 96,
-        "temp_c": 37.2
-      },
+      "vitals": { "hr": 108, "bp_sys": 162, "bp_dia": 98, "spo2": 96, "temp_c": 37.2 },
       "labs": {
         "a1c_pct": 10.8,
         "glucose_mg_dl": 342,
@@ -628,13 +602,7 @@
       "setting": "Emergency",
       "location": "Hospital ED",
       "reason": "Chest pain, palpitations",
-      "vitals": {
-        "hr": 112,
-        "bp_sys": 158,
-        "bp_dia": 96,
-        "spo2": 97,
-        "temp_c": 37.0
-      },
+      "vitals": { "hr": 112, "bp_sys": 158, "bp_dia": 96, "spo2": 97, "temp_c": 37.0 },
       "labs": {
         "glucose_mg_dl": 268,
         "creatinine_mg_dl": 1.22,
@@ -653,13 +621,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Post-ED and post-UC follow-up",
-      "vitals": {
-        "hr": 88,
-        "bp_sys": 148,
-        "bp_dia": 92,
-        "spo2": 98,
-        "temp_c": 36.7
-      },
+      "vitals": { "hr": 88, "bp_sys": 148, "bp_dia": 92, "spo2": 98, "temp_c": 36.7 },
       "labs": {
         "a1c_pct": 9.8,
         "glucose_mg_dl": 238,
@@ -687,6 +649,14 @@
           "route": "PO",
           "frequency": "Daily",
           "action": "change"
+        },
+        {
+          "id": "med-iron-stop-001",
+          "name": "Ferrous sulfate",
+          "dose": "325 mg",
+          "route": "PO",
+          "frequency": "Daily",
+          "action": "stop"
         }
       ],
       "notes": "Recovering from metabolic crisis. A1c still very elevated. Increased lisinopril. Anemia resolved. Close monitoring needed."
@@ -698,13 +668,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Quarterly diabetes check",
-      "vitals": {
-        "hr": 78,
-        "bp_sys": 136,
-        "bp_dia": 84,
-        "spo2": 98,
-        "temp_c": 36.6
-      },
+      "vitals": { "hr": 78, "bp_sys": 136, "bp_dia": 84, "spo2": 98, "temp_c": 36.6 },
       "labs": {
         "a1c_pct": 8.2,
         "glucose_mg_dl": 186,
@@ -717,7 +681,38 @@
         "sodium_meq_l": 141,
         "potassium_meq_l": 4.3
       },
-      "diagnosesEvents": [],
+      "diagnosesEvents": [
+        {
+          "id": "dx-dm-exac-end",
+          "code": "E11.9",
+          "label": "Type 2 diabetes mellitus",
+          "action": "exacerbation_end"
+        },
+        {
+          "id": "dx-dm-addr-4",
+          "code": "E11.9",
+          "label": "Type 2 diabetes mellitus",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-htn-addr-3",
+          "code": "I10",
+          "label": "Essential hypertension",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-hypo-addr-2",
+          "code": "E03.9",
+          "label": "Hypothyroidism",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-ckd-addr-3",
+          "code": "N18.3",
+          "label": "CKD Stage 3",
+          "action": "addressed"
+        }
+      ],
       "medicationEvents": [],
       "notes": "Improving. A1c down from 9.8 to 8.2. Continue current regimen."
     },
@@ -728,13 +723,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Routine follow-up",
-      "vitals": {
-        "hr": 74,
-        "bp_sys": 128,
-        "bp_dia": 80,
-        "spo2": 98,
-        "temp_c": 36.6
-      },
+      "vitals": { "hr": 74, "bp_sys": 128, "bp_dia": 80, "spo2": 98, "temp_c": 36.6 },
       "labs": {
         "a1c_pct": 7.4,
         "glucose_mg_dl": 152,
@@ -746,7 +735,26 @@
         "sodium_meq_l": 142,
         "potassium_meq_l": 4.1
       },
-      "diagnosesEvents": [],
+      "diagnosesEvents": [
+        {
+          "id": "dx-dm-addr-5",
+          "code": "E11.9",
+          "label": "Type 2 diabetes mellitus",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-htn-addr-4",
+          "code": "I10",
+          "label": "Essential hypertension",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-ckd-addr-4",
+          "code": "N18.3",
+          "label": "CKD Stage 3",
+          "action": "addressed"
+        }
+      ],
       "medicationEvents": [],
       "notes": "Excellent progress. A1c approaching goal. BP at target. Continue current management."
     },
@@ -757,13 +765,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Routine follow-up",
-      "vitals": {
-        "hr": 72,
-        "bp_sys": 124,
-        "bp_dia": 78,
-        "spo2": 99,
-        "temp_c": 36.5
-      },
+      "vitals": { "hr": 72, "bp_sys": 124, "bp_dia": 78, "spo2": 99, "temp_c": 36.5 },
       "labs": {
         "a1c_pct": 6.9,
         "glucose_mg_dl": 128,
@@ -776,7 +778,32 @@
         "sodium_meq_l": 141,
         "potassium_meq_l": 4.0
       },
-      "diagnosesEvents": [],
+      "diagnosesEvents": [
+        {
+          "id": "dx-dm-addr-6",
+          "code": "E11.9",
+          "label": "Type 2 diabetes mellitus",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-htn-addr-5",
+          "code": "I10",
+          "label": "Essential hypertension",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-hypo-addr-3",
+          "code": "E03.9",
+          "label": "Hypothyroidism",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-ckd-addr-5",
+          "code": "N18.3",
+          "label": "CKD Stage 3",
+          "action": "addressed"
+        }
+      ],
       "medicationEvents": [
         {
           "id": "med-met-004",
@@ -796,13 +823,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Routine follow-up",
-      "vitals": {
-        "hr": 70,
-        "bp_sys": 122,
-        "bp_dia": 76,
-        "spo2": 98,
-        "temp_c": 36.6
-      },
+      "vitals": { "hr": 70, "bp_sys": 122, "bp_dia": 76, "spo2": 98, "temp_c": 36.6 },
       "labs": {
         "a1c_pct": 6.8,
         "glucose_mg_dl": 122,
@@ -814,7 +835,26 @@
         "sodium_meq_l": 140,
         "potassium_meq_l": 4.2
       },
-      "diagnosesEvents": [],
+      "diagnosesEvents": [
+        {
+          "id": "dx-dm-addr-7",
+          "code": "E11.9",
+          "label": "Type 2 diabetes mellitus",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-htn-addr-6",
+          "code": "I10",
+          "label": "Essential hypertension",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-ckd-addr-6",
+          "code": "N18.3",
+          "label": "CKD Stage 3",
+          "action": "addressed"
+        }
+      ],
       "medicationEvents": [],
       "notes": "Stable and well-controlled. Continue current regimen."
     },
@@ -825,13 +865,7 @@
       "setting": "Primary Care",
       "location": "Outpatient",
       "reason": "Annual review",
-      "vitals": {
-        "hr": 72,
-        "bp_sys": 120,
-        "bp_dia": 78,
-        "spo2": 98,
-        "temp_c": 36.7
-      },
+      "vitals": { "hr": 72, "bp_sys": 120, "bp_dia": 78, "spo2": 98, "temp_c": 36.7 },
       "labs": {
         "a1c_pct": 6.7,
         "glucose_mg_dl": 118,
@@ -844,13 +878,140 @@
         "sodium_meq_l": 141,
         "potassium_meq_l": 4.1
       },
-      "diagnosesEvents": [],
+      "diagnosesEvents": [
+        {
+          "id": "dx-dm-addr-8",
+          "code": "E11.9",
+          "label": "Type 2 diabetes mellitus",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-htn-addr-7",
+          "code": "I10",
+          "label": "Essential hypertension",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-hypo-addr-4",
+          "code": "E03.9",
+          "label": "Hypothyroidism",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-ckd-addr-7",
+          "code": "N18.3",
+          "label": "CKD Stage 3",
+          "action": "addressed"
+        }
+      ],
       "medicationEvents": [],
       "notes": "Excellent control across all metrics. Patient adherent, engaged in care. Continue current management."
     }
   ],
+  "patientReported": [
+    {
+      "date": "2018-03-20",
+      "source": "encounter",
+      "fatigue": 3,
+      "pain": 1,
+      "functional_limitation": 1,
+      "distress": 3,
+      "narrative": "Feeling a bit more tired than usual. Worried about the new diagnosis."
+    },
+    {
+      "date": "2019-08-10",
+      "source": "app",
+      "fatigue": 5,
+      "pain": 3,
+      "functional_limitation": 2,
+      "distress": 5,
+      "narrative": "Can't shake this exhaustion. Feet tingling at night. Struggling to keep up with work."
+    },
+    {
+      "date": "2020-12-08",
+      "source": "encounter",
+      "fatigue": 4,
+      "pain": 3,
+      "functional_limitation": 3,
+      "distress": 4,
+      "narrative": "The pandemic has been rough. Hard to stay active. Pain in my feet is constant now."
+    },
+    {
+      "date": "2021-09-15",
+      "source": "app",
+      "fatigue": 6,
+      "pain": 4,
+      "functional_limitation": 4,
+      "distress": 5,
+      "narrative": "Everything feels harder. Walking to the mailbox wipes me out. Tingling has moved up to my ankles."
+    },
+    {
+      "date": "2022-06-15",
+      "source": "encounter",
+      "fatigue": 6,
+      "pain": 5,
+      "functional_limitation": 4,
+      "distress": 5,
+      "narrative": "The anemia is making things worse. I'm exhausted all the time and the foot pain keeps me up."
+    },
+    {
+      "date": "2023-01-10",
+      "source": "encounter",
+      "fatigue": 4,
+      "pain": 3,
+      "functional_limitation": 3,
+      "distress": 3,
+      "narrative": "Iron supplements seem to be helping with energy. Pain is more manageable."
+    },
+    {
+      "date": "2023-09-15",
+      "source": "encounter",
+      "fatigue": 6,
+      "pain": 5,
+      "functional_limitation": 5,
+      "distress": 7,
+      "narrative": "Blood sugar is out of control again. I feel awful \u2014 exhausted, feet burning, can barely focus at work."
+    },
+    {
+      "date": "2023-09-25",
+      "source": "app",
+      "fatigue": 7,
+      "pain": 6,
+      "functional_limitation": 5,
+      "distress": 6,
+      "narrative": "Worst week in a long time. Called in sick twice. The new medication is making me nauseous on top of everything."
+    },
+    {
+      "date": "2024-01-20",
+      "source": "encounter",
+      "fatigue": 4,
+      "pain": 3,
+      "functional_limitation": 3,
+      "distress": 3,
+      "narrative": "Starting to turn a corner. New regimen is working. Still some foot pain but energy is better."
+    },
+    {
+      "date": "2024-07-25",
+      "source": "encounter",
+      "fatigue": 3,
+      "pain": 2,
+      "functional_limitation": 2,
+      "distress": 2,
+      "narrative": "Best I've felt in years. Walking 20 minutes a day now. Mood is much better."
+    },
+    {
+      "date": "2025-01-15",
+      "source": "encounter",
+      "fatigue": 2,
+      "pain": 2,
+      "functional_limitation": 2,
+      "distress": 1,
+      "narrative": "Feeling great. Sticking with the routine. Occasional tingling but it doesn't slow me down."
+    }
+  ],
   "domainConfig": {
     "defaultTrackOrder": [
+      "patient_reported",
       "diagnoses",
       "encounters",
       "vitals",
@@ -858,6 +1019,10 @@
       "medications"
     ],
     "tracks": {
+      "patient_reported": {
+        "type": "patient_reported",
+        "subtypes": ["fatigue", "pain", "functional_limitation", "distress"]
+      },
       "diagnoses": {
         "type": "continuous",
         "subtypes": [
@@ -869,16 +1034,15 @@
       },
       "encounters": {
         "type": "structural",
-        "subtypes": [
-          "encounter"
-        ]
+        "subtypes": ["encounter"]
       },
       "medications": {
         "type": "continuous",
         "subtypes": [
           "metformin",
           "lisinopril",
-          "atorvastatin"
+          "atorvastatin",
+          "ferrous_sulfate"
         ]
       },
       "labs": {
@@ -898,12 +1062,7 @@
       },
       "vitals": {
         "type": "point_in_time",
-        "subtypes": [
-          "hr",
-          "bp",
-          "spo2",
-          "temp_c"
-        ]
+        "subtypes": ["hr", "bp", "spo2", "temp_c"]
       }
     }
   }

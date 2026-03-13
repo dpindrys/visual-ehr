@@ -1,27 +1,22 @@
 import { useMemo } from 'react'
 import { Segment } from '../utils/types'
-import { getGapWidth } from '../utils/helpers'
+import { formatDateShort } from '../utils/helpers'
 
 interface TimelineRulerProps {
   segments: Segment[]
   contextHighlightSegmentId?: string
+  onContextHighlight?: (segmentId?: string) => void
 }
 
-const TimelineRuler = ({ segments, contextHighlightSegmentId }: TimelineRulerProps) => {
-  // Generate grid template columns matching TrackStack
+const TimelineRuler = ({ segments, contextHighlightSegmentId, onContextHighlight }: TimelineRulerProps) => {
   const gridTemplateColumns = useMemo(() => {
-    return segments.map(segment => {
-      if (segment.type === 'encounter') {
-        return 'minmax(120px, 1fr)'
-      } else {
-        const minWidth = getGapWidth(segment.durationDays || 0)
-        return `minmax(${minWidth}px, 1fr)`
-      }
-    }).join(' ')
+    if (segments.length === 0) return ''
+    const colWidth = 100 / segments.length
+    return segments.map(() => `${colWidth}%`).join(' ')
   }, [segments])
 
   return (
-    <div 
+    <div
       className="timeline-ruler"
       style={{ display: 'grid', gridTemplateColumns }}
     >
@@ -31,8 +26,12 @@ const TimelineRuler = ({ segments, contextHighlightSegmentId }: TimelineRulerPro
           className={`timeline-segment ${segment.type === 'gap' ? 'gap' : 'encounter'} ${
             contextHighlightSegmentId === segment.id ? 'context-highlighted' : ''
           }`}
+          onMouseEnter={() => onContextHighlight?.(segment.id)}
+          onMouseLeave={() => onContextHighlight?.(undefined)}
         >
-          {segment.label}
+          {segment.type === 'encounter' && segment.date
+            ? formatDateShort(segment.date)
+            : segment.label}
         </div>
       ))}
     </div>
