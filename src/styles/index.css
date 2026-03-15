@@ -1812,54 +1812,56 @@ body,
   top: 50%;
   transform: translateY(-50%) rotate(90deg);
 }
-.pro-track {
-  position: relative;
-  grid-column: 1 / -1;
-  border-bottom: 1px solid #d1d5db;
-  background-color: #fefefe;
-  overflow: visible;
+.pro-row {
+  display: contents;
 }
-.pro-line-group {
-  pointer-events: none;
+.pro-row.row-highlighted .pro-cell {
+  box-shadow:
+    inset 0 2px #6b7280,
+    inset 0 -2px #6b7280;
 }
-.pro-severity-label {
-  font-size: 9px;
-  fill: #9ca3af;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-.pro-line-group {
-  transition: opacity 0.2s ease;
-}
-.pro-header-cell {
+.pro-cell {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #e5e7eb;
-  border-right: 1px solid #d1d5db;
-  border-bottom: 1px solid #d1d5db;
   min-height: 32px;
-  padding: 8px 0;
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  transition: box-shadow 0.1s ease;
 }
-.pro-header-cell.has-note {
-  cursor: pointer;
+.pro-cell.empty {
+  background-color: transparent;
 }
-.pro-header-note-icon {
-  color: #6b7280;
-  opacity: 0.45;
-  transition:
-    opacity 0.15s ease,
-    color 0.15s ease;
-  flex-shrink: 0;
-}
-.pro-header-cell.has-note:hover .pro-header-note-icon {
-  opacity: 0.85;
-  color: #374151;
-}
-.pro-header-cell.has-note:active .pro-header-note-icon {
-  opacity: 1;
+.pro-cell.severity-low {
+  background-color: #fdf2f8;
   color: #111827;
+}
+.pro-cell.severity-moderate {
+  background-color: #fbcfe8;
+  color: #111827;
+}
+.pro-cell.severity-high {
+  background-color: #ec4899;
+  color: #ffffff;
+}
+.pro-cell.severity-very-high {
+  background-color: #be185d;
+  color: #ffffff;
+}
+.pro-cell.context-highlighted {
+  box-shadow:
+    inset 2px 0 #6b7280,
+    inset -2px 0 #6b7280;
+}
+.pro-cell-content {
+  white-space: nowrap;
+  letter-spacing: -0.02em;
 }
 .tooltip-pro-divider {
   height: 1px;

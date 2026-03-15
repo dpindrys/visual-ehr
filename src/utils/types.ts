@@ -34,10 +34,10 @@ export type PatientInfo = {
 export type PatientReportedEntry = {
   date: string
   source: 'encounter' | 'patient_app'
-  fatigue: number
-  pain: number
-  functional_limitation: number
-  distress: number
+  fatigue?: number
+  pain?: number
+  functional_limitation?: number
+  distress?: number
   narrative?: string
   [key: string]: string | number | undefined
 }

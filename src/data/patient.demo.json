@@ -912,101 +912,446 @@
     {
       "date": "2018-03-20",
       "source": "encounter",
-      "fatigue": 3,
-      "pain": 1,
-      "functional_limitation": 1,
       "distress": 3,
-      "narrative": "Feeling a bit more tired than usual. Worried about the new diagnosis."
+      "narrative": "Worried about the new diagnosis. What does this mean for me?"
     },
     {
-      "date": "2019-08-10",
-      "source": "app",
-      "fatigue": 5,
+      "date": "2018-05-15",
+      "source": "patient_app",
+      "fatigue": 2
+    },
+    {
+      "date": "2018-07-20",
+      "source": "patient_app",
+      "fatigue": 3,
+      "pain": 1
+    },
+    {
+      "date": "2019-01-10",
+      "source": "patient_app",
+      "fatigue": 3
+    },
+    {
+      "date": "2019-02-25",
+      "source": "patient_app",
+      "fatigue": 3,
+      "pain": 2,
+      "distress": 3
+    },
+    {
+      "date": "2019-04-15",
+      "source": "encounter",
+      "fatigue": 3,
+      "pain": 3
+    },
+    {
+      "date": "2019-06-02",
+      "source": "patient_app",
+      "fatigue": 4,
+      "pain": 3
+    },
+    {
+      "date": "2019-07-20",
+      "source": "patient_app",
+      "fatigue": 4
+    },
+    {
+      "date": "2019-09-08",
+      "source": "patient_app",
+      "fatigue": 4,
       "pain": 3,
-      "functional_limitation": 2,
+      "distress": 4,
+      "narrative": "Feet tingling worse at night. Hard to get comfortable."
+    },
+    {
+      "date": "2019-10-15",
+      "source": "patient_app",
+      "pain": 4
+    },
+    {
+      "date": "2019-11-12",
+      "source": "encounter",
+      "fatigue": 5,
+      "pain": 4,
+      "distress": 4,
+      "narrative": "Can't shake this exhaustion. The tingling turned into real pain."
+    },
+    {
+      "date": "2020-01-10",
+      "source": "patient_app",
+      "fatigue": 4,
+      "distress": 4
+    },
+    {
+      "date": "2020-02-20",
+      "source": "patient_app",
+      "fatigue": 5,
+      "pain": 3
+    },
+    {
+      "date": "2020-03-25",
+      "source": "patient_app",
+      "fatigue": 5,
       "distress": 5,
-      "narrative": "Can't shake this exhaustion. Feet tingling at night. Struggling to keep up with work."
+      "narrative": "Everything shut down. Scared to go to the doctor. Not sleeping well."
+    },
+    {
+      "date": "2020-04-12",
+      "source": "patient_app",
+      "fatigue": 5,
+      "pain": 4,
+      "distress": 6
+    },
+    {
+      "date": "2020-07-05",
+      "source": "patient_app",
+      "fatigue": 5,
+      "pain": 4
+    },
+    {
+      "date": "2020-08-22",
+      "source": "patient_app",
+      "fatigue": 6,
+      "pain": 4,
+      "distress": 5
+    },
+    {
+      "date": "2020-10-10",
+      "source": "patient_app",
+      "fatigue": 5,
+      "pain": 3
     },
     {
       "date": "2020-12-08",
       "source": "encounter",
       "fatigue": 4,
-      "pain": 3,
-      "functional_limitation": 3,
-      "distress": 4,
-      "narrative": "The pandemic has been rough. Hard to stay active. Pain in my feet is constant now."
+      "pain": 3
     },
     {
-      "date": "2021-09-15",
-      "source": "app",
+      "date": "2021-02-08",
+      "source": "patient_app",
+      "fatigue": 5,
+      "pain": 4
+    },
+    {
+      "date": "2021-03-20",
+      "source": "patient_app",
       "fatigue": 6,
       "pain": 4,
-      "functional_limitation": 4,
+      "narrative": "So tired all the time. Dragging myself through the day."
+    },
+    {
+      "date": "2021-04-15",
+      "source": "patient_app",
+      "fatigue": 5,
+      "pain": 4,
+      "functional_limitation": 3
+    },
+    {
+      "date": "2021-05-10",
+      "source": "patient_app",
+      "fatigue": 6,
+      "pain": 5
+    },
+    {
+      "date": "2021-06-22",
+      "source": "encounter",
+      "fatigue": 6,
+      "functional_limitation": 4
+    },
+    {
+      "date": "2021-08-05",
+      "source": "patient_app",
+      "fatigue": 6,
+      "pain": 5
+    },
+    {
+      "date": "2021-09-12",
+      "source": "patient_app",
+      "fatigue": 7,
+      "pain": 5,
       "distress": 5,
-      "narrative": "Everything feels harder. Walking to the mailbox wipes me out. Tingling has moved up to my ankles."
+      "narrative": "So tired I can barely make dinner. Feet burning at night again."
+    },
+    {
+      "date": "2021-10-02",
+      "source": "patient_app",
+      "fatigue": 6,
+      "pain": 5,
+      "functional_limitation": 4
+    },
+    {
+      "date": "2021-10-28",
+      "source": "patient_app",
+      "fatigue": 7,
+      "pain": 5
+    },
+    {
+      "date": "2021-11-15",
+      "source": "patient_app",
+      "fatigue": 7,
+      "distress": 6
+    },
+    {
+      "date": "2021-12-14",
+      "source": "encounter",
+      "fatigue": 7,
+      "pain": 5,
+      "functional_limitation": 5,
+      "distress": 6,
+      "narrative": "They said my iron is low now on top of everything. That explains a lot."
+    },
+    {
+      "date": "2022-01-15",
+      "source": "patient_app",
+      "fatigue": 7,
+      "pain": 6
+    },
+    {
+      "date": "2022-02-08",
+      "source": "patient_app",
+      "fatigue": 8,
+      "pain": 6,
+      "distress": 6,
+      "narrative": "Had to leave work early twice this week. Can't concentrate through the pain."
+    },
+    {
+      "date": "2022-02-25",
+      "source": "patient_app",
+      "fatigue": 7,
+      "pain": 5
+    },
+    {
+      "date": "2022-03-15",
+      "source": "patient_app",
+      "fatigue": 7,
+      "pain": 6,
+      "functional_limitation": 5
+    },
+    {
+      "date": "2022-04-05",
+      "source": "patient_app",
+      "fatigue": 8,
+      "pain": 7
+    },
+    {
+      "date": "2022-04-28",
+      "source": "patient_app",
+      "fatigue": 7,
+      "pain": 6,
+      "distress": 6
+    },
+    {
+      "date": "2022-05-18",
+      "source": "patient_app",
+      "fatigue": 7,
+      "functional_limitation": 6,
+      "distress": 7
     },
     {
       "date": "2022-06-15",
       "source": "encounter",
+      "fatigue": 7,
+      "pain": 6,
+      "distress": 6,
+      "narrative": "The anemia is making things worse. Exhausted all the time."
+    },
+    {
+      "date": "2022-07-15",
+      "source": "patient_app",
       "fatigue": 6,
-      "pain": 5,
-      "functional_limitation": 4,
-      "distress": 5,
-      "narrative": "The anemia is making things worse. I'm exhausted all the time and the foot pain keeps me up."
+      "pain": 5
+    },
+    {
+      "date": "2022-08-10",
+      "source": "patient_app",
+      "fatigue": 5,
+      "pain": 4,
+      "distress": 5
+    },
+    {
+      "date": "2022-11-05",
+      "source": "patient_app",
+      "fatigue": 5,
+      "pain": 3
+    },
+    {
+      "date": "2022-12-10",
+      "source": "patient_app",
+      "fatigue": 4,
+      "pain": 3
     },
     {
       "date": "2023-01-10",
       "source": "encounter",
       "fatigue": 4,
-      "pain": 3,
-      "functional_limitation": 3,
-      "distress": 3,
-      "narrative": "Iron supplements seem to be helping with energy. Pain is more manageable."
+      "pain": 3
+    },
+    {
+      "date": "2023-02-22",
+      "source": "patient_app",
+      "fatigue": 4
+    },
+    {
+      "date": "2023-04-05",
+      "source": "patient_app",
+      "fatigue": 4,
+      "distress": 3
+    },
+    {
+      "date": "2023-06-15",
+      "source": "patient_app",
+      "fatigue": 4,
+      "pain": 3
+    },
+    {
+      "date": "2023-07-20",
+      "source": "patient_app",
+      "fatigue": 5,
+      "pain": 4
+    },
+    {
+      "date": "2023-08-08",
+      "source": "patient_app",
+      "fatigue": 5,
+      "pain": 4,
+      "distress": 5,
+      "narrative": "Feet started acting up again this week. Hoping it passes."
+    },
+    {
+      "date": "2023-08-25",
+      "source": "patient_app",
+      "fatigue": 6,
+      "pain": 5,
+      "distress": 6
+    },
+    {
+      "date": "2023-09-05",
+      "source": "patient_app",
+      "fatigue": 7,
+      "pain": 6,
+      "distress": 7,
+      "narrative": "Something is really wrong. Worst I've felt in months."
+    },
+    {
+      "date": "2023-09-10",
+      "source": "patient_app",
+      "fatigue": 8,
+      "pain": 7,
+      "narrative": "Called the nurse line. They moved my appointment up."
     },
     {
       "date": "2023-09-15",
       "source": "encounter",
-      "fatigue": 6,
-      "pain": 5,
-      "functional_limitation": 5,
-      "distress": 7,
-      "narrative": "Blood sugar is out of control again. I feel awful \u2014 exhausted, feet burning, can barely focus at work."
+      "fatigue": 8,
+      "pain": 7,
+      "functional_limitation": 6,
+      "distress": 8,
+      "narrative": "Blood sugar is out of control again. I feel awful."
     },
     {
-      "date": "2023-09-25",
-      "source": "app",
+      "date": "2023-09-18",
+      "source": "patient_app",
+      "fatigue": 9,
+      "pain": 7,
+      "distress": 8
+    },
+    {
+      "date": "2023-09-20",
+      "source": "patient_app",
+      "fatigue": 8,
+      "pain": 8,
+      "narrative": "New meds making me nauseous on top of everything. Missed work again."
+    },
+    {
+      "date": "2023-09-28",
+      "source": "patient_app",
+      "fatigue": 7,
+      "pain": 6
+    },
+    {
+      "date": "2023-10-08",
+      "source": "patient_app",
       "fatigue": 7,
       "pain": 6,
-      "functional_limitation": 5,
-      "distress": 6,
-      "narrative": "Worst week in a long time. Called in sick twice. The new medication is making me nauseous on top of everything."
+      "functional_limitation": 6,
+      "distress": 7
+    },
+    {
+      "date": "2023-10-15",
+      "source": "encounter",
+      "fatigue": 7,
+      "distress": 6
+    },
+    {
+      "date": "2023-11-05",
+      "source": "patient_app",
+      "fatigue": 6,
+      "pain": 5
+    },
+    {
+      "date": "2023-11-28",
+      "source": "patient_app",
+      "fatigue": 5,
+      "pain": 4
+    },
+    {
+      "date": "2023-12-15",
+      "source": "patient_app",
+      "fatigue": 5,
+      "pain": 3,
+      "distress": 4
     },
     {
       "date": "2024-01-20",
       "source": "encounter",
       "fatigue": 4,
       "pain": 3,
-      "functional_limitation": 3,
-      "distress": 3,
-      "narrative": "Starting to turn a corner. New regimen is working. Still some foot pain but energy is better."
+      "narrative": "Starting to turn a corner. New regimen is working."
+    },
+    {
+      "date": "2024-02-25",
+      "source": "patient_app",
+      "fatigue": 3,
+      "pain": 2
+    },
+    {
+      "date": "2024-03-20",
+      "source": "patient_app",
+      "fatigue": 3
+    },
+    {
+      "date": "2024-05-22",
+      "source": "patient_app",
+      "fatigue": 3,
+      "pain": 2
+    },
+    {
+      "date": "2024-06-18",
+      "source": "patient_app",
+      "fatigue": 2
     },
     {
       "date": "2024-07-25",
       "source": "encounter",
-      "fatigue": 3,
-      "pain": 2,
-      "functional_limitation": 2,
-      "distress": 2,
-      "narrative": "Best I've felt in years. Walking 20 minutes a day now. Mood is much better."
+      "fatigue": 2
+    },
+    {
+      "date": "2024-09-08",
+      "source": "patient_app",
+      "fatigue": 2,
+      "pain": 1
+    },
+    {
+      "date": "2024-12-02",
+      "source": "patient_app",
+      "fatigue": 2
     },
     {
       "date": "2025-01-15",
       "source": "encounter",
       "fatigue": 2,
-      "pain": 2,
-      "functional_limitation": 2,
-      "distress": 1,
-      "narrative": "Feeling great. Sticking with the routine. Occasional tingling but it doesn't slow me down."
+      "pain": 1
     }
   ],
   "domainConfig": {

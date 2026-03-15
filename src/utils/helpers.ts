@@ -172,19 +172,23 @@ export function findSegmentIndexForDate(
   return segments.length - 1
 }
 
-// PRO-specific: also checks gap date ranges
+// PRO-specific: exact encounter match first, then gap containment, then nearest fallback
 export function findSegmentIndexForDateWithGaps(
   segments: { type: string; date?: string; startDate?: string; endDate?: string }[],
   targetDate: string
 ): number {
-  for (let i = segments.length - 1; i >= 0; i--) {
+  for (let i = 0; i < segments.length; i++) {
     const seg = segments[i]
-    if (seg.type === 'encounter' && seg.date && seg.date <= targetDate) return i
+    if (seg.type === 'encounter' && seg.date === targetDate) return i
+  }
+  for (let i = 0; i < segments.length; i++) {
+    const seg = segments[i]
+    if (seg.type === 'gap' && seg.startDate && seg.endDate &&
+        targetDate > seg.startDate && targetDate < seg.endDate) return i
   }
   for (let i = segments.length - 1; i >= 0; i--) {
     const seg = segments[i]
-    if (seg.type === 'gap' && seg.startDate && seg.endDate &&
-        targetDate >= seg.startDate && targetDate <= seg.endDate) return i
+    if (seg.type === 'encounter' && seg.date && seg.date <= targetDate) return i
   }
   for (let i = 0; i < segments.length; i++) {
     const seg = segments[i]
