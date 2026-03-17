@@ -213,12 +213,12 @@ export function getVitalNarrative(subtypeName: string, status: ValueStatus): str
       if (status === 'critical-low') return 'Critically low heart rate may cause symptoms and requires immediate evaluation.'
       break
     case 'bp':
-      if (status === 'normal') return 'Blood pressure is within normal range (<120/80 mmHg).'
-      if (status === 'elevated') return 'Blood pressure is mildly elevated. Lifestyle modifications recommended.'
-      if (status === 'high') return 'Blood pressure indicates hypertension. Medication and lifestyle changes may be needed.'
-      if (status === 'critical-high') return 'Blood pressure is dangerously elevated (hypertensive crisis). Immediate medical attention required.'
-      if (status === 'low') return 'Blood pressure is below normal. May cause dizziness or fatigue.'
-      if (status === 'critical-low') return 'Critically low blood pressure (hypotension). Requires immediate evaluation.'
+      if (status === 'normal') return 'Within normal range (<120/80 mmHg).'
+      if (status === 'elevated') return 'Systolic in the 120–129 mmHg range with diastolic below 80 mmHg.'
+      if (status === 'high') return 'Meets hypertension criteria (≥130/80 mmHg).'
+      if (status === 'critical-high') return 'Meets hypertensive urgency criteria (≥180/120 mmHg).'
+      if (status === 'low') return 'Below normal range (<90/60 mmHg).'
+      if (status === 'critical-low') return 'Critically low (hypotension threshold).'
       break
     case 'spo2':
       if (status === 'normal') return 'Oxygen saturation is normal (≥93%).'
@@ -235,22 +235,23 @@ export function getVitalNarrative(subtypeName: string, status: ValueStatus): str
       if (status === 'critical-low') return 'Critically low temperature (hypothermia). Immediate warming required.'
       break
   }
-  return `Current status: ${STATUS_LABELS[status]}.`
+  return status === 'normal' ? 'Within reference range.' : `Value is ${STATUS_LABELS[status].toLowerCase()} relative to reference range.`
 }
 
 export function getLabNarrative(subtypeName: string, status: ValueStatus): string {
   switch (subtypeName) {
     case 'a1c_pct':
-      if (status === 'normal') return 'HbA1c indicates good glycemic control over the past 2-3 months.'
-      if (status === 'elevated') return 'HbA1c indicates prediabetes range. Lifestyle modifications strongly recommended.'
-      if (status === 'high' || status === 'critical-high') return 'HbA1c indicates diabetes with suboptimal control. Medication adjustment may be needed.'
+      if (status === 'normal') return 'HbA1c is within the reference range.'
+      if (status === 'elevated') return 'HbA1c is in the prediabetes range (5.7–6.4%).'
+      if (status === 'high') return 'HbA1c is above the diabetes diagnostic threshold (≥6.5%).'
+      if (status === 'critical-high') return 'HbA1c is markedly elevated (≥9%).'
       break
     case 'glucose_mg_dl':
-      if (status === 'normal') return 'Blood glucose is within normal fasting range.'
-      if (status === 'elevated') return 'Blood glucose is elevated. Consider timing relative to meals.'
-      if (status === 'high' || status === 'critical-high') return 'Blood glucose is significantly elevated. Evaluate diabetes management.'
-      if (status === 'low') return 'Blood glucose is low. Patient may experience hypoglycemic symptoms.'
-      if (status === 'critical-low') return 'Critically low blood glucose (hypoglycemia). Immediate treatment required.'
+      if (status === 'normal') return 'Glucose is within the reference range.'
+      if (status === 'elevated') return 'Glucose is elevated.'
+      if (status === 'high' || status === 'critical-high') return 'Glucose is markedly elevated.'
+      if (status === 'low') return 'Glucose is low.'
+      if (status === 'critical-low') return 'Glucose is critically low.'
       break
     case 'ldl_mg_dl':
       if (status === 'normal') return 'LDL cholesterol is at optimal level (<100 mg/dL).'
@@ -258,15 +259,21 @@ export function getLabNarrative(subtypeName: string, status: ValueStatus): strin
       if (status === 'high' || status === 'critical-high') return 'LDL cholesterol is significantly elevated. Statin therapy may be indicated.'
       break
     case 'creatinine_mg_dl':
-      if (status === 'normal') return 'Creatinine is within normal range, indicating stable kidney function.'
-      if (status === 'elevated') return 'Creatinine is mildly elevated. May indicate early kidney dysfunction.'
-      if (status === 'high' || status === 'critical-high') return 'Creatinine is significantly elevated, indicating impaired kidney function.'
+      if (status === 'normal') return 'Creatinine is within the reference range.'
+      if (status === 'elevated') return 'Creatinine is mildly elevated.'
+      if (status === 'high' || status === 'critical-high') return 'Creatinine is elevated.'
+      break
+    case 'bun_mg_dl':
+      if (status === 'normal') return 'BUN is within the reference range.'
+      if (status === 'low') return 'BUN is low.'
+      if (status === 'elevated') return 'BUN is mildly elevated.'
+      if (status === 'high' || status === 'critical-high') return 'BUN is elevated.'
       break
     case 'efgr_ml_min':
-      if (status === 'normal') return 'eGFR indicates normal kidney function (≥90 mL/min).'
-      if (status === 'depressed') return 'eGFR indicates mildly reduced kidney function (CKD Stage 2).'
-      if (status === 'low') return 'eGFR indicates moderate kidney disease (CKD Stage 3). Nephrology referral may be needed.'
-      if (status === 'critical-low') return 'eGFR indicates severe kidney disease (CKD Stage 4-5). Nephrology consultation required.'
+      if (status === 'normal') return 'eGFR is within the reference range.'
+      if (status === 'depressed') return 'eGFR is mildly reduced.'
+      if (status === 'low') return 'eGFR is moderately reduced.'
+      if (status === 'critical-low') return 'eGFR is severely reduced.'
       break
     case 'tsh_miu_l':
       if (status === 'normal') return 'TSH is within normal range, indicating euthyroid state.'
@@ -284,5 +291,5 @@ export function getLabNarrative(subtypeName: string, status: ValueStatus): strin
       if (status === 'low' || status === 'critical-low') return 'Sodium is low (hyponatremia). Evaluate fluid status and medications.'
       break
   }
-  return `Current status: ${STATUS_LABELS[status]}.`
+  return status === 'normal' ? 'Within reference range.' : `Value is ${STATUS_LABELS[status].toLowerCase()} relative to reference range.`
 }

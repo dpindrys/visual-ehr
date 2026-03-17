@@ -7,6 +7,7 @@ interface ClinicalSummaryHeaderProps {
 const ClinicalSummaryHeader = ({ segments: _segments }: ClinicalSummaryHeaderProps) => {
   return (
     <div className="clinical-summary-header">
+
       {/* CRITICAL - IMMEDIATE ATTENTION */}
       <div className="summary-section">
         <div className="summary-section-header critical">
@@ -14,16 +15,9 @@ const ClinicalSummaryHeader = ({ segments: _segments }: ClinicalSummaryHeaderPro
           <span>CRITICAL - IMMEDIATE ATTENTION</span>
         </div>
         <div className="summary-cards">
-          <div className="summary-card critical">
-            <div className="summary-card-title">Type 2 Diabetes - Uncontrolled</div>
-            <div className="summary-card-content">
-              Last BP: 145/79 (Sep 2). Three of last five readings elevated. Assess medication adherence and lifestyle factors.
-            </div>
-          </div>
-          <div className="summary-card critical">
-            <div className="summary-card-title">Recent ER Visit</div>
-            <div className="summary-card-content">
-              Sep 2: Evaluated for chest pain. Cardiac causes ruled out. May indicate stress or metabolic issues related to poor diabetes control.
+          <div className="summary-card critical summary-card-empty-state">
+            <div className="summary-card-content summary-card-empty-text">
+              No current critical issues based on the latest available vitals, labs, and symptom data.
             </div>
           </div>
         </div>
@@ -41,15 +35,15 @@ const ClinicalSummaryHeader = ({ segments: _segments }: ClinicalSummaryHeaderPro
         </div>
         <div className="summary-cards">
           <div className="summary-card trending">
-            <div className="summary-card-title">Type 2 Diabetes - Uncontrolled</div>
+            <div className="summary-card-title">Type 2 Diabetes — Improved, Continue Monitoring</div>
             <div className="summary-card-content">
-              A1C jumped from 5.5% to 8.7% over 6 months. Recent glucose readings: 168, 179, 143 mg/dL. Consider medication intensification.
+              A1c improved from 10.8% to 6.7%. Latest glucose is 118 mg/dL, down from prior highs. Continue metformin and monitor for sustained control.
             </div>
           </div>
           <div className="summary-card trending">
-            <div className="summary-card-title">BUN Elevation - New Finding</div>
+            <div className="summary-card-title">Prior Acute Deterioration — No Recent Recurrence</div>
             <div className="summary-card-content">
-              BUN elevated to 30 mmol/L (baseline 20-27). Cr stable. Evaluate for dehydration, AKI, or medication effects.
+              Urgent Care and ER visits in September reflect a prior period of instability. No acute encounters are visible since then. Continue follow-up given the earlier cardiometabolic worsening.
             </div>
           </div>
         </div>
@@ -63,25 +57,38 @@ const ClinicalSummaryHeader = ({ segments: _segments }: ClinicalSummaryHeaderPro
         </div>
         <div className="summary-cards">
           <div className="summary-card stable">
-            <div className="summary-card-title">CKD Stage 3 - Stable</div>
+            <div className="summary-card-title">Blood Pressure — Controlled</div>
             <div className="summary-card-content">
-              eGFR consistently 57-63 mL/min/1.73m². Creatinine 0.97-1.06 mg/dL. Continue monitoring.
+              Latest BP is 120/78 at the Jan 14 PCP visit, improved from 162/98 and 158/96 during the September acute-care period. Continue current antihypertensive therapy.
             </div>
           </div>
           <div className="summary-card stable">
-            <div className="summary-card-title">Hypothyroidism - Well-Managed</div>
+            <div className="summary-card-title">Renal Function — Stable</div>
             <div className="summary-card-content">
-              No recent thyroid concerns. Continue current therapy.
+              Creatinine is 0.97 mg/dL, BUN has normalized to 16 mg/dL, and eGFR is 78 mL/min. Continue routine renal monitoring.
             </div>
           </div>
           <div className="summary-card stable">
-            <div className="summary-card-title">Anemia - Resolved</div>
+            <div className="summary-card-title">Hypothyroidism — Well Managed</div>
             <div className="summary-card-content">
-              Last documented Jan 2024. No recent findings. No action needed.
+              TSH is 2.2 mIU/L with no recent thyroid-related concerns. Continue current management.
+            </div>
+          </div>
+          <div className="summary-card stable">
+            <div className="summary-card-title">Symptoms — Improved</div>
+            <div className="summary-card-content">
+              Recent patient-reported symptom burden is low, with fatigue at 2 and pain at 1 on the latest check-in. No major recent distress signal is visible.
+            </div>
+          </div>
+          <div className="summary-card stable">
+            <div className="summary-card-title">Anemia — Resolved</div>
+            <div className="summary-card-content">
+              Previously documented anemia remains resolved with no recent findings suggesting recurrence.
             </div>
           </div>
         </div>
       </div>
+
     </div>
   )
 }

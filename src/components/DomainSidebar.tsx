@@ -158,7 +158,7 @@ const DomainSidebar = ({
           <div key={trackName} className="domain-section">
             <div className="domain-header">
               <span>{displayName}</span>
-              {hasHidden && trackName !== 'patient_reported' && (
+              {hasHidden && (
                 <div
                   className="domain-header-hidden-toggle"
                   ref={isDropdownOpen ? dropdownRef : undefined}
@@ -208,7 +208,7 @@ const DomainSidebar = ({
             ) : (
               trackConfig.subtypes.map((subtype) => {
                 const isHidden = hiddenSubtypes.has(`${trackName}-${subtype}`)
-                if (isHidden && trackName !== 'patient_reported') return null
+                if (isHidden) return null
 
                 const displaySubtypeName =
                   subtype.charAt(0).toUpperCase() + subtype.slice(1).replace(/_/g, ' ')

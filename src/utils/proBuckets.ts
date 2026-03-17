@@ -5,11 +5,17 @@ export type ProSeverity = 'low' | 'moderate' | 'high' | 'very-high'
 
 export type TrajectoryState = 'rising' | 'falling' | 'stable' | 'peak' | 'valley' | 'mixed'
 
+export type ProObservation = {
+  date: string
+  score: number
+}
+
 export type ProBucket = {
   worstScore: number
   severity: ProSeverity
   trajectory?: TrajectoryState
   count: number
+  observations: ProObservation[]
 }
 
 export function getProSeverity(score: number): ProSeverity {
@@ -96,6 +102,7 @@ export function bucketProEntries(
       severity: getProSeverity(worstScore),
       trajectory: isGap ? classifyTrajectory(scores) : undefined,
       count: observations.length,
+      observations,
     })
   }
 

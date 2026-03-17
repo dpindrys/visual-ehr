@@ -6,6 +6,7 @@ import {
 import { ValueStatus, STATUS_LABELS, getVitalNarrative, getLabNarrative } from '../utils/referenceRanges'
 import { getTherapeuticDoseRange } from '../utils/continuousStateEngine'
 import { formatDateDDMonYYYY, formatDateMonDayYear, formatDateMonDayYearSpaced } from '../utils/helpers'
+import { ProBucket, ProSeverity } from '../utils/proBuckets'
 
 // ============================================
 // Range Bar (used in vitals/labs tooltip)
@@ -77,19 +78,58 @@ interface VitalsLabsTooltipProps {
   subtypeName: string
 }
 
-const VitalsLabsTooltip = ({ status, date, trackName, subtypeName }: VitalsLabsTooltipProps) => {
+function getMetricDisplayName(subtypeName: string, config: RangeConfig): string {
+  switch (subtypeName) {
+    case 'bp': return 'Blood Pressure'
+    case 'hr': return 'Heart Rate'
+    case 'spo2': return 'Oxygen Saturation'
+    case 'temp_c': return 'Temperature'
+    case 'a1c_pct': return 'HbA1c'
+    case 'glucose_mg_dl': return 'Glucose'
+    case 'ldl_mg_dl': return 'LDL Cholesterol'
+    case 'triglycerides_mg_dl': return 'Triglycerides'
+    case 'creatinine_mg_dl': return 'Creatinine'
+    case 'bun_mg_dl': return 'BUN'
+    case 'efgr_ml_min': return 'eGFR'
+    case 'tsh_miu_l': return 'TSH'
+    case 'sodium_meq_l': return 'Sodium'
+    case 'potassium_meq_l': return 'Potassium'
+    default: return config.label
+  }
+}
+
+function formatMetricValue(subtypeName: string, value: number, value2: number | undefined, unit: string): string {
+  if (subtypeName === 'bp') return `${value} / ${value2 ?? '—'} mmHg`
+  if (subtypeName === 'temp_c') return `${value} °C`
+  if (subtypeName === 'spo2') return `${value}%`
+  return `${value} ${unit}`
+}
+
+function formatTooltipDate(dateStr: string): string {
+  const d = new Date(dateStr)
+  const day = d.getDate()
+  const month = d.toLocaleDateString('en-US', { month: 'short' })
+  const year = d.getFullYear()
+  return `${day} ${month} ${year}`
+}
+
+const VitalsLabsTooltip = ({ status, value, value2, date, config, trackName, subtypeName }: VitalsLabsTooltipProps) => {
+  const metricName = getMetricDisplayName(subtypeName, config)
+  const valueStr = formatMetricValue(subtypeName, value, value2, config.unit)
   const narrative = trackName === 'vitals'
     ? getVitalNarrative(subtypeName, status)
     : getLabNarrative(subtypeName, status)
 
   return (
     <div className="tooltip tooltip-vitals-labs">
-      <div className="tooltip-status-title">{STATUS_LABELS[status]}</div>
-      <RangeBar status={status} />
-      <div className="tooltip-datetime">
-        <span>{formatDateDDMonYYYY(date)}</span>
-        <span>00:00</span>
+      <div className="tooltip-metric-header">
+        <span className="tooltip-metric-name">{metricName}</span>
+        <span className="tooltip-metric-date">{formatTooltipDate(date)}</span>
       </div>
+      <div className="tooltip-metric-value-row">
+        <span className="tooltip-metric-value">{valueStr}</span>
+      </div>
+      <RangeBar status={status} />
       <div className="tooltip-narrative">{narrative}</div>
       <div className="tooltip-arrow" />
     </div>
@@ -138,27 +178,34 @@ const EncounterTooltip = ({ encounter }: { encounter: Encounter }) => {
 
   return (
     <div className="tooltip tooltip-encounter">
-      <div className="tooltip-encounter-type">{getTitle()}</div>
-      <div className="tooltip-datetime">
-        <span>{formatDateDDMonYYYY(encounter.date)}</span>
-        <span>00:00</span>
+      <div className="tooltip-encounter-header">
+        <span className="tooltip-encounter-type">{getTitle()}</span>
+        <span className="tooltip-encounter-date">{formatTooltipDate(encounter.date)}</span>
       </div>
-      {encounter.location && (
-        <div className="tooltip-encounter-location">{encounter.location}</div>
-      )}
-      {encounter.reason && (
-        <div className="tooltip-encounter-complaint">{encounter.reason}</div>
-      )}
-      {addressedDiagnoses.length > 0 && (
-        <div className="tooltip-encounter-diagnoses">
-          {addressedDiagnoses.map((d, i) => (
-            <span key={i}>{d.label}{i < addressedDiagnoses.length - 1 ? ', ' : ''}</span>
-          ))}
-        </div>
-      )}
-      {encounter.notes && (
-        <div className="tooltip-encounter-notes">{encounter.notes}</div>
-      )}
+      <div className="tooltip-encounter-body">
+        {encounter.location && (
+          <div className="tooltip-encounter-row">
+            <span className="tooltip-encounter-label">Care setting</span>
+            <span className="tooltip-encounter-value">{encounter.location}</span>
+          </div>
+        )}
+        {encounter.type && (
+          <div className="tooltip-encounter-row">
+            <span className="tooltip-encounter-label">Visit type</span>
+            <span className="tooltip-encounter-value">{encounter.type}</span>
+          </div>
+        )}
+        {addressedDiagnoses.length > 0 && (
+          <div className="tooltip-encounter-row tooltip-encounter-diagnoses-row">
+            <span className="tooltip-encounter-label">Diagnoses addressed</span>
+            <span className="tooltip-encounter-value">
+              {addressedDiagnoses.map((d, i) => (
+                <span key={i}>{d.label}{i < addressedDiagnoses.length - 1 ? ', ' : ''}</span>
+              ))}
+            </span>
+          </div>
+        )}
+      </div>
       <div className="tooltip-arrow" />
     </div>
   )
@@ -199,9 +246,12 @@ const DiagnosisTooltip = ({ period }: { period: DiagnosisPeriod }) => {
     <div className="tooltip tooltip-diagnosis">
       <div className="tooltip-diagnosis-header">
         <div className="tooltip-diagnosis-name">{period.label}</div>
-        <div className={`tooltip-diagnosis-status ${statusInfo.className}`}>{statusInfo.label}</div>
+        <span className="tooltip-diagnosis-date">{formatTooltipDate(period.startDate)}</span>
       </div>
-      <div className="tooltip-diagnosis-code">ICD-10: {period.code}</div>
+      <div className="tooltip-diagnosis-subtitle-row">
+        <span className="tooltip-diagnosis-code">ICD-10: {period.code}</span>
+        <span className={`tooltip-diagnosis-status ${statusInfo.className}`}>{statusInfo.label}</span>
+      </div>
       <div className="tooltip-diagnosis-details">
         <div className="tooltip-diagnosis-row">
           <span className="tooltip-diagnosis-label">Duration:</span>
@@ -332,16 +382,16 @@ const MedicationTooltip = ({ period }: { period: MedicationPeriod }) => {
     <div className="tooltip tooltip-medication">
       <div className="tooltip-medication-header">
         <div className="tooltip-medication-name">{period.name}</div>
-        <div className={`tooltip-medication-status ${statusInfo.className}`}>{statusInfo.label}</div>
+        <span className="tooltip-medication-date">{formatTooltipDate(period.startDate)}</span>
+      </div>
+      <div className="tooltip-medication-subtitle-row">
+        <span className="tooltip-medication-dose-line">Current dose: {currentDose}{routeFreq ? ` (${routeFreq})` : ''}</span>
+        <span className={`tooltip-medication-status ${statusInfo.className}`}>{statusInfo.label}</span>
       </div>
       <div className="tooltip-medication-details">
         <div className="tooltip-medication-row">
           <span className="tooltip-medication-label">Started:</span>
           <span className="tooltip-medication-value">{formatDateMonDayYear(period.startDate)}</span>
-        </div>
-        <div className="tooltip-medication-row">
-          <span className="tooltip-medication-label">Current dose:</span>
-          <span className="tooltip-medication-value">{currentDose}{routeFreq ? ` (${routeFreq})` : ''}</span>
         </div>
         <div className="tooltip-medication-row">
           <span className="tooltip-medication-label">Therapeutic dose:</span>
@@ -479,6 +529,229 @@ const SidebarProTooltip = ({ subtypeName, entries }: { subtypeName: string; entr
 }
 
 // ============================================
+// Medication Cell Tooltip
+// ============================================
+
+const DOSE_STATE_LABELS: Record<'below' | 'at' | 'above', string> = {
+  below: 'Below typical dose range.',
+  at: 'Within typical dose range.',
+  above: 'Above typical dose range.',
+}
+
+interface MedicationCellTooltipProps {
+  period: MedicationPeriod
+  doseSegment: import('../utils/types').DoseSegment
+}
+
+const MedicationCellTooltip = ({ period, doseSegment }: MedicationCellTooltipProps) => {
+  const doseStateLabel = DOSE_STATE_LABELS[doseSegment.therapeuticLevel]
+  const statusInfo = period.endDate
+    ? null
+    : { label: 'Active', className: 'status-active' }
+
+  const doseLine = [
+    doseSegment.dose,
+    doseSegment.route,
+    doseSegment.frequency,
+  ].filter(Boolean).join(' · ')
+
+  return (
+    <div className="tooltip tooltip-medication-cell">
+      <div className="tooltip-medication-cell-header">
+        <span className="tooltip-medication-cell-name">{period.name}</span>
+        <span className="tooltip-medication-cell-date">{formatTooltipDate(doseSegment.startDate)}</span>
+      </div>
+      {doseLine && (
+        <div className="tooltip-medication-cell-subtitle-row">
+          <span className="tooltip-medication-cell-dose">{doseLine}</span>
+          {statusInfo && (
+            <span className={`tooltip-medication-cell-status ${statusInfo.className}`}>{statusInfo.label}</span>
+          )}
+        </div>
+      )}
+      {!doseLine && statusInfo && (
+        <div className="tooltip-medication-cell-subtitle-row">
+          <span />
+          <span className={`tooltip-medication-cell-status ${statusInfo.className}`}>{statusInfo.label}</span>
+        </div>
+      )}
+      <div className="tooltip-medication-cell-details">
+        <div className="tooltip-medication-cell-row">
+          <span className="tooltip-medication-cell-label">Dose state</span>
+          <span className="tooltip-medication-cell-value">{doseStateLabel}</span>
+        </div>
+        <div className="tooltip-medication-cell-row">
+          <span className="tooltip-medication-cell-label">Since</span>
+          <span className="tooltip-medication-cell-value">{formatDateMonDayYear(doseSegment.startDate)}</span>
+        </div>
+        {period.indication && (
+          <div className="tooltip-medication-cell-row">
+            <span className="tooltip-medication-cell-label">Indication</span>
+            <span className="tooltip-medication-cell-value">{period.indication}</span>
+          </div>
+        )}
+        {period.endDate && (
+          <div className="tooltip-medication-cell-row">
+            <span className="tooltip-medication-cell-label">Stopped</span>
+            <span className="tooltip-medication-cell-value">{formatDateMonDayYear(period.endDate)}</span>
+          </div>
+        )}
+      </div>
+      <div className="tooltip-arrow" />
+    </div>
+  )
+}
+
+// ============================================
+// PRO Cell — Encounter Tooltip
+// ============================================
+
+const PRO_SEVERITY_LABELS: Record<ProSeverity, string> = {
+  'low': 'Low',
+  'moderate': 'Moderate',
+  'high': 'High',
+  'very-high': 'Very High',
+}
+
+const PRO_SUBTYPE_LABELS: Record<string, string> = {
+  fatigue: 'Fatigue',
+  pain: 'Pain',
+  functional_limitation: 'Functional Limitation',
+  distress: 'Distress',
+}
+
+interface EncounterProTooltipProps {
+  subtype: string
+  bucket: ProBucket
+  encounter: Encounter
+}
+
+const EncounterProTooltip = ({ subtype, bucket, encounter }: EncounterProTooltipProps) => {
+  const title = PRO_SUBTYPE_LABELS[subtype] || subtype
+  const severityLabel = PRO_SEVERITY_LABELS[bucket.severity]
+
+  const getEncounterContext = (): string => {
+    const s = encounter.setting?.toLowerCase() || ''
+    if (s.includes('primary') || s.includes('pcp')) return 'Primary Care'
+    if (s.includes('urgent')) return 'Urgent Care'
+    if (s.includes('emergency') || s === 'ed') return 'Emergency Dept.'
+    if (s.includes('telehealth') || s.includes('virtual')) return 'Telehealth'
+    if (s.includes('specialist')) return 'Specialist'
+    return encounter.setting || 'Clinical Visit'
+  }
+
+  const entry = bucket.observations[0]
+  const narrative = entry
+    ? (() => {
+        const proEntryNarrative = (entry as unknown as { narrative?: string }).narrative
+        return proEntryNarrative
+      })()
+    : undefined
+
+  return (
+    <div className="tooltip tooltip-pro-cell">
+      <div className="tooltip-pro-cell-header">
+        <span className="tooltip-pro-cell-title">{title}</span>
+        <span className="tooltip-pro-cell-date">{formatTooltipDate(encounter.date)}</span>
+      </div>
+      <div className="tooltip-pro-cell-score-row">
+        <span className="tooltip-pro-cell-score">{bucket.worstScore}<span className="tooltip-pro-cell-score-denom">/10</span></span>
+        <span className={`tooltip-pro-cell-severity tooltip-pro-severity-${bucket.severity}`}>{severityLabel}</span>
+      </div>
+      <div className="tooltip-pro-cell-context">{getEncounterContext()}</div>
+      {narrative && (
+        <div className="tooltip-pro-cell-narrative">&ldquo;{narrative}&rdquo;</div>
+      )}
+      <div className="tooltip-arrow" />
+    </div>
+  )
+}
+
+// ============================================
+// PRO Cell — Gap Tooltip
+// ============================================
+
+interface GapProTooltipProps {
+  subtype: string
+  bucket: ProBucket
+  segment: Segment
+}
+
+const TRAJECTORY_LABELS: Record<string, string> = {
+  rising: 'Rising',
+  falling: 'Falling',
+  peak: 'Peak mid-interval',
+  valley: 'Valley mid-interval',
+  mixed: 'Mixed / Volatile',
+  stable: 'Stable',
+}
+
+const GapProTooltip = ({ subtype, bucket, segment }: GapProTooltipProps) => {
+  const title = PRO_SUBTYPE_LABELS[subtype] || subtype
+  const severityLabel = PRO_SEVERITY_LABELS[bucket.severity]
+  const startLabel = segment.startDate ? formatDateMonDayYearSpaced(segment.startDate) : ''
+  const endLabel = segment.endDate ? formatDateMonDayYearSpaced(segment.endDate) : ''
+
+  const avg = bucket.observations.length > 0
+    ? Math.round((bucket.observations.reduce((s, o) => s + o.score, 0) / bucket.observations.length) * 10) / 10
+    : 0
+  const latestScore = bucket.observations[bucket.observations.length - 1]?.score
+
+  const dateRangeLabel = startLabel && endLabel ? `${startLabel} → ${endLabel}` : startLabel || endLabel || ''
+
+  return (
+    <div className="tooltip tooltip-pro-cell tooltip-pro-cell-gap">
+      <div className="tooltip-pro-cell-header">
+        <span className="tooltip-pro-cell-title">{title}</span>
+        {dateRangeLabel && <span className="tooltip-pro-cell-date">{dateRangeLabel}</span>}
+      </div>
+      <div className="tooltip-pro-cell-score-row">
+        <span className="tooltip-pro-cell-score">{bucket.worstScore}<span className="tooltip-pro-cell-score-denom">/10</span></span>
+        <span className={`tooltip-pro-cell-severity tooltip-pro-severity-${bucket.severity}`}>{severityLabel}</span>
+      </div>
+      <div className="tooltip-pro-cell-stats">
+        <div className="tooltip-pro-cell-stat-row">
+          <span className="tooltip-pro-cell-stat-label">Observations</span>
+          <span className="tooltip-pro-cell-stat-value">{bucket.count}</span>
+        </div>
+        <div className="tooltip-pro-cell-stat-row">
+          <span className="tooltip-pro-cell-stat-label">Worst score</span>
+          <span className="tooltip-pro-cell-stat-value">{bucket.worstScore}/10</span>
+        </div>
+        {latestScore !== undefined && (
+          <div className="tooltip-pro-cell-stat-row">
+            <span className="tooltip-pro-cell-stat-label">Latest score</span>
+            <span className="tooltip-pro-cell-stat-value">{latestScore}/10</span>
+          </div>
+        )}
+        <div className="tooltip-pro-cell-stat-row">
+          <span className="tooltip-pro-cell-stat-label">Average score</span>
+          <span className="tooltip-pro-cell-stat-value">{avg}/10</span>
+        </div>
+        {bucket.trajectory && (
+          <div className="tooltip-pro-cell-stat-row">
+            <span className="tooltip-pro-cell-stat-label">Trajectory</span>
+            <span className="tooltip-pro-cell-stat-value">{TRAJECTORY_LABELS[bucket.trajectory] || bucket.trajectory}</span>
+          </div>
+        )}
+      </div>
+      {bucket.observations.length > 1 && (
+        <div className="tooltip-pro-cell-obs-list">
+          <div className="tooltip-pro-cell-obs-header">Reports</div>
+          {bucket.observations.map((obs, i) => (
+            <div key={i} className="tooltip-pro-cell-obs-row">
+              <span className="tooltip-pro-cell-obs-date">{formatDateMonDayYear(obs.date)}</span>
+              <span className="tooltip-pro-cell-obs-score">{obs.score}/10</span>
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="tooltip-arrow" />
+    </div>
+  )
+}
+
+// ============================================
 // Tooltip Dispatcher
 // ============================================
 
@@ -512,6 +785,14 @@ export interface TooltipProps {
 
   // patient-reported
   patientReportedEntries?: PatientReportedEntry[]
+
+  // pro-cell
+  proBucket?: ProBucket
+  proSubtype?: string
+
+  // medication-cell
+  medicationPeriod?: MedicationPeriod
+  doseSegment?: import('../utils/types').DoseSegment
 }
 
 const Tooltip = (props: TooltipProps) => {
@@ -566,6 +847,12 @@ const Tooltip = (props: TooltipProps) => {
     content = <PatientReportedTooltip entries={props.patientReportedEntries} />
   } else if (type === 'sidebar-pro' && props.patientReportedEntries && props.subtypeName) {
     content = <SidebarProTooltip subtypeName={props.subtypeName} entries={props.patientReportedEntries} />
+  } else if (type === 'medication-cell' && props.medicationPeriod && props.doseSegment) {
+    content = <MedicationCellTooltip period={props.medicationPeriod} doseSegment={props.doseSegment} />
+  } else if (type === 'pro-cell-encounter' && props.proBucket && props.proSubtype && props.encounter) {
+    content = <EncounterProTooltip subtype={props.proSubtype} bucket={props.proBucket} encounter={props.encounter} />
+  } else if (type === 'pro-cell-gap' && props.proBucket && props.proSubtype && props.segment) {
+    content = <GapProTooltip subtype={props.proSubtype} bucket={props.proBucket} segment={props.segment} />
   }
 
   if (!content) return null

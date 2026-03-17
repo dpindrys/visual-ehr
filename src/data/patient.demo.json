@@ -373,8 +373,8 @@
       "notes": "A1c risen to 7.2% on metformin 500 BID. Tolerating metformin. Starting atorvastatin 20mg for elevated LDL and cardiovascular risk. eGFR 74 - early CKD signals. Follow-up in 3 months."
     },
     {
-      "id": "enc-2022-06-15",
-      "date": "2022-06-15",
+      "id": "enc-2023-06-15",
+      "date": "2023-06-15",
       "type": "Annual Physical",
       "setting": "Primary Care",
       "location": "Outpatient",
@@ -434,8 +434,8 @@
       "notes": "eGFR now 68 - CKD Stage 3 diagnosed. TSH elevated at 6.8 - new hypothyroidism, starting levothyroxine. Mild anemia noted. A1c 7.5% - increased metformin to 1000 BID. LDL improved on statin."
     },
     {
-      "id": "enc-2022-09-20",
-      "date": "2022-09-20",
+      "id": "enc-2023-09-20",
+      "date": "2023-09-20",
       "type": "Follow-up Visit",
       "setting": "Primary Care",
       "location": "Outpatient",
@@ -477,8 +477,8 @@
       "notes": "A1c trending up slightly. TSH normalized on levothyroxine. Continue current regimen."
     },
     {
-      "id": "enc-2023-01-10",
-      "date": "2023-01-10",
+      "id": "enc-2024-01-10",
+      "date": "2024-01-10",
       "type": "Primary Care Visit",
       "setting": "Primary Care",
       "location": "Outpatient",
@@ -528,8 +528,8 @@
       "notes": "Worsening glycemic control. BP elevated - increased lisinopril to 20mg. Counseled on diet/exercise and medication adherence."
     },
     {
-      "id": "enc-2023-05-08",
-      "date": "2023-05-08",
+      "id": "enc-2024-05-08",
+      "date": "2024-05-08",
       "type": "Telehealth",
       "setting": "Telehealth",
       "location": "Virtual",
@@ -541,8 +541,8 @@
       "notes": "Tolerating increased doses. Reports improved energy. Reinforced adherence."
     },
     {
-      "id": "enc-2023-09-15",
-      "date": "2023-09-15",
+      "id": "enc-2024-09-15",
+      "date": "2024-09-15",
       "type": "Urgent Care",
       "setting": "Urgent Care",
       "location": "Urgent Care Center",
@@ -596,8 +596,8 @@
       "notes": "Severe metabolic decompensation after medication lapse. Restarted all meds. Urgent PCP follow-up scheduled."
     },
     {
-      "id": "enc-2023-09-22",
-      "date": "2023-09-22",
+      "id": "enc-2024-09-22",
+      "date": "2024-09-22",
       "type": "Emergency Department",
       "setting": "Emergency",
       "location": "Hospital ED",
@@ -610,13 +610,26 @@
         "sodium_meq_l": 138,
         "potassium_meq_l": 4.8
       },
-      "diagnosesEvents": [],
+      "diagnosesEvents": [
+        {
+          "id": "dx-dm-ed",
+          "code": "E11.65",
+          "label": "Type 2 diabetes with hyperglycemia",
+          "action": "addressed"
+        },
+        {
+          "id": "dx-htn-ed",
+          "code": "I10",
+          "label": "Hypertension",
+          "action": "addressed"
+        }
+      ],
       "medicationEvents": [],
       "notes": "Chest pain workup negative for ACS. Troponins negative x2. EKG normal sinus rhythm. Likely metabolic/stress related. Discharged with close follow-up."
     },
     {
-      "id": "enc-2023-10-15",
-      "date": "2023-10-15",
+      "id": "enc-2024-10-15",
+      "date": "2024-10-15",
       "type": "Follow-up Visit",
       "setting": "Primary Care",
       "location": "Outpatient",
@@ -662,8 +675,8 @@
       "notes": "Recovering from metabolic crisis. A1c still very elevated. Increased lisinopril. Anemia resolved. Close monitoring needed."
     },
     {
-      "id": "enc-2024-01-20",
-      "date": "2024-01-20",
+      "id": "enc-2025-01-20",
+      "date": "2025-01-20",
       "type": "Follow-up Visit",
       "setting": "Primary Care",
       "location": "Outpatient",
@@ -717,8 +730,8 @@
       "notes": "Improving. A1c down from 9.8 to 8.2. Continue current regimen."
     },
     {
-      "id": "enc-2024-04-18",
-      "date": "2024-04-18",
+      "id": "enc-2025-04-18",
+      "date": "2025-04-18",
       "type": "Follow-up Visit",
       "setting": "Primary Care",
       "location": "Outpatient",
@@ -759,8 +772,8 @@
       "notes": "Excellent progress. A1c approaching goal. BP at target. Continue current management."
     },
     {
-      "id": "enc-2024-07-25",
-      "date": "2024-07-25",
+      "id": "enc-2025-07-25",
+      "date": "2025-07-25",
       "type": "Follow-up Visit",
       "setting": "Primary Care",
       "location": "Outpatient",
@@ -817,8 +830,8 @@
       "notes": "A1c at goal! Reduced metformin due to GI side effects at higher dose. BP excellent."
     },
     {
-      "id": "enc-2024-10-30",
-      "date": "2024-10-30",
+      "id": "enc-2025-10-30",
+      "date": "2025-10-30",
       "type": "Follow-up Visit",
       "setting": "Primary Care",
       "location": "Outpatient",
@@ -859,8 +872,8 @@
       "notes": "Stable and well-controlled. Continue current regimen."
     },
     {
-      "id": "enc-2025-01-15",
-      "date": "2025-01-15",
+      "id": "enc-2026-01-15",
+      "date": "2026-01-15",
       "type": "Annual Physical",
       "setting": "Primary Care",
       "location": "Outpatient",
@@ -1102,13 +1115,13 @@
       "narrative": "They said my iron is low now on top of everything. That explains a lot."
     },
     {
-      "date": "2022-01-15",
+      "date": "2023-01-15",
       "source": "patient_app",
       "fatigue": 7,
       "pain": 6
     },
     {
-      "date": "2022-02-08",
+      "date": "2023-02-08",
       "source": "patient_app",
       "fatigue": 8,
       "pain": 6,
@@ -1116,40 +1129,40 @@
       "narrative": "Had to leave work early twice this week. Can't concentrate through the pain."
     },
     {
-      "date": "2022-02-25",
+      "date": "2023-02-25",
       "source": "patient_app",
       "fatigue": 7,
       "pain": 5
     },
     {
-      "date": "2022-03-15",
+      "date": "2023-03-15",
       "source": "patient_app",
       "fatigue": 7,
       "pain": 6,
       "functional_limitation": 5
     },
     {
-      "date": "2022-04-05",
+      "date": "2023-04-05",
       "source": "patient_app",
       "fatigue": 8,
       "pain": 7
     },
     {
-      "date": "2022-04-28",
+      "date": "2023-04-28",
       "source": "patient_app",
       "fatigue": 7,
       "pain": 6,
       "distress": 6
     },
     {
-      "date": "2022-05-18",
+      "date": "2023-05-18",
       "source": "patient_app",
       "fatigue": 7,
       "functional_limitation": 6,
       "distress": 7
     },
     {
-      "date": "2022-06-15",
+      "date": "2023-06-15",
       "source": "encounter",
       "fatigue": 7,
       "pain": 6,
@@ -1157,61 +1170,61 @@
       "narrative": "The anemia is making things worse. Exhausted all the time."
     },
     {
-      "date": "2022-07-15",
+      "date": "2023-07-15",
       "source": "patient_app",
       "fatigue": 6,
       "pain": 5
     },
     {
-      "date": "2022-08-10",
+      "date": "2023-08-10",
       "source": "patient_app",
       "fatigue": 5,
       "pain": 4,
       "distress": 5
     },
     {
-      "date": "2022-11-05",
+      "date": "2023-11-05",
       "source": "patient_app",
       "fatigue": 5,
       "pain": 3
     },
     {
-      "date": "2022-12-10",
+      "date": "2023-12-10",
       "source": "patient_app",
       "fatigue": 4,
       "pain": 3
     },
     {
-      "date": "2023-01-10",
+      "date": "2024-01-10",
       "source": "encounter",
       "fatigue": 4,
       "pain": 3
     },
     {
-      "date": "2023-02-22",
+      "date": "2024-02-22",
       "source": "patient_app",
       "fatigue": 4
     },
     {
-      "date": "2023-04-05",
+      "date": "2024-04-05",
       "source": "patient_app",
       "fatigue": 4,
       "distress": 3
     },
     {
-      "date": "2023-06-15",
+      "date": "2024-06-15",
       "source": "patient_app",
       "fatigue": 4,
       "pain": 3
     },
     {
-      "date": "2023-07-20",
+      "date": "2024-07-20",
       "source": "patient_app",
       "fatigue": 5,
       "pain": 4
     },
     {
-      "date": "2023-08-08",
+      "date": "2024-08-08",
       "source": "patient_app",
       "fatigue": 5,
       "pain": 4,
@@ -1219,14 +1232,14 @@
       "narrative": "Feet started acting up again this week. Hoping it passes."
     },
     {
-      "date": "2023-08-25",
+      "date": "2024-08-25",
       "source": "patient_app",
       "fatigue": 6,
       "pain": 5,
       "distress": 6
     },
     {
-      "date": "2023-09-05",
+      "date": "2024-09-05",
       "source": "patient_app",
       "fatigue": 7,
       "pain": 6,
@@ -1234,14 +1247,14 @@
       "narrative": "Something is really wrong. Worst I've felt in months."
     },
     {
-      "date": "2023-09-10",
+      "date": "2024-09-10",
       "source": "patient_app",
       "fatigue": 8,
       "pain": 7,
       "narrative": "Called the nurse line. They moved my appointment up."
     },
     {
-      "date": "2023-09-15",
+      "date": "2024-09-15",
       "source": "encounter",
       "fatigue": 8,
       "pain": 7,
@@ -1250,27 +1263,27 @@
       "narrative": "Blood sugar is out of control again. I feel awful."
     },
     {
-      "date": "2023-09-18",
+      "date": "2024-09-18",
       "source": "patient_app",
       "fatigue": 9,
       "pain": 7,
       "distress": 8
     },
     {
-      "date": "2023-09-20",
+      "date": "2024-09-20",
       "source": "patient_app",
       "fatigue": 8,
       "pain": 8,
       "narrative": "New meds making me nauseous on top of everything. Missed work again."
     },
     {
-      "date": "2023-09-28",
+      "date": "2024-09-28",
       "source": "patient_app",
       "fatigue": 7,
       "pain": 6
     },
     {
-      "date": "2023-10-08",
+      "date": "2024-10-08",
       "source": "patient_app",
       "fatigue": 7,
       "pain": 6,
@@ -1278,77 +1291,77 @@
       "distress": 7
     },
     {
-      "date": "2023-10-15",
+      "date": "2024-10-15",
       "source": "encounter",
       "fatigue": 7,
       "distress": 6
     },
     {
-      "date": "2023-11-05",
+      "date": "2024-11-05",
       "source": "patient_app",
       "fatigue": 6,
       "pain": 5
     },
     {
-      "date": "2023-11-28",
+      "date": "2024-11-28",
       "source": "patient_app",
       "fatigue": 5,
       "pain": 4
     },
     {
-      "date": "2023-12-15",
+      "date": "2024-12-15",
       "source": "patient_app",
       "fatigue": 5,
       "pain": 3,
       "distress": 4
     },
     {
-      "date": "2024-01-20",
+      "date": "2025-01-20",
       "source": "encounter",
       "fatigue": 4,
       "pain": 3,
       "narrative": "Starting to turn a corner. New regimen is working."
     },
     {
-      "date": "2024-02-25",
+      "date": "2025-02-25",
       "source": "patient_app",
       "fatigue": 3,
       "pain": 2
     },
     {
-      "date": "2024-03-20",
+      "date": "2025-03-20",
       "source": "patient_app",
       "fatigue": 3
     },
     {
-      "date": "2024-05-22",
+      "date": "2025-05-22",
       "source": "patient_app",
       "fatigue": 3,
       "pain": 2
     },
     {
-      "date": "2024-06-18",
+      "date": "2025-06-18",
       "source": "patient_app",
       "fatigue": 2
     },
     {
-      "date": "2024-07-25",
+      "date": "2025-07-25",
       "source": "encounter",
       "fatigue": 2
     },
     {
-      "date": "2024-09-08",
+      "date": "2025-09-08",
       "source": "patient_app",
       "fatigue": 2,
       "pain": 1
     },
     {
-      "date": "2024-12-02",
+      "date": "2025-12-02",
       "source": "patient_app",
       "fatigue": 2
     },
     {
-      "date": "2025-01-15",
+      "date": "2026-01-15",
       "source": "encounter",
       "fatigue": 2,
       "pain": 1

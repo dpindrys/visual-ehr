@@ -1169,6 +1169,15 @@ body,
 .summary-card.critical {
   border-left-color: #dc2626;
 }
+.summary-card.summary-card-empty-state {
+  border-left-color: #d1d5db;
+  background-color: transparent;
+  box-shadow: none;
+}
+.summary-card-empty-text {
+  color: #6b7280;
+  font-style: italic;
+}
 .summary-card.trending {
   border-left-color: #ea580c;
 }
@@ -1354,6 +1363,50 @@ body,
   text-align: center;
   margin-bottom: 16px;
 }
+.tooltip-metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+.tooltip-metric-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.01em;
+}
+.tooltip-metric-date {
+  font-size: 11px;
+  font-weight: 400;
+  color: #d1d5db;
+}
+.tooltip-metric-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.tooltip-metric-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+.tooltip-status-badge {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 2px 7px;
+  border-radius: 99px;
+}
+.status-badge-normal { background: #d1fae5; color: #065f46; }
+.status-badge-elevated { background: #fef3c7; color: #92400e; }
+.status-badge-high { background: #fbcfe8; color: #9d174d; }
+.status-badge-critical-high { background: #be185d; color: #fff; }
+.status-badge-low { background: #cffafe; color: #155e75; }
+.status-badge-critical-low { background: #0891b2; color: #fff; }
+.status-badge-depressed { background: #a5f3fc; color: #0e7490; }
 .range-bar {
   height: 10px;
   border-radius: 5px;
@@ -1403,7 +1456,7 @@ body,
   width: 18px;
   height: 18px;
   background-color: #000;
-  border: 3px solid #9ca3af;
+  border: 3px solid #d1d5db;
   border-radius: 50%;
   z-index: 10;
   box-shadow: 0 2px 4px #0000004d;
@@ -1416,7 +1469,7 @@ body,
   margin-bottom: 16px;
 }
 .tooltip-narrative {
-  color: #9ca3af;
+  color: #d1d5db;
   font-size: 14px;
   line-height: 1.6;
 }
@@ -1432,40 +1485,51 @@ body,
   margin-bottom: 16px;
 }
 .tooltip-gap .tooltip-gap-message {
-  color: #9ca3af;
+  color: #d1d5db;
   font-size: 14px;
   line-height: 1.6;
+}
+.tooltip-encounter .tooltip-encounter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 .tooltip-encounter .tooltip-encounter-type {
   font-weight: 700;
   font-size: 18px;
-  margin-bottom: 12px;
+  flex: 1;
 }
-.tooltip-encounter .tooltip-datetime {
-  margin-bottom: 12px;
+.tooltip-encounter .tooltip-encounter-date {
+  font-size: 11px;
+  font-weight: 400;
+  color: #d1d5db;
+  flex-shrink: 0;
 }
-.tooltip-encounter .tooltip-encounter-location {
-  color: #9ca3af;
+.tooltip-encounter .tooltip-encounter-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tooltip-encounter .tooltip-encounter-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
   font-size: 14px;
-  margin-bottom: 8px;
 }
-.tooltip-encounter .tooltip-encounter-complaint {
-  font-weight: 600;
-  font-size: 14px;
-  margin-bottom: 8px;
+.tooltip-encounter .tooltip-encounter-label {
+  color: #d1d5db;
+  flex-shrink: 0;
 }
-.tooltip-encounter .tooltip-encounter-diagnoses {
-  color: #9ca3af;
-  font-size: 14px;
-  margin-bottom: 8px;
+.tooltip-encounter .tooltip-encounter-value {
+  color: #fff;
+  font-weight: 500;
+  text-align: right;
 }
-.tooltip-encounter .tooltip-encounter-notes {
-  color: #9ca3af;
-  font-size: 13px;
-  font-style: italic;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #333;
+.tooltip-encounter .tooltip-encounter-diagnoses-row .tooltip-encounter-value {
+  display: block;
+  text-align: right;
 }
 .tooltip-diagnosis {
   min-width: 260px;
@@ -1483,6 +1547,23 @@ body,
   font-size: 16px;
   line-height: 1.3;
   flex: 1;
+}
+.tooltip-diagnosis-date {
+  font-size: 11px;
+  font-weight: 400;
+  color: #d1d5db;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+.tooltip-diagnosis-subtitle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.tooltip-diagnosis-subtitle-row .tooltip-diagnosis-code {
+  margin-bottom: 0;
 }
 .tooltip-diagnosis-status {
   font-size: 11px;
@@ -1507,8 +1588,7 @@ body,
 }
 .tooltip-diagnosis-code {
   font-size: 12px;
-  color: #6b7280;
-  margin-bottom: 16px;
+  color: #d1d5db;
 }
 .tooltip-diagnosis-details {
   display: flex;
@@ -1522,7 +1602,7 @@ body,
   font-size: 14px;
 }
 .tooltip-diagnosis-label {
-  color: #9ca3af;
+  color: #d1d5db;
 }
 .tooltip-diagnosis-value {
   color: #fff;
@@ -1542,7 +1622,7 @@ body,
 }
 .tooltip-diagnosis-exac-item {
   font-size: 13px;
-  color: #9ca3af;
+  color: #d1d5db;
   margin-bottom: 4px;
   display: flex;
   flex-direction: column;
@@ -1553,7 +1633,7 @@ body,
 }
 .tooltip-diagnosis-exac-item .exac-label {
   font-size: 12px;
-  color: #6b7280;
+  color: #d1d5db;
   font-style: italic;
 }
 .tooltip-medication {
@@ -1572,6 +1652,24 @@ body,
   font-size: 16px;
   line-height: 1.3;
   flex: 1;
+}
+.tooltip-medication-date {
+  font-size: 11px;
+  font-weight: 400;
+  color: #d1d5db;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+.tooltip-medication-subtitle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.tooltip-medication-dose-line {
+  font-size: 13px;
+  color: #d1d5db;
 }
 .tooltip-medication-status {
   font-size: 11px;
@@ -1601,7 +1699,7 @@ body,
   font-size: 14px;
 }
 .tooltip-medication-label {
-  color: #9ca3af;
+  color: #d1d5db;
 }
 .tooltip-medication-value {
   color: #fff;
@@ -1622,11 +1720,11 @@ body,
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #ffffffb3;
+  color: #d1d5db;
 }
 .tooltip-pro-date {
   font-size: 12px;
-  color: #fff9;
+  color: #d1d5db;
 }
 .tooltip-pro-scores {
   display: flex;
@@ -1640,7 +1738,7 @@ body,
   font-size: 13px;
 }
 .tooltip-pro-score-label {
-  color: #fffc;
+  color: #d1d5db;
 }
 .tooltip-pro-score-value {
   color: #fff;
@@ -1650,9 +1748,9 @@ body,
 .tooltip-pro-narrative {
   font-size: 13px;
   font-style: italic;
-  color: #ffffffd9;
+  color: #d1d5db;
   line-height: 1.5;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
   padding-top: 8px;
 }
 .tooltip-sidebar-pro {
@@ -1679,33 +1777,33 @@ body,
 }
 .tooltip-pro-sidebar-severity {
   font-size: 13px;
-  color: #ffffffb3;
+  color: #d1d5db;
 }
 .tooltip-pro-sidebar-trend {
   font-size: 13px;
-  color: #ffffffd9;
+  color: #d1d5db;
   margin-bottom: 10px;
 }
 .tooltip-pro-sidebar-details {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
   padding-top: 8px;
 }
 .tooltip-pro-sidebar-row {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color: #ffffffb3;
+  color: #d1d5db;
 }
 .tooltip-pro-sidebar-row span:last-child {
-  color: #ffffffe6;
+  color: #fff;
   font-weight: 500;
 }
 .tooltip-pro-sidebar-empty {
   font-size: 13px;
-  color: #fff9;
+  color: #d1d5db;
   font-style: italic;
 }
 .tooltip-reference {
@@ -1730,14 +1828,14 @@ body,
   padding: 3px 8px;
   border-radius: 12px;
   background-color: #374151;
-  color: #9ca3af;
+  color: #d1d5db;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   white-space: nowrap;
 }
 .tooltip-reference-unit {
   font-size: 12px;
-  color: #6b7280;
+  color: #d1d5db;
   margin-bottom: 16px;
 }
 .tooltip-reference-ranges {
@@ -1778,7 +1876,7 @@ body,
   display: flex;
   justify-content: space-between;
   font-size: 13px;
-  color: #9ca3af;
+  color: #d1d5db;
   margin-bottom: 4px;
 }
 .tooltip-reference-range-row span:last-child {
@@ -1859,9 +1957,149 @@ body,
     inset 2px 0 #6b7280,
     inset -2px 0 #6b7280;
 }
+.pro-cell:not(.empty) {
+  cursor: pointer;
+}
+.pro-cell.press-held {
+  filter: brightness(0.88);
+}
 .pro-cell-content {
   white-space: nowrap;
   letter-spacing: -0.02em;
+}
+.tooltip-pro-cell {
+  cursor: default;
+}
+.tooltip-pro-cell-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.tooltip-pro-cell-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #fff;
+  flex: 1;
+}
+.tooltip-pro-cell-date {
+  font-size: 11px;
+  font-weight: 400;
+  color: #d1d5db;
+  flex-shrink: 0;
+}
+.tooltip-pro-cell-context {
+  font-size: 12px;
+  color: #d1d5db;
+  margin-bottom: 8px;
+}
+.tooltip-pro-cell-meta {
+  font-size: 12px;
+  color: #d1d5db;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.tooltip-pro-cell-meta-sep {
+  color: #d1d5db;
+}
+.tooltip-pro-cell-score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.tooltip-pro-cell-score {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+}
+.tooltip-pro-cell-score-denom {
+  font-size: 14px;
+  font-weight: 500;
+  color: #d1d5db;
+}
+.tooltip-pro-cell-severity {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 99px;
+}
+.tooltip-pro-severity-low {
+  background: #fdf2f8;
+  color: #9d174d;
+}
+.tooltip-pro-severity-moderate {
+  background: #fbcfe8;
+  color: #831843;
+}
+.tooltip-pro-severity-high {
+  background: #ec4899;
+  color: #fff;
+}
+.tooltip-pro-severity-very-high {
+  background: #be185d;
+  color: #fff;
+}
+.tooltip-pro-cell-narrative {
+  font-size: 12px;
+  font-style: italic;
+  color: #d1d5db;
+  line-height: 1.5;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #ffffff1a;
+}
+.tooltip-pro-cell-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.tooltip-pro-cell-stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.tooltip-pro-cell-stat-label {
+  color: #d1d5db;
+}
+.tooltip-pro-cell-stat-value {
+  color: #fff;
+  font-weight: 500;
+}
+.tooltip-pro-cell-obs-list {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #ffffff1a;
+}
+.tooltip-pro-cell-obs-header {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #d1d5db;
+  margin-bottom: 5px;
+}
+.tooltip-pro-cell-obs-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 2px 0;
+}
+.tooltip-pro-cell-obs-date {
+  color: #d1d5db;
+}
+.tooltip-pro-cell-obs-score {
+  color: #fff;
+  font-weight: 500;
 }
 .tooltip-pro-divider {
   height: 1px;
@@ -2134,6 +2372,77 @@ body,
 }
 .medication-cell.with-bar {
   padding: 0;
+  cursor: pointer;
+}
+.medication-cell.with-bar.press-held .medication-bar-segment {
+  filter: brightness(0.75);
+}
+.tooltip-medication-cell-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.tooltip-medication-cell-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  flex: 1;
+}
+.tooltip-medication-cell-date {
+  font-size: 11px;
+  font-weight: 400;
+  color: #d1d5db;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+.tooltip-medication-cell-subtitle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.tooltip-medication-cell-subtitle-row .tooltip-medication-cell-dose {
+  margin-bottom: 0;
+}
+.tooltip-medication-cell-status {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+.tooltip-medication-cell-status.status-active {
+  background-color: #059669;
+  color: #fff;
+}
+.tooltip-medication-cell-dose {
+  font-size: 12px;
+  color: #d1d5db;
+}
+.tooltip-medication-cell-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.tooltip-medication-cell-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+}
+.tooltip-medication-cell-label {
+  color: #d1d5db;
+  flex-shrink: 0;
+}
+.tooltip-medication-cell-value {
+  color: #fff;
+  font-weight: 500;
+  text-align: right;
 }
 .medication-bar-segment {
   position: absolute;

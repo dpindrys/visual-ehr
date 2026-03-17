@@ -1,7 +1,8 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { PatientData, Segment, MedicationPeriod, DoseSegment } from '../utils/types'
 import { filterMedicationsBySubtype } from '../utils/continuousStateEngine'
 import { findSegmentIndexForDate } from '../utils/helpers'
+import Tooltip from './Tooltip'
 
 interface MedicationsTrackProps {
   patientData: PatientData
@@ -29,6 +30,14 @@ interface CellState {
   isGap: boolean
 }
 
+interface MedTooltipState {
+  isVisible: boolean
+  period: MedicationPeriod | null
+  doseSegment: DoseSegment | null
+  x: number
+  y: number
+}
+
 const MedicationsTrack = ({
   patientData,
   segments,
@@ -40,6 +49,14 @@ const MedicationsTrack = ({
 }: MedicationsTrackProps) => {
   const trackConfig = patientData.domainConfig.tracks.medications
   if (!trackConfig) return null
+
+  const [tooltip, setTooltip] = useState<MedTooltipState>({
+    isVisible: false,
+    period: null,
+    doseSegment: null,
+    x: 0,
+    y: 0,
+  })
 
   const encounterToSegmentIndex = useMemo(() => {
     const map = new Map<string, number>()
@@ -56,28 +73,59 @@ const MedicationsTrack = ({
       : { start: encounters[0].date!, end: encounters[encounters.length - 1].date! }
   }, [segments])
 
-  return (
-    <div className="medication-track">
-      {trackConfig.subtypes.map((subtype) => {
-        if (hiddenSubtypes.has(`medications-${subtype}`)) return null
-        const isRowHighlighted =
-          highlightedRow?.trackName === 'medications' && highlightedRow?.subtypeName === subtype
-        const periods = filterMedicationsBySubtype(medicationPeriods, subtype)
+  const handlePressStart = (e: React.MouseEvent, period: MedicationPeriod, doseSegment: DoseSegment) => {
+    e.preventDefault()
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+    setTooltip({
+      isVisible: true,
+      period,
+      doseSegment,
+      x: rect.left + rect.width / 2,
+      y: rect.top,
+    })
+  }
 
-        return (
-          <MedicationRow
-            key={subtype}
-            periods={periods}
-            segments={segments}
-            encounterToSegmentIndex={encounterToSegmentIndex}
-            visibleDateRange={visibleDateRange}
-            isRowHighlighted={isRowHighlighted}
-            contextHighlightSegmentId={contextHighlightSegmentId}
-            onContextHighlight={onContextHighlight}
-          />
-        )
-      })}
-    </div>
+  const handlePressEnd = () => {
+    setTooltip((prev) => ({ ...prev, isVisible: false }))
+  }
+
+  return (
+    <>
+      <div className="medication-track">
+        {trackConfig.subtypes.map((subtype) => {
+          if (hiddenSubtypes.has(`medications-${subtype}`)) return null
+          const isRowHighlighted =
+            highlightedRow?.trackName === 'medications' && highlightedRow?.subtypeName === subtype
+          const periods = filterMedicationsBySubtype(medicationPeriods, subtype)
+
+          return (
+            <MedicationRow
+              key={subtype}
+              periods={periods}
+              segments={segments}
+              encounterToSegmentIndex={encounterToSegmentIndex}
+              visibleDateRange={visibleDateRange}
+              isRowHighlighted={isRowHighlighted}
+              contextHighlightSegmentId={contextHighlightSegmentId}
+              onContextHighlight={onContextHighlight}
+              onPressStart={handlePressStart}
+              onPressEnd={handlePressEnd}
+            />
+          )
+        })}
+      </div>
+
+      {tooltip.isVisible && tooltip.period && tooltip.doseSegment && (
+        <Tooltip
+          type="medication-cell"
+          medicationPeriod={tooltip.period}
+          doseSegment={tooltip.doseSegment}
+          x={tooltip.x}
+          y={tooltip.y}
+          position="top"
+        />
+      )}
+    </>
   )
 }
 
@@ -89,6 +137,8 @@ interface MedicationRowProps {
   isRowHighlighted: boolean
   contextHighlightSegmentId?: string
   onContextHighlight?: (segmentId?: string) => void
+  onPressStart: (e: React.MouseEvent, period: MedicationPeriod, doseSegment: DoseSegment) => void
+  onPressEnd: () => void
 }
 
 const MedicationRow = ({
@@ -99,7 +149,11 @@ const MedicationRow = ({
   isRowHighlighted,
   contextHighlightSegmentId,
   onContextHighlight,
+  onPressStart,
+  onPressEnd,
 }: MedicationRowProps) => {
+  const [pressedCellId, setPressedCellId] = useState<string | null>(null)
+
   const mappedDoseBars = useMemo(() => {
     const bars: MappedDoseBar[] = []
     for (const period of periods) {
@@ -182,6 +236,7 @@ const MedicationRow = ({
       {cellStates.map((cell, i) => {
         const seg = segments[i]
         const isHighlighted = contextHighlightSegmentId === seg.id
+        const isPressed = pressedCellId === seg.id
 
         if (cell.type === 'empty') {
           return (
@@ -203,9 +258,23 @@ const MedicationRow = ({
         return (
           <div
             key={seg.id}
-            className={`medication-cell with-bar ${cell.isGap ? 'gap-cell' : ''} ${isHighlighted ? 'context-highlighted' : ''}`}
+            className={`medication-cell with-bar ${cell.isGap ? 'gap-cell' : ''} ${isHighlighted ? 'context-highlighted' : ''} ${isPressed ? 'press-held' : ''}`}
             onMouseEnter={() => onContextHighlight?.(seg.id)}
-            onMouseLeave={() => onContextHighlight?.(undefined)}
+            onMouseLeave={() => {
+              onContextHighlight?.(undefined)
+              if (isPressed) {
+                setPressedCellId(null)
+                onPressEnd()
+              }
+            }}
+            onMouseDown={(e) => {
+              setPressedCellId(seg.id)
+              onPressStart(e, bar.period, doseSegment)
+            }}
+            onMouseUp={() => {
+              setPressedCellId(null)
+              onPressEnd()
+            }}
           >
             <div
               className={`medication-bar-segment dose-${doseSegment.therapeuticLevel} ${isBarStart ? 'bar-start' : ''} ${isBarEnd ? 'bar-end' : ''} ${isOngoing && isBarEnd ? 'ongoing' : ''} ${startsBeforeVisible && isBarStart ? 'starts-before' : ''}`}
