@@ -1250,6 +1250,7 @@ body,
 .summary-section-stable .summary-section-header {
   align-items: center;
   padding: 10px 0;
+  margin-bottom: 13px;
   box-sizing: border-box;
 }
 .summary-section-header-icon {
@@ -1310,12 +1311,6 @@ body,
 }
 .summary-section-header-stable .summary-section-header-icon {
   color: #4d7c0f;
-}
-.summary-section-header-divider {
-  height: 1px;
-  background-color: #e5e7eb;
-  margin: 0 0 12px;
-  max-width: 100%;
 }
 .summary-cards {
   display: flex;

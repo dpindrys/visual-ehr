@@ -60,7 +60,6 @@ const ClinicalSummaryHeader = ({ segments: _segments }: ClinicalSummaryHeaderPro
             2 conditions require monitoring
           </h2>
         </header>
-        <div className="summary-section-header-divider" aria-hidden />
         <div className="summary-cards">
           <article className="summary-card">
             <div className="summary-card-header-row">
@@ -98,7 +97,6 @@ const ClinicalSummaryHeader = ({ segments: _segments }: ClinicalSummaryHeaderPro
             5 conditions stable under current management
           </h2>
         </header>
-        <div className="summary-section-header-divider" aria-hidden />
         <div className="summary-cards summary-cards-stable">
           <article className="summary-card">
             <div className="summary-card-header-row">
