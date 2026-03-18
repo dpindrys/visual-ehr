@@ -12,68 +12,85 @@ const PatientRail = ({ patient }: PatientRailProps) => {
   const getInitials = (name: string): string =>
     name.split(' ').map((w) => w[0]).join('').toUpperCase().slice(0, 2)
 
+  const sexLabel =
+    patient.sex === 'M' ? 'Male' : patient.sex === 'F' ? 'Female' : patient.sex || '—'
+
   const getAllergySeverityClass = (severity: string): string => {
     switch (severity) {
-      case 'severe': return 'allergy-severe'
-      case 'moderate': return 'allergy-moderate'
-      case 'mild': return 'allergy-mild'
-      default: return 'allergy-moderate'
+      case 'severe':
+        return 'allergy-severe'
+      case 'moderate':
+        return 'allergy-moderate'
+      case 'mild':
+        return 'allergy-mild'
+      default:
+        return 'allergy-moderate'
     }
   }
 
+  const allergyCount =
+    patient.allergies?.length ?? patient.summary.allergies.length ?? 0
+
   return (
     <div className="patient-rail">
-      <div className="patient-avatar-section">
+      <div className="patient-rail-hero">
         <div className="patient-avatar">{getInitials(patient.name)}</div>
         <div className="patient-name-block">
           <div className="patient-name">{patient.name}</div>
           <div className="patient-age-sex">
-            {age} {patient.sex === 'M' ? 'Male' : patient.sex === 'F' ? 'Female' : patient.sex}
+            {age} · {sexLabel}
           </div>
         </div>
       </div>
 
-      <div className="patient-section">
-        <div className="patient-info-row">
-          <span className="info-label">MRN:</span>
-          <span className="info-value">{patient.mrn}</span>
+      <div className="patient-rail-block">
+        <div className="patient-rail-block-header">Identifiers &amp; vitals</div>
+        <div className="patient-rail-rows">
+          <div className="patient-rail-row">
+            <span className="patient-rail-label">MRN</span>
+            <span className="patient-rail-value">{patient.mrn}</span>
+          </div>
+          <div className="patient-rail-row">
+            <span className="patient-rail-label">DOB</span>
+            <span className="patient-rail-value">{formatDate(patient.dob)}</span>
+          </div>
+          <div className="patient-rail-row">
+            <span className="patient-rail-label">Sex</span>
+            <span className="patient-rail-value">{sexLabel}</span>
+          </div>
+          {patient.height ? (
+            <div className="patient-rail-row">
+              <span className="patient-rail-label">Ht</span>
+              <span className="patient-rail-value">{patient.height}</span>
+            </div>
+          ) : null}
+          {patient.weight ? (
+            <div className="patient-rail-row">
+              <span className="patient-rail-label">Wt</span>
+              <span className="patient-rail-value">{patient.weight}</span>
+            </div>
+          ) : null}
+          {patient.bmi != null ? (
+            <div className="patient-rail-row">
+              <span className="patient-rail-label">BMI</span>
+              <span className="patient-rail-value">{patient.bmi.toFixed(1)}</span>
+            </div>
+          ) : null}
         </div>
-        <div className="patient-info-row">
-          <span className="info-label">DOB:</span>
-          <span className="info-value">{formatDate(patient.dob)}</span>
-        </div>
-        {patient.height && (
-          <div className="patient-info-row">
-            <span className="info-label">Ht:</span>
-            <span className="info-value">{patient.height}</span>
-          </div>
-        )}
-        {patient.weight && (
-          <div className="patient-info-row">
-            <span className="info-label">Wt:</span>
-            <span className="info-value">{patient.weight}</span>
-          </div>
-        )}
-        {patient.bmi && (
-          <div className="patient-info-row">
-            <span className="info-label">BMI:</span>
-            <span className="info-value">{patient.bmi.toFixed(1)}</span>
-          </div>
-        )}
       </div>
 
-      <div className="patient-section">
-        <div className="section-header">
-          Allergies{' '}
-          {patient.allergies && (
-            <span className="section-count">({patient.allergies.length})</span>
-          )}
+      <div className="patient-rail-block">
+        <div className="patient-rail-block-header">
+          Allergies
+          {allergyCount > 0 ? (
+            <span className="patient-rail-block-header-count"> ({allergyCount})</span>
+          ) : null}
         </div>
-        <div className="allergies-list">
+        <div className="patient-rail-rows patient-rail-rows--allergies">
           {patient.allergies && patient.allergies.length > 0 ? (
             patient.allergies.map((allergy, i) => (
-              <div key={i} className="allergy-item">
-                <span className="allergy-name">{allergy.name}</span>
+              <div key={i} className="patient-rail-row patient-rail-row--allergy">
+                <span className="patient-rail-value patient-rail-value--truncate">{allergy.name}</span>
                 <span className={`allergy-reaction ${getAllergySeverityClass(allergy.severity)}`}>
                   {allergy.reaction}
                 </span>
@@ -81,36 +98,15 @@ const PatientRail = ({ patient }: PatientRailProps) => {
             ))
           ) : patient.summary.allergies.length > 0 ? (
             patient.summary.allergies.map((allergy, i) => (
-              <div key={i} className="allergy-item-simple">
-                <span className="allergy-warning">⚠</span> {allergy}
+              <div key={i} className="patient-rail-row patient-rail-row--simple-allergy">
+                <span className="patient-rail-value">{allergy}</span>
               </div>
             ))
           ) : (
-            <div className="no-data">None known</div>
+            <div className="patient-rail-row patient-rail-row--empty">
+              <span className="patient-rail-muted">None known</span>
+            </div>
           )}
-        </div>
-      </div>
-
-      <div className="patient-section">
-        <div className="patient-info-row">
-          <span className="info-label">MRN:</span>
-          <span className="info-value">{patient.mrn}</span>
-        </div>
-        <div className="patient-info-row">
-          <span className="info-label">DOB:</span>
-          <span className="info-value">{formatDate(patient.dob)}</span>
-        </div>
-        <div className="patient-info-row">
-          <span className="info-label">Ht:</span>
-          <span className="info-value">{patient.height ?? '—'}</span>
-        </div>
-        <div className="patient-info-row">
-          <span className="info-label">Wt:</span>
-          <span className="info-value">{patient.weight ?? '—'}</span>
-        </div>
-        <div className="patient-info-row">
-          <span className="info-label">BMI:</span>
-          <span className="info-value">{patient.bmi != null ? patient.bmi.toFixed(1) : '—'}</span>
         </div>
       </div>
     </div>

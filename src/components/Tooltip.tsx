@@ -3,7 +3,7 @@ import {
   Segment, Encounter, RangeConfig, DiagnosisPeriod,
   MedicationPeriod, PatientReportedEntry, TooltipPosition,
 } from '../utils/types'
-import { ValueStatus, STATUS_LABELS, getVitalNarrative, getLabNarrative } from '../utils/referenceRanges'
+import { ValueStatus, getVitalNarrative, getLabNarrative } from '../utils/referenceRanges'
 import { getTherapeuticDoseRange } from '../utils/continuousStateEngine'
 import { formatDateDDMonYYYY, formatDateMonDayYear, formatDateMonDayYearSpaced } from '../utils/helpers'
 import { ProBucket, ProSeverity } from '../utils/proBuckets'

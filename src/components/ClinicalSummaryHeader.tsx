@@ -4,90 +4,164 @@ interface ClinicalSummaryHeaderProps {
   segments: Segment[]
 }
 
+function IconAlertNeutral() {
+  return (
+    <svg className="summary-header-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 8v4M12 16h.01" />
+    </svg>
+  )
+}
+
+function IconMonitor() {
+  return (
+    <svg className="summary-header-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <rect x="2" y="3" width="20" height="14" rx="2" />
+      <path d="M8 21h8M12 17v4" />
+    </svg>
+  )
+}
+
+function IconCheckStable() {
+  return (
+    <svg className="summary-header-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <circle cx="12" cy="12" r="10" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  )
+}
+
 const ClinicalSummaryHeader = ({ segments: _segments }: ClinicalSummaryHeaderProps) => {
   return (
     <div className="clinical-summary-header">
 
-      {/* CRITICAL - IMMEDIATE ATTENTION */}
-      <div className="summary-section">
-        <div className="summary-section-header critical">
-          <div className="summary-icon critical">!</div>
-          <span>CRITICAL - IMMEDIATE ATTENTION</span>
-        </div>
-        <div className="summary-cards">
-          <div className="summary-card critical summary-card-empty-state">
-            <div className="summary-card-content summary-card-empty-text">
-              No current critical issues based on the latest available vitals, labs, and symptom data.
+      <section className="summary-section summary-section-critical" aria-labelledby="summary-critical-heading">
+        <div className="summary-section-info-strip">
+          <div className="summary-section-header summary-section-header-neutral" id="summary-critical-heading">
+            <span className="summary-section-header-icon" aria-hidden>
+              <IconAlertNeutral />
+            </span>
+            <div className="summary-section-header-copy">
+              <span className="summary-section-header-title">No critical issues requiring immediate action</span>
+              <p className="summary-section-header-detail">
+                No current critical issues based on the latest available vitals, labs, and symptom data.
+              </p>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* TRENDING CONCERNS - MONITOR CLOSELY */}
-      <div className="summary-section">
-        <div className="summary-section-header trending">
-          <div className="summary-icon trending">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-            </svg>
-          </div>
-          <span>TRENDING CONCERNS - MONITOR CLOSELY</span>
-        </div>
+      <section className="summary-section summary-section-trending" aria-labelledby="summary-trending-heading">
+        <header className="summary-section-header summary-section-header-trending">
+          <span className="summary-section-header-icon" aria-hidden>
+            <IconMonitor />
+          </span>
+          <h2 className="summary-section-header-title" id="summary-trending-heading">
+            2 conditions require monitoring
+          </h2>
+        </header>
+        <div className="summary-section-header-divider" aria-hidden />
         <div className="summary-cards">
-          <div className="summary-card trending">
-            <div className="summary-card-title">Type 2 Diabetes — Improved, Continue Monitoring</div>
-            <div className="summary-card-content">
+          <article className="summary-card">
+            <div className="summary-card-header-row">
+              <div className="summary-card-title-block">
+                <h3 className="summary-card-title">Type 2 Diabetes</h3>
+                <p className="summary-card-interpretation">Improved; continue monitoring glycemic control.</p>
+              </div>
+              <span className="summary-card-chip">Metabolic</span>
+            </div>
+            <p className="summary-card-content">
               A1c improved from 10.8% to 6.7%. Latest glucose is 118 mg/dL, down from prior highs. Continue metformin and monitor for sustained control.
+            </p>
+          </article>
+          <article className="summary-card">
+            <div className="summary-card-header-row">
+              <div className="summary-card-title-block">
+                <h3 className="summary-card-title">Prior acute deterioration</h3>
+                <p className="summary-card-interpretation">No recent recurrence; continue follow-up as clinically indicated.</p>
+              </div>
+              <span className="summary-card-chip">Acute care</span>
             </div>
-          </div>
-          <div className="summary-card trending">
-            <div className="summary-card-title">Prior Acute Deterioration — No Recent Recurrence</div>
-            <div className="summary-card-content">
+            <p className="summary-card-content">
               Urgent Care and ER visits in September reflect a prior period of instability. No acute encounters are visible since then. Continue follow-up given the earlier cardiometabolic worsening.
-            </div>
-          </div>
+            </p>
+          </article>
         </div>
-      </div>
+      </section>
 
-      {/* STABLE - CONTINUE CURRENT MANAGEMENT */}
-      <div className="summary-section">
-        <div className="summary-section-header stable">
-          <div className="summary-icon stable">✓</div>
-          <span>STABLE - CONTINUE CURRENT MANAGEMENT</span>
-        </div>
-        <div className="summary-cards">
-          <div className="summary-card stable">
-            <div className="summary-card-title">Blood Pressure — Controlled</div>
-            <div className="summary-card-content">
-              Latest BP is 120/78 at the Jan 14 PCP visit, improved from 162/98 and 158/96 during the September acute-care period. Continue current antihypertensive therapy.
+      <section className="summary-section summary-section-stable" aria-labelledby="summary-stable-heading">
+        <header className="summary-section-header summary-section-header-stable">
+          <span className="summary-section-header-icon" aria-hidden>
+            <IconCheckStable />
+          </span>
+          <h2 className="summary-section-header-title" id="summary-stable-heading">
+            5 conditions stable under current management
+          </h2>
+        </header>
+        <div className="summary-section-header-divider" aria-hidden />
+        <div className="summary-cards summary-cards-stable">
+          <article className="summary-card">
+            <div className="summary-card-header-row">
+              <div className="summary-card-title-block">
+                <h3 className="summary-card-title">Blood Pressure</h3>
+                <p className="summary-card-interpretation">Controlled; continue current antihypertensive therapy.</p>
+              </div>
+              <span className="summary-card-chip">Vital sign</span>
             </div>
-          </div>
-          <div className="summary-card stable">
-            <div className="summary-card-title">Renal Function — Stable</div>
-            <div className="summary-card-content">
-              Creatinine is 0.97 mg/dL, BUN has normalized to 16 mg/dL, and eGFR is 78 mL/min. Continue routine renal monitoring.
+            <p className="summary-card-content">
+              Latest BP is 120/78 at the Jan 14 PCP visit, improved from 162/98 and 158/96 during the September acute-care period.
+            </p>
+          </article>
+          <article className="summary-card">
+            <div className="summary-card-header-row">
+              <div className="summary-card-title-block">
+                <h3 className="summary-card-title">Renal Function</h3>
+                <p className="summary-card-interpretation">Stable; continue routine renal monitoring.</p>
+              </div>
+              <span className="summary-card-chip">Renal labs</span>
             </div>
-          </div>
-          <div className="summary-card stable">
-            <div className="summary-card-title">Hypothyroidism — Well Managed</div>
-            <div className="summary-card-content">
-              TSH is 2.2 mIU/L with no recent thyroid-related concerns. Continue current management.
+            <p className="summary-card-content">
+              Creatinine is 0.97 mg/dL, BUN has normalized to 16 mg/dL, and eGFR is 78 mL/min.
+            </p>
+          </article>
+          <article className="summary-card">
+            <div className="summary-card-header-row">
+              <div className="summary-card-title-block">
+                <h3 className="summary-card-title">Hypothyroidism</h3>
+                <p className="summary-card-interpretation">Well managed; continue current therapy.</p>
+              </div>
+              <span className="summary-card-chip">Endocrine</span>
             </div>
-          </div>
-          <div className="summary-card stable">
-            <div className="summary-card-title">Symptoms — Improved</div>
-            <div className="summary-card-content">
+            <p className="summary-card-content">
+              TSH is 2.2 mIU/L with no recent thyroid-related concerns.
+            </p>
+          </article>
+          <article className="summary-card">
+            <div className="summary-card-header-row">
+              <div className="summary-card-title-block">
+                <h3 className="summary-card-title">Symptoms</h3>
+                <p className="summary-card-interpretation">Improved; low reported burden on latest check-in.</p>
+              </div>
+              <span className="summary-card-chip">Patient reported</span>
+            </div>
+            <p className="summary-card-content">
               Recent patient-reported symptom burden is low, with fatigue at 2 and pain at 1 on the latest check-in. No major recent distress signal is visible.
+            </p>
+          </article>
+          <article className="summary-card summary-card-secondary">
+            <div className="summary-card-header-row">
+              <div className="summary-card-title-block">
+                <h3 className="summary-card-title">Anemia</h3>
+                <p className="summary-card-interpretation">Resolved; no evidence of recurrence.</p>
+              </div>
+              <span className="summary-card-chip">Hematologic</span>
             </div>
-          </div>
-          <div className="summary-card stable">
-            <div className="summary-card-title">Anemia — Resolved</div>
-            <div className="summary-card-content">
+            <p className="summary-card-content">
               Previously documented anemia remains resolved with no recent findings suggesting recurrence.
-            </div>
-          </div>
+            </p>
+          </article>
         </div>
-      </div>
+      </section>
 
     </div>
   )
