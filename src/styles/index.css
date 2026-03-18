@@ -621,34 +621,47 @@ body,
   margin-top: 2px;
   line-height: 1.5;
 }
-.patient-rail-block {
-  border-bottom: 1px solid #e5e7eb;
-  background-color: #fff;
-}
-.patient-rail-block:last-of-type {
-  border-bottom: none;
+.patient-rail-body {
   flex: 1;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
-.patient-rail-block-header {
-  padding: 10px 12px 6px;
-  font-weight: 700;
+.patient-rail-group {
+  background-color: #fff;
+}
+/* ~2× row rhythm before each new section title */
+.patient-rail-section-head {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.patient-rail-group:first-child .patient-rail-section-head {
+  padding-top: 24px;
+}
+.patient-rail-group:not(:first-child) .patient-rail-section-head {
+  padding-top: 40px;
+}
+.patient-rail-section-title {
+  margin: 0 0 12px;
+  padding: 0;
   font-size: 13px;
+  font-weight: 700;
   line-height: 1.5;
   color: #111827;
-  background-color: transparent;
-  border-bottom: none;
-  text-transform: none;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
 }
-.patient-rail-block-header-count {
-  font-weight: 400;
-  color: #6b7280;
+.patient-rail-section-rule {
+  height: 1px;
+  margin: 0;
+  background-color: #e5e7eb;
+}
+.patient-rail-group .patient-rail-rows {
+  padding-top: 4px;
 }
 .patient-rail-rows {
   background-color: #fff;
+}
+.patient-rail-rows .patient-rail-row:last-child {
+  border-bottom: none;
 }
 .patient-rail-row {
   display: flex;
@@ -662,8 +675,43 @@ body,
   box-sizing: border-box;
   min-height: 30px;
 }
-.patient-rail-row:last-child {
-  border-bottom: none;
+.patient-rail-row--align-top {
+  align-items: flex-start;
+}
+.patient-rail-row--align-top .patient-rail-label {
+  padding-top: 1px;
+}
+.patient-rail-value--block {
+  text-align: right;
+  font-weight: 600;
+}
+.patient-rail-value--block .patient-rail-muted {
+  font-weight: 400;
+}
+.patient-rail-value-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  text-align: right;
+}
+.patient-rail-allergy-line {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.patient-rail-allergy-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: #111827;
+  line-height: 1.5;
+}
+.patient-rail-value--simple-allergy {
+  font-weight: 400;
+  color: #b45309;
+  text-align: right;
 }
 .patient-rail-label {
   flex-shrink: 0;
@@ -687,28 +735,10 @@ body,
   text-align: left;
   flex: 1;
 }
-.patient-rail-row--allergy {
-  align-items: center;
-}
-.patient-rail-row--allergy .patient-rail-value--truncate {
-  font-weight: 600;
-  color: #111827;
-}
-.patient-rail-row--simple-allergy .patient-rail-value {
-  text-align: left;
-  width: 100%;
-  font-weight: 400;
-  color: #b45309;
-}
-.patient-rail-row--empty {
-  justify-content: flex-start;
-}
 .patient-rail-muted {
   font-size: 13px;
+  font-weight: 400;
   color: #6b7280;
-}
-.patient-rail-rows--allergies .patient-rail-row:last-child {
-  border-bottom: none;
 }
 .section-header {
   font-size: 13px;

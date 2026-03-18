@@ -7,6 +7,7 @@ export type AllergyInfo = {
 export type CareTeamMember = {
   role: string
   name: string
+  specialty?: string
 }
 
 export type PatientInfo = {
@@ -21,6 +22,7 @@ export type PatientInfo = {
   bmi?: number
   phone?: string
   language?: string
+  smokingStatus?: string
   pharmacy?: string
   allergies?: AllergyInfo[]
   careTeam?: CareTeamMember[]
