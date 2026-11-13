@@ -418,6 +418,7 @@ video {
   --status-critical-low-fg: #ffffff;
   --status-depressed-bg: #a5f3fc;
   --status-depressed-fg: #111827;
+  --timeline-rail-width: 200px;
 }
 * {
   box-sizing: border-box;
@@ -573,7 +574,7 @@ body,
 }
 /* Patient rail: width + left border align with .domain-sidebar (200px rail column) */
 .patient-rail {
-  width: 200px;
+  width: var(--timeline-rail-width);
   flex-shrink: 0;
   padding: 0;
   background-color: #fff;
@@ -979,7 +980,7 @@ body,
   box-sizing: border-box;
 }
 .domain-sidebar {
-  width: 200px;
+  width: var(--timeline-rail-width);
   flex-shrink: 0;
   padding: 0;
   background-color: #f3f4f6;
@@ -1417,7 +1418,7 @@ body,
   height: 40px;
 }
 .settings-button {
-  width: 215px;
+  width: var(--timeline-rail-width);
   flex-shrink: 0;
   border-radius: 0;
   border: none;
@@ -2913,4 +2914,107 @@ body,
 }
 .track-stack.compact .timeline-segment.encounter {
   min-height: 36px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Mobile / narrow viewports — stack rails, allow timeline horizontal scroll    */
+/* -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .timeline-container {
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
+  }
+  .top-nav-bar {
+    height: auto;
+    min-height: calc(48px + env(safe-area-inset-top, 0));
+    padding-left: max(12px, env(safe-area-inset-left, 0));
+    padding-right: max(12px, env(safe-area-inset-right, 0));
+    padding-top: env(safe-area-inset-top, 0);
+    padding-bottom: 0;
+    box-sizing: border-box;
+  }
+  .timeline-main-area {
+    margin-top: calc(48px + env(safe-area-inset-top, 0));
+  }
+  .nav-info {
+    flex-wrap: wrap;
+    row-gap: 4px;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+  .summary-unit {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .clinical-summary-header {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+  }
+  .patient-rail {
+    width: 100%;
+    max-width: none;
+    border-left: none;
+    border-top: 1px solid #e5e7eb;
+  }
+  .timeline-unit {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .timeline-grid-container {
+    width: 100%;
+    min-width: 0;
+    order: 1;
+  }
+  .domain-sidebar {
+    width: 100%;
+    order: 2;
+    border-left: none;
+    border-top: 1px solid #e5e7eb;
+    max-height: min(45vh, 320px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .track-stack {
+    min-width: 0;
+  }
+  .track-stack-content {
+    min-width: 0;
+  }
+  .timeline-viewport {
+    min-width: 0;
+  }
+  .timeline-scroll-container {
+    min-width: 0;
+  }
+  .timeline-bottom-bar {
+    flex-direction: column;
+    align-items: stretch;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .timeline-ruler-row {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  .timeline-bottom-rows {
+    min-width: 0;
+  }
+  .settings-button {
+    width: 100%;
+    flex-shrink: 0;
+    border-left: none;
+    border-top: 1px solid #3a5891;
+    min-height: 44px;
+    box-sizing: border-box;
+  }
+  .timeline-ruler {
+    min-width: min-content;
+  }
+  .timeline-nav-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    flex-shrink: 0;
+  }
 }

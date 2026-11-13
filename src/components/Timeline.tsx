@@ -16,7 +16,7 @@ interface TimelineProps {
   patientData: PatientData
 }
 
-const SIDEBAR_WIDTH = 215
+const SIDEBAR_WIDTH = 200
 const ENCOUNTER_WIDTH = 120
 
 const Timeline = ({ patientData }: TimelineProps) => {
